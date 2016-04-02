@@ -7,8 +7,11 @@ DROP TABLE IF EXISTS team;
 DROP TABLE IF EXISTS membership;
 DROP TABLE IF EXISTS person;
 DROP TABLE IF EXISTS league;
-DROP TABLE IF EXISTS maatch;
-
+DROP TABLE IF EXISTS matchup;
+DROP TABLE IF EXISTS scorereport;
+DROP TABLE IF EXISTS hasVenue;
+DROP TABLE IF EXISTS venue;
+DROP TABLE IF EXISTS round;
 #
 # Table definition for table 'person'
 #
@@ -57,8 +60,8 @@ CREATE TABLE membership (
 # Table definition for table 'league'
 #
 CREATE TABLE league (
-       id    	 INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-       name  	 VARCHAR(255) NOT NULL UNIQUE,
+       id    	     INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+       name  	      VARCHAR(255) NOT NULL UNIQUE,
        winnerId  INT UNSIGNED,
        isIndoor  BOOLEAN NOT NULL,
        minTeams  INT UNSIGNED NOT NULL,
@@ -72,18 +75,18 @@ CREATE TABLE league (
 );
 
 #
-# Table definition for table 'maatch'
+# Table definition for table 'matchup'
 #
 CREATE TABLE matchup (
-       id		INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-       homeTeamId	INT UNSIGNED NOT NULL,
-       awayTeamId	INT UNSIGNED NOT NULL,
-       homePoints	INT UNSIGNED,
-       awayPoints	INT UNSIGNED,
-       matchDate	DATETIME,
-       isCompleted	BOOL NOT NULL,
+       id    	     INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+       homeTeamId    INT UNSIGNED NOT NULL,
+       awayTeamId    INT UNSIGNED NOT NULL,
+       homePoints    INT UNSIGNED,
+       awayPoints    INT UNSIGNED,
+       matchDate     DATETIME,
+       isCompleted   BOOL NOT NULL,
 
-       FOREIGN KEY (homeTeamId) REFERENCES team(id)
+       FOREIGN KEY (homeTeamId) REFERENCES team(id),
        FOREIGN KEY (awayTeamId) REFERENCES team(id)
 );
 
@@ -91,12 +94,12 @@ CREATE TABLE matchup (
 # Table definition for table 'scorereport'
 #
 CREATE TABLE scorereport (
-       matchId		 INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-       homeTeamId	 INT UNSIGNED NOT NULL,
-       awayTeamId	 INT UNSIGNED NOT NULL,
-       homePoints	 INT UNSIGNED NOT NULL,
-       awayPoints	 INT UNSIGNED NOT NULL,
-       matchDate	 DATETIME NOT NULL,
+       matchId			 INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+       homeTeamId		  INT UNSIGNED NOT NULL,
+       awayTeamId		   INT UNSIGNED NOT NULL,
+       homePoints		    INT UNSIGNED NOT NULL,
+       awayPoints		     INT UNSIGNED NOT NULL,
+       matchDate		      DATETIME NOT NULL,
 
        FOREIGN KEY (matchId) REFERENCES matchup(id)
  
@@ -106,9 +109,9 @@ CREATE TABLE scorereport (
 # Table definition for table 'round'
 #
 CREATE TABLE round (
-  leagueid    INT UNSIGNED PRIMARY KEY,
-  roundNo     INT UNSIGNED PRIMARY KEY
-  
+  leagueid    INT UNSIGNED,
+  roundNo     INT UNSIGNED,
+  PRIMARY KEY (leagueid, roundNo),  
   FOREIGN KEY (leagueid) REFERENCES league(id) ON DELETE CASCADE
 );
 
@@ -117,7 +120,7 @@ CREATE TABLE round (
 #
 CREATE TABLE venue (
   id   	      INT UNSIGNED PRIMARY KEY,
-  name	      VARCHAR(255) NOT NULL UNIQUE,
+  name        VARCHAR(255) NOT NULL UNIQUE,
   address     VARCHAR(255) NOT NULL UNIQUE,
   isIndoor    BOOLEAN NOT NULL
 );
@@ -125,8 +128,13 @@ CREATE TABLE venue (
 #
 # Table definition for table 'hasVenue'
 #
+
+
 CREATE TABLE hasVenue (
   id   	      INT UNSIGNED PRIMARY KEY,
   leagueid    INT UNSIGNED NOT NULL,
   venueid     INT UNSIGNED NOT NULL,
+  
+  FOREIGN KEY (leagueid) REFERENCES league(id),
+  FOREIGN KEY (venueid) REFERENCES venue(id)
 );
