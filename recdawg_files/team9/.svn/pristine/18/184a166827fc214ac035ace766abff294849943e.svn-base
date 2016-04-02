@@ -1,0 +1,30 @@
+<html>
+<head><title>Create a Person Record</title>
+</head>
+<body>
+
+<h1>Create a Person Record</h1>
+
+<form method=post action="CreatePerson">
+
+<p>Enter user name: <input name="user_name" type=text size="20">
+
+<p>Enter password: <input name="password" type=password size="20">
+
+<p>Enter first name: <input name="first_name" type=text size="20">
+
+<p>Enter last name: <input name="last_name" type=text size="20">
+
+<p>Enter address: <input name="address" type=text size="50">
+
+<p>Enter phone: <input name="phone" type=text size="20">
+
+<p>Enter email: <input name="email" type=text size="50">
+
+<p><input type=submit> <input type=reset>
+
+</form>
+
+</body>
+
+</html>

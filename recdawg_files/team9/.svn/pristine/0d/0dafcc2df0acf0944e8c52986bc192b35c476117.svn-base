@@ -1,0 +1,104 @@
+#
+# this SQL file creates the schema for the recdawgs database
+#
+# remove the existing tables
+#
+DROP TABLE IF EXISTS team;
+DROP TABLE IF EXISTS membership;
+DROP TABLE IF EXISTS person;
+DROP TABLE IF EXISTS league;
+DROP TABLE IF EXISTS maatch;
+
+#
+# Table definition for table 'person'
+#
+CREATE TABLE person (
+  id          INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  firstname   VARCHAR(255) NOT NULL,
+  lastname    VARCHAR(255) NOT NULL,
+  username    VARCHAR(255) NOT NULL UNIQUE,
+  password    VARCHAR(255) NOT NULL,
+  email       VARCHAR(255) NOT NULL,
+  isStudent   BOOLEAN NOT NULL,
+  studentID   INT UNSIGNED,
+  address     VARCHAR(255),
+  phone       VARCHAR(255)
+);
+
+#
+# Table definition for table 'team'
+#
+CREATE TABLE team (
+  id          INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  name        VARCHAR(255) NOT NULL UNIQUE,
+  leagueid    INT UNSIGNED NOT NULL,
+  established DATETIME,
+  captainid   INT UNSIGNED NOT NULL,
+  
+  FOREIGN KEY (captainid) REFERENCES person(id) 
+);
+
+#
+# Table definition for table 'membership', which
+# is a many-to-many relationship
+# between person and team
+#
+CREATE TABLE membership (
+  id          INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  personid    INT UNSIGNED NOT NULL,
+  teamid      INT UNSIGNED NOT NULL,
+  joined      DATETIME,
+  
+  FOREIGN KEY (personid) REFERENCES person(id) ON DELETE CASCADE,
+  FOREIGN KEY (teamid) REFERENCES team(id) ON DELETE CASCADE
+);
+
+#
+# Table definition for table 'league'
+#
+CREATE TABLE league (
+
+);
+
+#
+# Table definition for table 'maatch'
+#
+CREATE TABLE maatch (
+
+);
+
+#
+# Table definition for table 'scorereport'
+#
+CREATE TABLE scorereport (
+
+);
+
+#
+# Table definition for table 'round'
+#
+CREATE TABLE round (
+  leagueid    INT UNSIGNED PRIMARY KEY,
+  roundNo     INT UNSIGNED PRIMARY KEY
+  
+  FOREIGN KEY (leagueid) REFERENCES league(id) ON DELETE CASCADE
+);
+
+#
+# Table definition for table 'venue'
+#
+CREATE TABLE venue (
+  id   	      INT UNSIGNED PRIMARY KEY,
+  name	      VARCHAR(255) NOT NULL UNIQUE,
+  address     VARCHAR(255) NOT NULL UNIQUE,
+  isIndoor    BOOLEAN NOT NULL
+);
+
+#
+# Table definition for table 'hasVenue'
+#
+CREATE TABLE hasVenue (
+  id   	      INT UNSIGNED PRIMARY KEY,
+  leagueid    INT UNSIGNED NOT NULL,
+  venueid     INT UNSIGNED NOT NULL,
+);
