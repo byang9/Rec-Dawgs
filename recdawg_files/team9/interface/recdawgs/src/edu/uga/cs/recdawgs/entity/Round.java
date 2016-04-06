@@ -10,14 +10,23 @@ import edu.uga.cs.recdawgs.persistence.Persistable;
 public interface Round 
     extends Persistable
 {
+    private int roundNumber;
     /** Return this round's number.
      * @return the number of this round of matches.
      */
-    public int getNumber();
+    public int getNumber(){
+        return roundNumber;
+    }
 
     /** Set the new number for this round of matches.
      * @param number the new number of this round of matches
      * @throws RDException in case number is not positive
     */
-    public void setNumber( int number ) throws RDException;
+    public void setNumber( int number ) throws RDException{
+        if(number>0){
+            this.roundNumber = number;
+        }else{
+            throw new RDException("The input round number is invalid.")
+        }
+    }
 }
