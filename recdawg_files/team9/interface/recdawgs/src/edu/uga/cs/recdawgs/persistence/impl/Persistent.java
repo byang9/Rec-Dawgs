@@ -2,6 +2,10 @@ package edu.uga.cs.recdawgs.persistence.impl;
 
 import edu.uga.cs.recdawgs.persistence.Persistable;
 
+'''This  class   implements  the Persistable interface from the 
+edu.uga.cs.recdawgs.persistence package. This class will provide a 
+common root class for all entity class implementations.'''
+
 public abstract class Persistent implements Persistable{
     private long id;
 
