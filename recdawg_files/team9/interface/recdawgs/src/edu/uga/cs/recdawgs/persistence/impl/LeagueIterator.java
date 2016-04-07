@@ -1,33 +1,36 @@
 package edu.uga.cs.recdawgs.persistence.impl;
 
-
-
-
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import edu.uga.League.LeagueException;
+import edu.uga.League.RDException;
 import edu.uga.League.entity.League;
 import edu.uga.League.entity.Person;
 import edu.uga.League.object.ObjectLayer;
 
-
+/**
+ * LeagueIterator is the class iterates between Leagues
+ * It acts as a searching tool for Leagues.
+ * It iterates the League proxy objects.
+ *
+ * @author Logan Jahnke
+ */
 public class LeagueIterator implements Iterator<League> {
     private ResultSet    rs = null;
     private ObjectLayer  objectLayer = null;
     private boolean      more = false;
 
     // these two will be used to create a new object
-    public LeagueIterator(ResultSet rs, ObjectLayer objectModel) throws LeagueException {
+    public LeagueIterator(ResultSet rs, ObjectLayer objectModel) throws RDException {
         this.rs = rs;
         this.objectLayer = objectModel;
         try {
             more = rs.next();
         }
         catch (Exception e) {  // just in case...
-            throw new LeagueException( "LeagueIterator: Cannot create League iterator; root cause: " + e );
+            throw new RDException("LeagueIterator: Cannot create League iterator; root cause: " + e);
         }
     }
 
@@ -67,18 +70,16 @@ public class LeagueIterator implements Iterator<League> {
             catch (Exception e) {      // just in case...
                 throw new NoSuchElementException( "LeagueIterator: No next League object; root cause: " + e );
             }
-            founder = objectLayer.createPerson( username, userpass, email, firstname, lastname, faddress, phone );
-            founder.setId( fid );
+            
             try {
-                League = objectLayer.createLeague( name, address, establishedOn, founder );
-                League.setId( id );
-                //League.setFounderId( founderId );
+                league = objectLayer.createLeague(name, winnerID, isIndoor, minTeams, maxTeams, minTeamMembers, maxTeamMembers, matchRules, leagueRules);
+                league.setId(id);
             }
-            catch (LeaguesException ce) {
-                // safe to ignore: we explicitly set the persistent id of the founder Person object above!
+            catch (RDException ce) {
+                throw new RDException("This shouldn't ever happen: LeagueIterator: " + ce);
             }
             
-            return League;
+            return league;
         }
         else {
             throw new NoSuchElementException("LeagueIterator: No next League object");

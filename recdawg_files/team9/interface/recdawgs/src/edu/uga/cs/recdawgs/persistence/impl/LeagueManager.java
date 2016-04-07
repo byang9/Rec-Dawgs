@@ -8,24 +8,28 @@ import java.util.Iterator;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import edu.uga.cs.recdawgs.LeagueException;
+import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.entity.Person;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
-
+/**
+ * LeagueManager is the class that stores/edits/deletes/restores Leagues from the peresistent database.
+ *
+ * @author Logan Jahnke
+ */
 class LeagueManager
 {
     private ObjectLayer objectLayer = null;
     private Connection conn = null;
     
-    public LeagueManager (Connection conn, ObjectLayer objectLayer) {
+    public LeagueManager(Connection conn, ObjectLayer objectLayer) {
         this.conn = conn;
         this.objectLayer = objectLayer;
     }
     
-    public void save(League league) throws LeagueException {
+    public void save(League league) throws RDException {
         String insertLeagueSql = "insert into league ( name, winnerID, isIndoor, minTeams, maxTeams, minTeamMembers, maxTeamMembers, matchRules, leagueRules ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         String updateLeagueSql = "update league set name = ?, winnerID = ?, isIndoor = ?, minTeams = ?, maxTeams = ?, minTeamMembers = ?, maxTeamMembers = ?, matchRules = ?, leagueRules = ? where id = ?";
         PreparedStatement stmt = null;
@@ -44,7 +48,7 @@ class LeagueManager
             if (league.getName() != null) // name is unique unique and non null
                 stmt.setString(2, league.getName());
             else 
-                throw new LeagueException("LeagueManager.save: can't save a League: name undefined");
+                throw new RDException("LeagueManager.save: can't save a League: name undefined");
 
             if (league.getWinnerOfLeague() != null) {
                 stmt.setLong(3, league.getWinnerOfLeague().getID());
@@ -53,37 +57,37 @@ class LeagueManager
             if (league.getIsIndoor() != null)
                 stmt.setBoolean(4, league.getIsIndoor());
             else
-                throw new LeagueException("LeagueManager.save: can't save a League: isIndoor is not set");
+                throw new RDException("LeagueManager.save: can't save a League: isIndoor is not set");
             
             if (league.getMinTeams() != null)
                 stmt.setLong(5, league.getMinTeams());
             else
-                throw new LeagueException("LeagueManager.save: can't save a League: minTeams is not set");
+                throw new RDException("LeagueManager.save: can't save a League: minTeams is not set");
             
             if (league.getMaxTeams() != null)
                 stmt.setLong(6, league.getMinTeams());
             else
-                throw new LeagueException("LeagueManager.save: can't save a League: maxTeams is not set");
+                throw new RDException("LeagueManager.save: can't save a League: maxTeams is not set");
             
             if (league.getMinMembers()) != null)
                 stmt.setLong(7, league.getMinMembers());
             else
-                throw new LeagueException("LeagueManager.save: can't save a League: minMembers is not set");
+                throw new RDException("LeagueManager.save: can't save a League: minMembers is not set");
             
             if (league.getMaxMembers()) != null)
                 stmt.setLong(8, league.getMaxMembers());
             else
-                throw new LeagueException("LeagueManager.save: can't save a League: maxMembers is not set");
+                throw new RDException("LeagueManager.save: can't save a League: maxMembers is not set");
             
             if (league.getMatchRules()) != null)
                 stmt.setString(9, league.getMatchRules());
             else
-                throw new LeagueException("LeagueManager.save: can't save a League: matchRules is not set");
+                throw new RDException("LeagueManager.save: can't save a League: matchRules is not set");
             
             if (league.getLeagueRules()) != null)
                 stmt.setString(10, league.getLeagueRules());
             else
-                throw new LeagueException("LeagueManager.save: can't save a League: leagueRules is not set");
+                throw new RDException("LeagueManager.save: can't save a League: leagueRules is not set");
 
             inscnt = stmt.executeUpdate();
 
@@ -107,20 +111,20 @@ class LeagueManager
                     }
                 }
                 else
-                    throw new LeagueException("LeagueManager.save: failed to save a League");
+                    throw new RDException("LeagueManager.save: failed to save a League");
             }
             else {
                 if (inscnt < 1)
-                    throw new LeagueException("LeagueManager.save: failed to save a League"); 
+                    throw new RDException("LeagueManager.save: failed to save a League"); 
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
-            throw new LeagueException("LeagueManager.save: failed to save a League: " + e);
+            throw new RDException("LeagueManager.save: failed to save a League: " + e);
         }
     }
 
-    public Iterator<League> restore(League league) throws LeagueException {
+    public Iterator<League> restore(League league) throws RDException {
         String       selectLeagueSql = "select l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
                                       "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules" +
                                       "l.leagueRules, p.id, p.name, t.id, t.name";
@@ -198,13 +202,13 @@ class LeagueManager
             }
         }
         catch (Exception e) {      // just in case...
-            throw new LeagueException( "LeagueManager.restore: Could not restore persistent League object; Root cause: " + e );
+            throw new RDException( "LeagueManager.restore: Could not restore persistent League object; Root cause: " + e );
         }
 
-        throw new LeagueException( "LeagueManager.restore: Could not restore persistent League object" );
+        throw new RDException( "LeagueManager.restore: Could not restore persistent League object" );
     }
 
-    public void delete(League league) throws LeagueException {
+    public void delete(League league) throws RDException {
         String               deleteLeagueSql = "delete from league where id = ?";              
         PreparedStatement    stmt = null;
         int                  inscnt;
@@ -220,10 +224,10 @@ class LeagueManager
                 return;
             }
             else
-                throw new LeagueException("LeagueManager.delete: failed to delete a League");
+                throw new RDException("LeagueManager.delete: failed to delete a League");
         }
         catch(SQLException e) {
             e.printStackTrace();
-            throw new LeagueException( "LeagueManager.delete: failed to delete a League: " + e );        }
+            throw new RDException( "LeagueManager.delete: failed to delete a League: " + e );        }
     }
 }
