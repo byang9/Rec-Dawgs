@@ -9,7 +9,7 @@ public class TeamImpl extends Persistent implements Team{
 	private String name;
 	private Student captain;
 	private League league;
-	private League winnerOfLeague;
+	private League winnerOfLeague = null;
 
 	public TeamImpl(String name, Student captain, League league){
 		this.name = name;
@@ -75,6 +75,20 @@ public class TeamImpl extends Persistent implements Team{
      */
     public void setWinnerOfLeague( League league ) throws RDException{
     	this.league = winnerOfLeague;
+    }
+
+    public String toString()
+    {
+        return "Team[" + getName() + "] " + getCaptin() + " " + getParticipatesInLeague() + " " + getWinnerOfLeague();
+    }
+    
+    public boolean equals( Object otherTeam )
+    {
+        if( otherTeam == null )
+            return false;
+        if( otherTeam instanceof Team ) // name is a unique attribute
+            return getName().equals( ((Team)otherTeam).getName() );
+        return false;        
     }
 
 }
