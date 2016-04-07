@@ -34,22 +34,20 @@ public class RoundIterator implements Iterator<Round> {
 
     public Round next() {
         long        id;
-        Match       matchName;
+        Match[]     matches;
         Date        datePlayed;
-        Team        teamA;
-        Team        teamB;
         SportsVenue venue;
+        League      sportLeague
         
 
         if (more) {
 
             try {
                 id = rs.getLong(1);
-                matchName = rs.getString(2);
-                datePlayed = rs.getLong(3);
-                teamA = rs.getBoolean(4);
-                teamB = rs.getLong(5);
-                venue = rs.getLong(6);
+                matches = rs.getArray(2);
+                datePlayed = rs.getDate(3);
+                venue = rs.getString(4);
+                sportLeague = rs.getString(5);
 
                 more = rs.next();
             }
@@ -57,7 +55,7 @@ public class RoundIterator implements Iterator<Round> {
                 throw new NoSuchElementException( "RoundIterator: No next Round object; root cause: " + e );
             }
             
-            round = objectLayer.createRound(matchName,datePlayed,teamA,teamB,venue);
+            round = objectLayer.createRound(matches,datePlayed,venue,sportLeague);
             round.setId(id);
             try {
                 //League.setFounderId( founderId );
