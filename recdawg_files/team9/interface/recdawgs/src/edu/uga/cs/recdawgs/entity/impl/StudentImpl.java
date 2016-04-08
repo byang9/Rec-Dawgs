@@ -1,16 +1,20 @@
 package edu.uga.cs.recdawgs.entity.impl;
 
 import edu.uga.cs.recdawgs.entity.Student;
-import edu.uga.cs.recdawgs
+import edu.uga.cs.recdawgs.persistence.impl.Persistent;
 
 
-public class StudentImpl extends Person{
+public class StudentImpl extends Persistent implements User{
 
     String studentId;
     String major;
     String address
 
-    public StudentImpl(String studentId, String major, String address){
+    public StudentImpl(String studentId, 
+                       String major, 
+                       String address)
+    {
+        super(-1);
         this.studentId = studentId;
         this.major = major;
         this.address = address;

@@ -1,7 +1,7 @@
 package edu.uga.cs.recdawgs.entity.impl;
 
 import edu.uga.cs.recdawgs.entity.Team;
-import edu.uga.cs.recdawgs
+import edu.uga.cs.recdawgs.persistence.impl.Persistent;
 
 
 public class TeamImpl extends Persistent implements Team{
@@ -11,7 +11,11 @@ public class TeamImpl extends Persistent implements Team{
 	private League league;
 	private League winnerOfLeague = null;
 
-	public TeamImpl(String name, Student captain, League league){
+	public TeamImpl(String name, 
+                    Student captain, 
+                    League league)
+    {
+        super(-1);
 		this.name = name;
 		this.captain = captain;
 		this.league = league;
