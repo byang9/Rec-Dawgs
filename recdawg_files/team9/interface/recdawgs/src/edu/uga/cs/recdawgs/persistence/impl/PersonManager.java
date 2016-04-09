@@ -90,8 +90,36 @@ public class PersonManager(){
                 throw new RDException("PersonManager.save: can't save a Person: phone undefined");
 
             //TODO
+            if (person.isPersistent())
+                stmt.setLong(8, person.get(id));
+
+            inscnt = stmt.executeUpdate();
+
+            if (!person.isPersistent()){
+                //if this person is being stored for the first time, its primary key id needs to 
+                //be established
+                if (inscnt == 1){
+                    String sql = "select last_insert_id()";
+                    if (stmt.execute(sql)){
+                        ResultSet r = stmt.getResultSet();
+                        while (r.next()){
+                            personId = r.getLong( 1 );
+                            if (personId > 0)
+                                person.setId(personId);
+                        }
+                    }
+                }
+            }
+            else{
+                if (inscnt < 1)
+                    throw new ClubsException("PersonnManager.save: failed to save a Person")
+            }
 
 
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            throw new RDException("PersonManager.save: failed to save a Person: " + e );
         }
 
     }//save
