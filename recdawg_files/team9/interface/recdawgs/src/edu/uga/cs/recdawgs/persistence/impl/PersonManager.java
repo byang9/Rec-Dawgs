@@ -83,7 +83,7 @@ public class PersonManager(){
                 stmt.setString(8, person.getAddress());
             else
                 throw new RDException("PersonManager.save: can't save a Person: address undefined");
-            //get address
+            //get phone
             if (person.getPhone != null)
                 stmt.setString(9, person.getPhone());
             else
@@ -124,7 +124,85 @@ public class PersonManager(){
 
     }//save
 
-    public Iterator<Person> restore(Person person){
+    public Iterator<Person> restore(Person modelPerson) throws RDException {
+        String selectPersonSql = "firstname, lastname, username, password, email, isStudent, studentID, address, phone"
+        Statement stmt = null;
+        StringBuffer query = new StringBuffer(100);
+        StringBuffer condition = new StringBuffer(100);
+
+        condition.setLength(0);
+        query.append( selectPersonSql );
+
+        if ( modelPerson != null ){
+            if (modelPerson.getId() > = 0)
+                qury.append(" where username = '" + modelPerson.getId());
+            else if (modelPerson.getUserName() != null)
+                query.append( " where username = '" + modelPerson.getUserName() + "'");
+            else{
+                if(modelPerson.getFirstName()!= null)
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append(" firstname = '" + modelPerson.getFirstName() + "'");
+
+                if(modelPerson.getLastName()!= null)
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append(" lastname = '" + modelPerson.getLastName() + "'");
+
+                if(modelPerson.getPassword()!= null)
+                     if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append(" password = '" + modelPerson.getEmail() + "'");
+
+                if(modelPerson.getEmail()!= null)
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+
+                    condition.append(" email = '" + modelPerson.getEmail() + "'");
+
+                if(modelPerson.getIsStudent != null)
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+
+                    condition.append(" isStudent '" + modelPerson.getIsStudent() + "'" );
+
+                if(modelPerson.getStudentId()!= null)
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+
+                    condition.append(" studentId = '" + modelPerson.getStudentId() + "'");
+
+                if(modelPerson.getAddress!= null)
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+
+                    condition.append(" address = '" + modelPerson.getAddress() + "'");
+
+                if(modelPerson.getPhone!= null)
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append(" phone = '" + modelPerson.getPhone() + "'");
+
+                if( condition.length() > 0 ) {
+                    query.append(  " where " );
+                    query.append( condition );
+                }
+
+
+                
+            }
+
+            //first name
+            //lastname
+            //user name
+            //password
+            //email
+            //is student
+            //studentId
+            //address
+            //phone
+
+        }
 
     }
 
