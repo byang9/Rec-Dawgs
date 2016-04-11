@@ -209,7 +209,7 @@ class LeagueManager
     }
 
     public void delete(League league) throws RDException {
-        String               deleteLeagueSql = "delete from league where id = ?";              
+        String               deleteLeagueSql = "delete from league where id = ?";     
         PreparedStatement    stmt = null;
         int                  inscnt;
              
