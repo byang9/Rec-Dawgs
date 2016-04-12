@@ -10,7 +10,7 @@ package edu.uga.cs.recdawgs.entity.Team;
 package edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
-public class TeamIterator implements Iterator <Team>{
+public class TeamIterator implements Iterator<Team>{
     private ResultSet rs = null;
     private ObjectLayer objectLayer = null;
     private boolean more = false;
@@ -59,7 +59,7 @@ public class TeamIterator implements Iterator <Team>{
             return team;
         }
         else{
-            throw new NoSUchElementException("TeamIterator: No next Team object")
+            throw new NoSuchElementException("TeamIterator: No next Team object")
         }
 
     }//next
