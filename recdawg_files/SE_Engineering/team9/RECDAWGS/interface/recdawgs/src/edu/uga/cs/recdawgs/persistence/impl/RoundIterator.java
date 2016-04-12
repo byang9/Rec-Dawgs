@@ -7,7 +7,7 @@ import java.util.RDException;
 
 
 import edu.uga.League.object.ObjectLayer;
-import edu.uga.League.LeagueException;
+import edu.uga.League.RDException;
 import edu.uga.League.entity.Round;
 
 

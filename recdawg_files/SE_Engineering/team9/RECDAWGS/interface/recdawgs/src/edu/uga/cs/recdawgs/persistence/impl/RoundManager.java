@@ -8,6 +8,9 @@ import java.util.Iterator;
 
 import com.mysql.jdbc.PreparedStatement;
 
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.Round;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 public class RoundManager
 {
@@ -22,7 +25,7 @@ public class RoundManager
     
     public void save(Round round) throws RDException
     {
-        String               insertRoundSql = "insert into round ( leagueID, round Number ) values ( ?, ?)";              
+        String               insertRoundSql = "insert into round ( leagueID,Number ) values ( ?, ?)";              
         PreparedStatement    stmt = null;
         int                  inscnt;
         long                 roundId;
