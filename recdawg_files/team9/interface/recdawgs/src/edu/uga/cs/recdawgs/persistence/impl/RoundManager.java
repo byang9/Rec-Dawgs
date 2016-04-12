@@ -27,14 +27,14 @@ public class RoundManager
         int                  inscnt;
         long                 roundId;
         
-        if( round.getLeagueId() == null)
+        if( round.getLeague().getId() == null)
             throw new ClubsException( "RoundManager.save: Attempting to save a Round with no League defined" );
                               
         try {
             stmt = (PreparedStatement) conn.prepareStatement( insertRoundSql );
             
-            if (round.getLeagueId() != null) // league id
-                stmt.setLong(1, round.getLeagueId());
+            if (round.getLeague().getId() != null) // league id
+                stmt.setLong(1, round.getLeague().getId());
             else 
                 throw new RDException("RoundManager.save: can't save a Round: league ID undefined");
             if (round.getRoundNum() != null) // round number
@@ -90,8 +90,8 @@ public class RoundManager
                 query.append( " where id = " + round.getNumber() );
             else {
 
-                if( round.getLeagueId() != null ) {
-                    condition.append( " and m.personid = " + round.getLeagueId()); 
+                if( round.getLeague().getId() != null ) {
+                    condition.append( " and m.personid = " + round.getLeague().getId()); 
                 }
             }
         }
