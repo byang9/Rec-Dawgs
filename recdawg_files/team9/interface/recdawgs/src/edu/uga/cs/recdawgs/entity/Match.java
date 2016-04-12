@@ -17,13 +17,13 @@ public interface Match
     /** Return the points scored by the home team.
      * @return the points scored by the home team
      */
-    public int getHomePoint();
+    public int getHomePoints();
 
     /** Set the points scored by the home team
      * @param homePoints the points scored by the home team
      * @throws RDException in case homePoints is negative
      */
-    public void setHomePoint( int homePoints ) throws RDException;
+    public void setHomePoints( int homePoints ) throws RDException;
 
     /** Return the points scored by the away team.
      * @return the points scored by the away team
@@ -89,4 +89,13 @@ public interface Match
      */
     public void setSportsVenue( SportsVenue sportsVenue);
 
+    /** Return the round in which this match is played.
+     * @return the round in which this match is played
+     */
+    public Round getRound();
+    
+    /** Set the round in which this match is played.
+     * @param round the round in which this match is played
+     */
+    public void setRound( Round round );
 }

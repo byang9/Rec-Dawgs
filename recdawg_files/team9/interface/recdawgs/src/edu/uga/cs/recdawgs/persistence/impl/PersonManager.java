@@ -9,6 +9,7 @@ import java.util.Iterator;
 import com.mysql.jdbc.PreparedStatement;
 
 package edu.uga.cs.recdawgs.RDException;
+
 package edu.uga.cs.recdawgs.entity.Person;
 package edu.uga.cs.recdawgs.object.ObjectLayer;
 
@@ -187,26 +188,49 @@ public class PersonManager(){
                     query.append(  " where " );
                     query.append( condition );
                 }
-
-
                 
             }
 
-            //first name
-            //lastname
-            //user name
-            //password
-            //email
-            //is student
-            //studentId
-            //address
-            //phone
-
         }
-
+        try{
+            stmt = conn.createStatement();
+            // retrieve the persistent Person object
+            if (stmt.execute (query.toString())){
+                ResultSet r = stmt.getResultSet();
+                return new PersonIterator( r, objectLayer);
+            }
+        }
+        catch(Exception e){
+            throw new RDException( "PersonManager.restore: Could not restore persistent Person object; Root cause: " + e )
+        }
+        throw new RDException("PersonManager.restore: Could not restore persistent Person object" )
     }
 
-    public void delete(Person person){
+
+
+
+    public void delete(Person person) throws RDException{
+        String  deletePersonSql = "delete from person where id = ?";
+        PreparedStatement  stmt = null;
+        int inscnt;
+
+        if (!person.isPersistent())
+            return;
+
+        try{
+            stmt = (PreparedStatement) conn.prepareStatement(deletePersonSql);
+
+            stmt.setLong(1, person.getId() );
+
+            inscnt = stmt.executeUpdate();
+
+            if (inscnt == 0){
+                throw new RDException("PersonManager.delete: failed to delete this Person");
+            }
+        }
+        catch (SQLException e ){
+            throw new RDException("PersonManager.delete: failed to delete this Person: " + e.getMessage())
+        }
 
     }
 

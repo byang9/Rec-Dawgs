@@ -77,24 +77,24 @@ public interface League
     /** Return the minimum number of team players in this league.
      * @return the minimum number of team players in this league
      */
-    public int getMinTeamMembers();
+    public int getMinMembers();
 
     /** Set the new minimum number of team players in this league
      * @param minMembers the new minimum number of team players in this league
      * @throws RDException in case minMembers is not positive
      */
-    public void setMinTeamMembers( int minTeamMembers ) throws RDException;
+    public void setMinMembers( int minMembers ) throws RDException;
 
     /** Return the maximum number of team players in this league.
      * @return the maximum number of team players in this league
      */
-    public int getMaxTeamMembers();
+    public int getMaxMembers();
 
     /** Set the new maximum number of team players in this league
      * @param maxMembers the new maximum number of team players in this league
      * @throws RDException in case maxMembers is not positive or less than the current minimum number of team players for this league
      */
-    public void setMaxTeamMembers( int maxTeamMembers ) throws RDException; 
+    public void setMaxMembers( int maxMembers ) throws RDException; 
       
     /** Return the the winner of this league.
      * @return the team which is the winner of this league
