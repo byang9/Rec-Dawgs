@@ -8,10 +8,10 @@ import java.util.Iterator;
 
 import com.mysql.jdbc.PreparedStatement;
 
-package edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.RDException;
 
-package edu.uga.cs.recdawgs.entity.Team;
-package edu.uga.cs.recdawgs.object.ObjectLayer;
+import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
 
