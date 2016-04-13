@@ -35,7 +35,6 @@ CREATE TABLE team (
     id              INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name            VARCHAR(255) NOT NULL UNIQUE,
     leagueid        INT UNSIGNED NOT NULL,
-    established     DATETIME,
     captainid       INT UNSIGNED NOT NULL,
   
     FOREIGN KEY (captainid) REFERENCES person(id), 
@@ -120,7 +119,7 @@ CREATE TABLE round (
 # Table definition for table 'venue'
 #
 CREATE TABLE venue (
-    id   	      INT UNSIGNED PRIMARY KEY,
+    id   	      INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name          VARCHAR(255) NOT NULL UNIQUE,
     address       VARCHAR(255) NOT NULL UNIQUE,
     isIndoor      BOOLEAN NOT NULL
