@@ -50,7 +50,7 @@ public interface League
     /** Set the new indoor status of this league
      * @param isIndoor the new indoor status of this league
      */
-    public void setIsIndoor( boolean isIndoor );
+    public void setIsIndoor( Boolean isIndoor );
     
     /** Return the minimum number of teams in this league.
      * @return the minimum number of teams in this league

@@ -11,11 +11,11 @@ import com.mysql.jdbc.PreparedStatement;
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Team;
-import edu.uga.cs.recdawgs.entity.Person;
+import edu.uga.cs.recdawgs.entity.User;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 /**
- * LeagueManager is the class that stores/edits/deletes/restores Leagues from the peresistent database.
+ * LeagueManager is the class that stores/edits/deletes/restores Leagues from the persistent database.
  *
  * @author Logan Jahnke
  */
@@ -51,43 +51,16 @@ class LeagueManager
                 throw new RDException("LeagueManager.save: can't save a League: name undefined");
 
             if (league.getWinnerOfLeague() != null) {
-                stmt.setLong(3, league.getWinnerOfLeague().getID());
+                stmt.setLong(3, league.getWinnerOfLeague().getId());
             }
 
-            if (league.getIsIndoor() != null)
-                stmt.setBoolean(4, league.getIsIndoor());
-            else
-                throw new RDException("LeagueManager.save: can't save a League: isIndoor is not set");
-            
-            if (league.getMinTeams() != null)
-                stmt.setLong(5, league.getMinTeams());
-            else
-                throw new RDException("LeagueManager.save: can't save a League: minTeams is not set");
-            
-            if (league.getMaxTeams() != null)
-                stmt.setLong(6, league.getMinTeams());
-            else
-                throw new RDException("LeagueManager.save: can't save a League: maxTeams is not set");
-            
-            if (league.getMinMembers()) != null)
-                stmt.setLong(7, league.getMinMembers());
-            else
-                throw new RDException("LeagueManager.save: can't save a League: minMembers is not set");
-            
-            if (league.getMaxMembers()) != null)
-                stmt.setLong(8, league.getMaxMembers());
-            else
-                throw new RDException("LeagueManager.save: can't save a League: maxMembers is not set");
-            
-            if (league.getMatchRules()) != null)
-                stmt.setString(9, league.getMatchRules());
-            else
-                throw new RDException("LeagueManager.save: can't save a League: matchRules is not set");
-            
-            if (league.getLeagueRules()) != null)
-                stmt.setString(10, league.getLeagueRules());
-            else
-                throw new RDException("LeagueManager.save: can't save a League: leagueRules is not set");
+            stmt.setBoolean(4, league.getIsIndoor());
+            stmt.setLong(5, league.getMinTeams());
+            stmt.setLong(6, league.getMinTeams());
+            stmt.setLong(7, league.getMinMembers());
+            stmt.setLong(8, league.getMaxMembers());
+            stmt.setString(9, league.getMatchRules());
+            stmt.setString(10, league.getLeagueRules());
 
             inscnt = stmt.executeUpdate();
 
@@ -104,9 +77,9 @@ class LeagueManager
                         while (r.next()) {
 
                             // retrieve the last insert auto_increment value
-                            leagueId = r.getLong(1);
-                            if (leagueId > 0)
-                                league.setId(leagueId); // set this person's db id (proxy object)
+                            leagueID = r.getLong(1);
+                            if (leagueID > 0)
+                                league.setId(leagueID); // set this person's db id (proxy object)
                         }
                     }
                 }
@@ -145,49 +118,35 @@ class LeagueManager
             else {
 
                 if (league.getWinnerOfLeague() != null)
-                    condition.append( " and winnerID = '" + league.getWinnerOfLeague().getID() + "'");   
+                    condition.append( " and winnerID = '" + league.getWinnerOfLeague().getId() + "'");   
 
-                if (league.getIsIndoor() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" isIndoor = '" + league.getIsIndoor() + "'");
-                }
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" isIndoor = '" + league.getIsIndoor() + "'");
                 
-                if (league.getMinTeams() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" minTeams = '" + league.getMinTeams() + "'");
-                }
-                
-                if (league.getMaxTeams() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" maxTeams = '" + league.getMaxTeams() + "'");
-                }
-                
-                if (league.getMinMembers() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" minTeamMembers = '" + league.getMinTeams() + "'");
-                }
-                
-                if (league.getMaxMembers() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" maxTeamMembers = '" + league.getMaxMembers() + "'");
-                }
-                
-                if (league.getMatchRules() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" matchRules = '" + league.getMatchRules() + "'");
-                }
-                
-                if (league.getLeagueRules() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" leagueRules = '" + league.getLeagueRules() + "'");
-                }
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" minTeams = '" + league.getMinTeams() + "'");
+            
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" maxTeams = '" + league.getMaxTeams() + "'");
+            
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" minTeamMembers = '" + league.getMinTeams() + "'");
+            
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" maxTeamMembers = '" + league.getMaxMembers() + "'");
+            
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" matchRules = '" + league.getMatchRules() + "'");
+            
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" leagueRules = '" + league.getLeagueRules() + "'");
             }
         }
         

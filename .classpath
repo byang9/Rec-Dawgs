@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="recdawg_files/SE_Engineering/team9/RECDAWGS/clubs_example/clubs/src"/>
+	<classpathentry excluding="edu/uga/cs/recdawgs/persistence/impl/|edu/uga/cs/recdawgs/entity/impl/" kind="src" path="recdawg_files/SE_Engineering/team9/RECDAWGS/interface/recdawgs/src"/>
+	<classpathentry kind="src" path="recdawg_files/SE_Engineering/team9/RECDAWGS/interface/recdawgs/src/edu/uga/cs/recdawgs/entity/impl"/>
+	<classpathentry kind="src" path="recdawg_files/SE_Engineering/team9/RECDAWGS/interface/recdawgs/src/edu/uga/cs/recdawgs/persistence/impl"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="recdawg_files/SE_Engineering/team9/RECDAWGS/clubs_example/clubs/lib/freemarker.jar"/>
+	<classpathentry kind="lib" path="recdawg_files/SE_Engineering/team9/RECDAWGS/clubs_example/clubs/lib/mysql-connector-java-5.1.33-bin.jar"/>
+	<classpathentry kind="lib" path="recdawg_files/SE_Engineering/team9/RECDAWGS/clubs_example/clubs/WebContent/WEB-INF/lib/freemarker.jar"/>
+	<classpathentry kind="lib" path="recdawg_files/SE_Engineering/team9/RECDAWGS/clubs_example/clubs/WebContent/WEB-INF/lib/mysql-connector-java-5.1.33-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

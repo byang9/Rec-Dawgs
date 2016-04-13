@@ -27,7 +27,7 @@ public class MatchupManager{
 		this.objectLayer = objectLayer;
 	}
 
-	public void save( Matchup matchup ) throws RDException{
+	public void save( Match matchup ) throws RDException{
 		String insertMatchupSql = "insert into matchup ( homeTeamId, awayTeamId, homePoints, awayPoints, matchDate, isCompleted ) values ( ?, ?, ?, ?, ?, ? )";
 		String updateMatchupSql = "update matchup set homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, isCompleted = ?";
 		PreparedStatement stmt = null;
@@ -40,7 +40,7 @@ public class MatchupManager{
 			else
 				stmt = (PreparedStatement) conn.prepareStatement(updateMatchupSql);
 			
-			if( matchup.getId != null )
+			if( matchup.getId() != null )
 				stmt.setLong(1, matchup.getId());
 			else
 				throw new RDException( "MatchupManager.save: can't save a Matchup: matchup ID undefined" );
