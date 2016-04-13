@@ -459,7 +459,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     
     // Restores league
-    public League restoreLeagueSportsVenue(SportsVenue sportsVenue) throws RDException {
+    public Iterator<League> restoreLeagueSportsVenue(SportsVenue sportsVenue) throws RDException {
         return persistence.restoreLeagueSportsVenue(sportsVenue);
     }
     

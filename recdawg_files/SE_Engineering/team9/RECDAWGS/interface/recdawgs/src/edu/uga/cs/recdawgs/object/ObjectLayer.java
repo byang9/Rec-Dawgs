@@ -635,7 +635,7 @@ public interface ObjectLayer
      * @return an Iterator of Leagues using the sportsVenue
      * @throws RDException in case either the sportsVenue is null or another error occurs
      */
-    public League restoreLeagueSportsVenue( SportsVenue sportsVenue ) throws RDException;
+    public Iterator<League> restoreLeagueSportsVenue( SportsVenue sportsVenue ) throws RDException;
     
     /**
      * Delete a link between a League and a SportsVenue (sever the link has from SportsVenue to League).

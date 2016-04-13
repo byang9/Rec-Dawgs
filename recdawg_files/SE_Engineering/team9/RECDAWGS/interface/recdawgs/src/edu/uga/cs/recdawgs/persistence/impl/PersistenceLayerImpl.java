@@ -103,33 +103,3 @@ public class PersistenceLayerImpl implements PersistenceLayer{
     public SportsVenue restoreMatchSportsVenue( Match match ) throws RDException{}
     public void deleteMatchSportsVenue( Match match, SportsVenue sportsVenue ) throws RDException{}
  }
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -138,6 +138,7 @@ class VenueManager
 
         throw new RDException( "VenueManager.restore: Could not restore persistent Venue object" );
     }
+    
 
     public void delete(Venue venue) throws RDException {
         String               deleteVenueSql = "delete from Venue where id = ?";              
