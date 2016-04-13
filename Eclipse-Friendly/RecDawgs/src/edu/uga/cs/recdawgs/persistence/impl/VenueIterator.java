@@ -1,13 +1,12 @@
 package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.ResultSet;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import edu.uga.Venue.RDException;
-import edu.uga.Venue.entity.Venue;
-import edu.uga.Venue.object.ObjectLayer;
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.SportsVenue;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 /**
  * VenueIterator is the class iterates between Venues
@@ -16,7 +15,7 @@ import edu.uga.Venue.object.ObjectLayer;
  *
  * @author Logan Jahnke
  */
-public class VenueIterator implements Iterator<Venue> {
+public class VenueIterator implements Iterator<SportsVenue> {
     private ResultSet    rs = null;
     private ObjectLayer  objectLayer = null;
     private boolean      more = false;
@@ -37,12 +36,12 @@ public class VenueIterator implements Iterator<Venue> {
         return more; 
     }
 
-    public Venue next() {
+    public SportsVenue next() {
         long   id;
         String name;
         String address;
         boolean isIndoor;
-        Venue venue = null;
+        SportsVenue venue = null;
 
         if (more) {
 
@@ -59,14 +58,14 @@ public class VenueIterator implements Iterator<Venue> {
             }
             
             try {
-                venue = objectLayer.createVenue(name, address, isIndoor);
+                venue = objectLayer.createSportsVenue(name, address, isIndoor);
                 venue.setId(id);
             }
             catch (RDException ce) {
-                throw new RDException("This shouldn't ever happen: VenueIterator: " + ce);
+                //throw new RDException("This shouldn't ever happen: VenueIterator: " + ce);
             }
             
-            return Venue;
+            return venue;
         }
         else {
             throw new NoSuchElementException("VenueIterator: No next Venue object");

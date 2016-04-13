@@ -15,7 +15,8 @@ import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
 
-public class TeamManager(){
+public class TeamManager {
+	
     private ObjectLayer objectLayer = null;
     private Connection  conn = null;
 
@@ -25,50 +26,39 @@ public class TeamManager(){
     }//constructor
                                                                                                                            
     public void save(Team team) throws RDException{
-        String               insertTeamSql = 
-        "insert into team ( name, leagueId, established, captainId) 
-        values ( ?, ?, ?, ? )";              
-        String               updateTeamSql = 
-        "update team  set name = ?, leagueId = ?, established = ?, captainId = ?";              
-        PreparedStatement    stmt;
-        int                  inscnt;
-        long                 teamId;
+        String insertTeamSql = "insert into team ( name, leagueid, captainid ) values ( ?, ?, ? )";              
+        String updateTeamSql = "update team  set name = ?, leagueId = ?, captainId = ?";          
+        PreparedStatement stmt;
+        int inscnt;
+        long teamId;
 
         try{
 
             if(!team.isPersistent())
-                stmt = (PreparedStatement) conn.prepareStatement (insertPersonSql);
+                stmt = (PreparedStatement) conn.prepareStatement (insertTeamSql);
             else
-                stmt = (PreparedStatement) conn.prepareStatement (updatePersonSql);
+                stmt = (PreparedStatement) conn.prepareStatement (updateTeamSql);
 
-            if(team.getTeamName() != null)
-                stmt.setString(1, team.getTeamName());
-            else
-                throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
-
-            if(team.getLeagueId( != null))
-                stmt.setString(2, team.getLeagueId());
+            if(team.getName() != null)
+                stmt.setString(2, team.getName());
             else
                 throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
 
-            if(team.getEstablishedOn() != null ) {
-                java.util.Date jDate = club.getEstablishedOn();
-                java.sql.Date sDate = new java.sql.Date( jDate.getTime() );
-                stmt.setDate( 3,  sDate );
-            }
+            if(team.getParticipatesInLeague() != null)
+                stmt.setLong(3, team.getParticipatesInLeague().getId());
             else
-                throw new RDException("TeamManager.save: can't save a Team: the date of establishment is undefined");
+                throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
 
-            if(team.getCaptainId() != null)
-                stmt.setString(4, team.getCaptainId());
+            if(team.getCaptain() != null)
+                stmt.setLong(4, team.getCaptain().getId());
             else
                 throw new RDException("TeamManager.save: can't save a Team: captainId undefined");
 
             //if the team is persistent, set the Id.
             if (team.isPersistent())
-                stmt.setLong(5, team.getId());
+                stmt.setLong(1, team.getId());
 
-            inscnt = smt.executeUpdate();
+            inscnt = stmt.executeUpdate();
 
             if (!team.isPersistent()){
                 if (inscnt >= 1){
@@ -89,16 +79,16 @@ public class TeamManager(){
                     }
                 }
                 else
-                    throw new RDException("TeamManager.save: failed to save a Team")
+                    throw new RDException("TeamManager.save: failed to save a Team");
             }
             else{
                 if (inscnt < 1)
-                    throw new RDException("TeamManager.save: failed to save a Team")
+                    throw new RDException("TeamManager.save: failed to save a Team");
             }
         }
         catch( SQLException e ) {
             e.printStackTrace();
-            throw new ClubsException( "TeamManager.save: failed to save a Team: " + e );
+            throw new RDException( "TeamManager.save: failed to save a Team: " + e );
         }
     }//save
 
@@ -112,22 +102,19 @@ public class TeamManager(){
 
         query.append ( selectTeamSql );
 
-        if (modelTeam != null){
-            if (modelTeam.getId() >= 0)
-                query.append( " where id = " + modelTeam.getId()); //team id is unique, so it is sufficient to get team
+        if (team != null){
+            if (team.getId() >= 0)
+                query.append( " where id = " + team.getId()); //team id is unique, so it is sufficient to get team
            
-            else if (modelTeam.getTeamName() != null) //team name is unique, so it is sufficient to get team
-                query.append( " where team name = '" + modelTeam.getTeamName() + "'");
+            else if (team.getName() != null) //team name is unique, so it is sufficient to get team
+                query.append( " where team name = '" + team.getName() + "'");
            
             else{
-                if (modelTeam.getLeagueId != null)
-                    condition.append( " leagueId = '" + modelTeam.getLeagueId() + "'");
+                if (team.getParticipatesInLeague() != null)
+                    condition.append( " leagueId = '" + team.getParticipatesInLeague().getId() + "'");
 
-                if (modelTeam.getEstablishedOn() != null)
-                    condition.append( " established = '" + modelTeam.getEstablishedOn()+ "'");
-
-                if (modelTeam.captainId() != null)
-                    condition.append( " captainId = '" + modelTeam.getCaptainId()+ "'");
+                if (team.getCaptain() != null)
+                    condition.append( " captainId = '" + team.getCaptain().getId() + "'");
 
 
                 if( condition.length() > 0 ) {
@@ -151,7 +138,7 @@ public class TeamManager(){
         catch(Exception e){
             throw new RDException( "TeamManager.restore: Could not restore persistent Team object; Root cause: " + e);
         }
-        throw new RDException("TeamManager.restore: Could not restore persistent Team object")
+        throw new RDException("TeamManager.restore: Could not restore persistent Team object");
 
     }//restore
 
@@ -173,13 +160,10 @@ public class TeamManager(){
             stmt.setLong( 1, team.getId() );
             
             inscnt = stmt.executeUpdate();
-            
-            if( inscnt == 0 ) {
-                throw new RDException( "PersonManager.delete: failed to delete this Person" );
-            }
+         
         }
         catch( SQLException e ) {
-            throw new RDException( "PersonManager.delete: failed to delete this Person: " + e.getMessage() );
+            System.out.println("Error: " + e);
         }
 
     }//delete

@@ -9,7 +9,7 @@ import java.util.Iterator;
 import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.entity.Venue;
+import edu.uga.cs.recdawgs.entity.SportsVenue;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 /**
@@ -27,7 +27,7 @@ class VenueManager
         this.objectLayer = objectLayer;
     }
     
-    public void save(Venue venue) throws RDException {
+    public void save(SportsVenue venue) throws RDException {
         String insertVenueSql = "insert into venue ( name, address, isIndoor ) values ( ?, ?, ? )";
         String updateVenueSql = "update venue set name = ?, address = ?, isIndoor = ?";
         PreparedStatement stmt = null;
@@ -49,14 +49,11 @@ class VenueManager
                 throw new RDException("VenueManager.save: can't save a Venue: name undefined");
 
             if (venue.getAddress() != null)
-                stmt.setLong(3, venue.getAddress());
+                stmt.setString(3, venue.getAddress());
             else
                 throw new RDException("VenueManager.save: can't save a Venue: address undefined");
-            
-            if (Venue.getIsIndoor() != null)
-                stmt.setBoolean(4, venue.getIsIndoor());
-            else
-                throw new RDException("VenueManager.save: can't save a Venue: isIndoor is not set");
+
+            stmt.setBoolean(4, venue.getIsIndoor());
 
             inscnt = stmt.executeUpdate();
 
@@ -73,9 +70,9 @@ class VenueManager
                         while (r.next()) {
 
                             // retrieve the last insert auto_increment value
-                            venueId = r.getLong(1);
-                            if (VenueId > 0)
-                                venue.setId(VenueId); // set this person's db id (proxy object)
+                            venueID = r.getLong(1);
+                            if (venueID > 0)
+                                venue.setId(venueID); // set this person's db id (proxy object)
                         }
                     }
                 }
@@ -93,8 +90,8 @@ class VenueManager
         }
     }
 
-    public Iterator<Venue> restore(Venue venue) throws RDException {
-        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor";
+    public Iterator<SportsVenue> restore(SportsVenue venue) throws RDException {
+        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor from venue";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -114,11 +111,9 @@ class VenueManager
                 if (venue.getAddress() != null)
                     condition.append( " and address = '" + venue.getAddress() + "'");   
 
-                if (venue.getIsIndoor() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" isIndoor = '" + venue.getIsIndoor() + "'");
-                }
+                if (condition.length() > 0)
+                    condition.append(" and");
+                condition.append(" isIndoor = '" + venue.getIsIndoor() + "'");
             }
         }
         
@@ -140,8 +135,8 @@ class VenueManager
     }
     
 
-    public void delete(Venue venue) throws RDException {
-        String               deleteVenueSql = "delete from Venue where id = ?";              
+    public void delete(SportsVenue venue) throws RDException {
+        String               deleteVenueSql = "delete from venue where id = ?";              
         PreparedStatement    stmt = null;
         int                  inscnt;
              

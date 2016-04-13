@@ -2,12 +2,12 @@ package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.ResultSet;
 import java.util.Iterator;
-import java.util.NoSUchElementException;
+import java.util.NoSuchElementException;
 
-package edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.RDException;
 
-package edu.uga.cs.recdawgs.entity.Team;
-package edu.uga.cs.recdawgs.object.ObjectLayer;
+import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
 public class TeamIterator implements Iterator<Team>{
@@ -35,17 +35,11 @@ public class TeamIterator implements Iterator<Team>{
         //name, leagueId, established, captainId)
         long    id;
         String teamName;
-        String leagueId;
-        String established;
-        long   captainId;
 
         if (more){
             try {
                     id = rs.getLong(1);
                     teamName = rs.getString(2);
-                    leagueId = rs.getString(3);
-                    established = rs.getString(4);
-                    captainId = rs.getLong(5);
 
                     more = rs.next();
             }
@@ -53,13 +47,21 @@ public class TeamIterator implements Iterator<Team>{
                 throw new NoSuchElementException( "TeamIterator: No next Team object; root cause: " + e );
             }
 
-            Team team = objectLayer.createTeam( teamName, leagueId, established, captainId);
-            team.setId( id );
+            Team team;
+			try {
+				team = objectLayer.createTeam(teamName);
+				team.setId( id );
 
-            return team;
+	            return team;
+			} catch (RDException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+            
         }
         else{
-            throw new NoSuchElementException("TeamIterator: No next Team object")
+            throw new NoSuchElementException("TeamIterator: No next Team object");
         }
 
     }//next

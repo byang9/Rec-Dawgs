@@ -8,14 +8,14 @@ package edu.uga.cs.recdawgs.persistence.impl;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Date;
-import java.util.NoSuchElementException;
+import java.util.RDException;
 
-import edu.uga.cs.recdawgs.object.ObjectLayer;
-import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.entity.Match;
-import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.Matchup.object.ObjectLayer;
+import edu.uga.Matchup.RDException;
+import edu.uga.Matchup.entity.Matchup;
+import edu.uga.Matchup.entity.Team;
 
-public class MatchupIterator implements Iterator<Match>{
+public class MatchupIterator implements Iterator<Matchup>{
 	private ResultSet		rs = null;
 	private ObjectLayer		objectLayer = null;
 	private boolean			more = false;
@@ -35,7 +35,7 @@ public class MatchupIterator implements Iterator<Match>{
 		return more;
 	}
 
-	public Match next(){
+	public Matchup next(){
 		long	id;
 		long	homeTeamId;
 		long	awayTeamId;
@@ -45,6 +45,8 @@ public class MatchupIterator implements Iterator<Match>{
 		boolean	isCompleted;
 		String	homeTeamName;
 		String	awayTeamName;
+		long	homeTeamId;
+		long	awayTeamId;
 		Team homeTeam = null;
 		Team awayTeam = null;
 
@@ -58,7 +60,7 @@ public class MatchupIterator implements Iterator<Match>{
 				matchDate = rs.getDate( 6 );
 				isCompleted = rs.getBoolean( 7 );
 				homeTeamName = rs.getString( 8 );
-				awayTeamName = rs.getString( 9 );
+				awayTeamname = rs.getString( 9 );
 				homeTeamId = rs.getLong( 10 );
 				awayTeamId = rs.getLong( 11 );
 
@@ -71,7 +73,7 @@ public class MatchupIterator implements Iterator<Match>{
 			homeTeam = objectLayer.createTeam( name );
 			awayTeam = objectLayer.createTeam( name );
 
-			return match;
+			return matchup;
 		}
 		else{
 			throw new NoSuchElementException( "MatchupIterator: No next Matchup object" );
