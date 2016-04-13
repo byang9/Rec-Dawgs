@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import edu.uga.cs.recdawgs.LeagueException;
+import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Match;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
@@ -113,7 +113,7 @@ public class MatchupManager{
 		condition.setLength( 0 );
 
 		// form the query based on the given Matchup object instance
-		query.append( seletMatchupSql );
+		query.append( selectMatchupSql );
 
 		if( matchup != null ) {
 			if( matchup.getId() >= 0 ) // id is unique, so it is sufficiient to get a person
@@ -121,7 +121,7 @@ public class MatchupManager{
 			else if( matchup.getHomeTeam().getId() != null ) // home team id is unique, so it is sufficient to get a home team
 				query.append( " and m.homeTeamId = '" + matchup.getHomeTeam().getId() + "'" );
 			else if( matchup.getAwayTeam().getId() != null ) // away team id is unique, so it is sufficient to get an away team
-				query.append( " and m.homeTeamId = '" + matchup.getAwayTeam().getId() + "'" );
+				query.append( " and m.awayTeamId = '" + matchup.getAwayTeam().getId() + "'" );
 			else {
 
 				if( matchup.getHomePoint() != null )
@@ -151,7 +151,7 @@ public class MatchupManager{
 			}
 		}
 		catch( Exception e ) {
-			throw new RDException( "MatchupManager.restore: Could not restore persistent Club object; Root cause: " + e );
+			throw new RDException( "MatchupManager.restore: Could not restore persistent Matchup object; Root cause: " + e );
 		}
 
 		throw new RDException( "MatchupManager.restore: Could not restore persistent Matchup object" );

@@ -54,8 +54,8 @@ public class ScoreReportManager{
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report away team ID undefined" );
 
-			if( scoreReport.getHomePoints() != null )
-				stmt.setLong(4, scoreReport.getHomePoints() != null );
+			if( scoreReport.getHomePoint() != null )
+				stmt.setLong(4, scoreReport.getHomePoint() != null );
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report home points undefinded" );
 
@@ -106,6 +106,184 @@ public class ScoreReportManager{
 	public Iterator<ScoreReport> restore(ScoreReport scoreReport) throws RDException{
 
 		//setString
-		String			selectScoreReportSql = "select "
+		String			selectScoreReportSql = "select s.matchId, s.homeTeamId, s.awayTeamId, s.homePoints, s.awayPoints, s.matchDate, s.studentId, " +
+												"m.id, m.homeTeamId, m.awayTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
+												"p.id, p.firstName, p.lastName, p.username, p.password, p.email, p.isStudent, p.studentId, p.address, p.phone";
+		Statement		stmt = null;
+		StringBuffer	query = new StringBuffer( 100 );
+		StringBuffer	condition = new StringBuffer( 100 );
+
+		condition.setLength( 0 );
+
+		// form the query based on the given ScoreReport object instance
+		query.append( selectScoreReportSql );
+
+		if( scoreReport != null ){
+			if( scoreReport.getMatch().getId() >= 0 )
+				query.append( " and s.id = " + scoreReport.getMatch().getId() );
+			else if( scoreReport.getMatch().getHomeTeam().getId() != null )
+				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() + "'" );
+			else if( scoreReport.getMatch().getAwayTeam().getId() != null )
+				query.append( " and s.awayTeamId = '" + scoreReport.getMatch().getAwayTeam().getId() + "'" );
+			else if( scoreReport.getHomePoint() != null )
+				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() + "'" );
+			else if( scoreReport.getAwayPoints() != null )
+				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() + "'" );
+			else if(scoreReport.getDate() != null ){}
+					if( query.length() > 0 )
+						query.append( " and" );
+					query.append( " s.date = '" + scoreReport.getDate() + "'");
+			}
+			else if( scoreReport.getStudent().getId() != null )
+				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'" );
+		}
+
+		try {
+
+			stmt = conn.createStatement();
+
+			if( stmt.execute( query.toString() ) ) {
+				ResultSet r = stmt.getResultSet();
+				return new ScoreReportIterator( r, objectLayer );
+			}
+		}
+		catch( Exception e ){
+			throw new RDException( "ScoreReportManager.restore: Could not restore persistent ScoreReport object; Root cause: " + e );
+		}
+
+		throw new RDException( "ScoreReportManager.restore: Could not restore persistent ScoreReport object" );
+	}
+
+	public Team restoreMatchup( ScoreReport scoreReport ) throws RDException{
+		String			selectTeamSql = "select m.id, m.homeTeamId, m.awayTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isComplete from matchup m where s.matchId = m.id";
+		Statement		stmt = null;
+		StringBuffer	query = new StringBuffer( 100 );
+		StringBuffer	condition = new StringBuffer( 100 );
+
+		condition.setLength( 0 );
+
+		query.append( selectPersonSql );
+
+		if( scoreReport != null ){
+			if( scoreReport.getMatch().getId() >= 0 )
+				query.append( " and s.id = " + scoreReport.getMatch().getId() + "'" );
+			else if( scoreReport.getMatch().getHomeTeam().getId() != null )
+				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() );
+			else if( scoreReport.getMatch().getAwayTeam().getId() != null )
+				query.append( " and s.awayTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() );
+			else if( scoreReport.getHomePoint() != null )
+				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() );
+			else if( scoreReport.getAwayPoints() != null )
+				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() );
+			else if( scoreReport.getDate() != null )
+				query.append( " and s.matchDate = '" + scoreReport.getDate() + "'");
+			else if( query.length() > 0 )
+				query.append( query );
+			else if( scoreReport.getStudent().getId() != null )
+				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'");
+			else{
+
+			}
+		}
+
+		// retrieve the persistent Matchup object
+		//
+		try{
+			stmt = conn.createStatement();
+
+			if( stmt.execute( query.toString() ) ){
+				ResultSet r = stmt.getResultSet();
+				Iterator<Matchup> matchupIter = new MatchupIterator( r, objectLayer );
+				if ( matchupIter != null && teamIter.hasNext() ){
+					return matchupIter.next();
+				}
+				else
+					return null;
+			}
+		}
+		catch( Exception e ){
+			throw new RDException( "ScoreReportManager.restoreMatchup: Could not restore persistent Matchup object; Root cause: " + e );
+		}
+
+		// if we reach this point, it's an error
+		throw new RDException( "ScoreReportManager.restoreMatchup: Could not restore persistent Matchup object" );
+	}
+
+	public Person restorePerson( ScoreReport scoreReport ) throws RDException{
+		String			selectPersonSql = "select p.id, p.firstName, p.lastName, p.userName, p.password, p.email, p.isStudent, p.studentId, p.address, p.phone from person p, score report s where p.id = s.studentId";
+		Statement		stmt = null;
+		StringBuffer	query = new StringBuffer( 100 );
+		StringBuffer	condition = new StringBuffer( 100 );
+
+		condition.setLength( 0 );
+
+		// form the query based on the given Person object instance
+		query.append( selectPersonSql );
+
+		if( scoreReport != null ){
+			if( scoreReport.getMatch().getId() >= 0 )
+				query.append( " and s.matchId = " + scoreReport.getMatch().getId() );
+			else if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
+				query.append( " and s.homeTeamId = " + scoreReport.getMatch().getHomeTeam().getId() );
+			else if( scoreReport.getMatch().getAwayTeam().getId() >= 0 )
+				query.append( " and s.awayTeamId = " + scoreReport.getMatch().getAwayTeam().getId() );
+			else if( scoreReport.getHomePoint() != null )
+				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() );
+			else if( scoreReport.getAwayPoints() != null )
+				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() );
+			else if( scoreReport.getDate() != null )
+				query.append( " and s.matchDate = '" + scoreReport.getDate() + "'");
+			else if( query.length() > 0 )
+				query.append( query );
+			else if( scoreReport.getStudent().getId() != null )
+				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'");
+			else{
+
+			}
+		}
+
+		try{
+
+			stmt = conn.createStatement();
+
+			// retrieve the persistent Person object
+			//
+			if( stmt.execute( query.toString() ) ){
+				ResultSet r = stmt.getResultSet();
+				Iterator<Person> personIter = new PersonIterator( r, objectLayer );
+				if( personIter != null && personIter.hasNext() ) {
+					return personIter.next();
+				}
+				else
+					return null;
+			}
+		}
+		catch( Exception e ){
+			throw new RDException( "ScoreReportManager.restorePerson: Could not restore persistent Person object; Root cause: " + e );
+		}
+
+		// if we reach this point, it's an error
+		throw new ScoreReportException( "ScoreReportManager.restorePerson: Could not restore persistent Person object" );
+	}
+
+	public void delete(ScoreReport scoreReport) throws RDException{
+		String				deleteScoreReportSql = "delete from club where id = ?";
+		PreparedStatement	stmt = null;
+		int					inscnt;
+
+		try{
+			stmt = (PreparedStatement) conn.prepareStatement( deleteScoreReportSql );
+			stmt.setLong( 1, scoreReport.getMatch().getId() );
+			inscnt = stmt.executeUpdate();
+			if( inscnt == 1 ){
+				return;
+			}
+			else
+				throw new RDException( "ScoreReportManager.delete: failed to delete a ScoreReport" );
+		}
+		catch( SQLException e ){
+			e.printStackTrace();
+			throw new RDException( "ScoreReportManager.delete: failed to delete a ScoreReport: " + e );
+		}
 	}
 }
