@@ -46,7 +46,7 @@ class LeagueSportsVenueManager {
                 stmt.setLong(2, l.getId());
             
             if (sv.isPersistent())
-                stmt.setString(3, sv.getId());
+                stmt.setLong(3, sv.getId());
 
             inscnt = stmt.executeUpdate();
             

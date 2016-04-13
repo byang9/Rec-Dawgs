@@ -4,15 +4,10 @@ import java.util.Date;
 import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.entity.Administrator;
-import edu.uga.cs.recdawgs.entity.League;
-import edu.uga.cs.recdawgs.entity.Match;
-import edu.uga.cs.recdawgs.entity.Round;
-import edu.uga.cs.recdawgs.entity.ScoreReport;
-import edu.uga.cs.recdawgs.entity.SportsVenue;
-import edu.uga.cs.recdawgs.entity.Student;
-import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.cs.recdawgs.entity.*;
+import edu.uga.cs.recdawgs.entity.impl.*;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
+import edu.uga.cs.recdawgs.persistence.PersistenceLayer;
 
 
 
@@ -45,7 +40,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Creates admin with given attributes
     public Administrator createAdministrator(String firstName, String lastName, String userName, String password, String emailAddress) throws RDException {
-        return new AdministratorImpl(firstName, lastName, userName, password, emailAddress);
+        return new AdminImpl(firstName, lastName, userName, password, emailAddress);
     }
 
     
@@ -59,7 +54,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Get an iterator for admins
     public Iterator<Administrator> findAdministrator(Administrator modelAdministrator) throws RDException {
-        return peresistence.restoreAdministrator(modelAdministrator);
+        return persistence.restoreAdministrator(modelAdministrator);
     }
     
     
@@ -71,7 +66,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Deletes an admin
     public void deleteAdministrator(Administrator administrator) throws RDException {
-        peresistence.deleteAdministrator(administrator);
+        persistence.deleteAdministrator(administrator);
     } 
     
     
@@ -83,7 +78,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Creates a blank student
     public Student createStudent() {
-        Student student = new StudentImpl(null, null, null, null, null, null, null, null);
+        Student student = new StudentImpl();
         student.setId(-1);
         return student;
     }
@@ -91,13 +86,13 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Returns a student iterator
     public Iterator<Student> findStudent(Student modelStudent) throws RDException {
-        return peresistence.restoreStudent(modelStudent);
+        return persistence.restoreStudent(modelStudent);
     }
     
     
     // stores a student
     public void storeStudent(Student student) throws RDException {
-        peresistence.storeStudent(student);
+        persistence.storeStudent(student);
     }
     
     
@@ -115,7 +110,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Creates a blank league
     public League createLeague() {
-        League league = new League(null, null, null, null, null, null, null, null);
+        League league = new LeagueImpl();
         league.setId(-1);
         return league;
     }
@@ -161,7 +156,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     }
     
     
-    // Stores Team in PeresistenceLayer
+    // Stores Team in persistenceLayer
     public void storeTeam(Team team) throws RDException {
         persistence.storeTeam(team);
     }
@@ -183,7 +178,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Creates a blank sports venue
     public SportsVenue createSportsVenue() {
-        return new SportsVenueImpl(null, null, null);
+        return new SportsVenueImpl();
     }
 
     
@@ -213,7 +208,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Creates a blank match
     public Match createMatch() {
-        Match match = new MatchImpl(null, null, null, null, null, null);
+        Match match = new MatchImpl();
         match.setId(-1);
         return match;
     }
@@ -245,7 +240,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Creates a blank round
     public Round createRound() {
-        Round round = new RoundImpl(null);
+        Round round = new RoundImpl();
         round.setId(-1);
         return round;
     }
@@ -277,7 +272,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Creates a blank score report
     public ScoreReport createScoreReport() {
-        ScoreReport sr = new ScoreReportImpl(null, null, null, null, null);
+        ScoreReport sr = new ScoreReportImpl();
         sr.setId(-1);
         return sr;
     }

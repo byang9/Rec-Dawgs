@@ -19,7 +19,31 @@ public class LeagueImpl extends Persistent implements League {
     private String leagueRules;
     
     
-    /** Return the name of this league.
+    public LeagueImpl(String name, String leagueRules, String matchRules, boolean isIndoor, int minTeams, int maxTeams, int minPlayers, int maxPlayers) {
+		this.name = name;
+		this.leagueRules = leagueRules;
+		this.matchRules = matchRules;
+		this.isIndoor = isIndoor;
+		this.minTeams = minTeams;
+		this.maxTeams = maxTeams;
+		this.minTeamMembers = minPlayers;
+		this.maxTeamMembers = maxPlayers;
+	}
+    
+    
+    public LeagueImpl() {
+		this.name = null;
+		this.leagueRules = null;
+		this.matchRules = null;
+		this.isIndoor = false;
+		this.minTeams = 0;
+		this.maxTeams = 0;
+		this.minTeamMembers = 0;
+		this.maxTeamMembers = 0;
+	}
+
+
+	/** Return the name of this league.
      * @return the name of this league
      */
     public String getName() {

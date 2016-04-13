@@ -8,8 +8,22 @@ public class SportsVenueImpl extends Persistent implements SportsVenue {
     private String name;
     private boolean isIndoor;
     private String address;
+    private long id;
     
-    /** Return the name of this sports venue.
+    public SportsVenueImpl(String name, String address, boolean isIndoor) {
+		this.name = name;
+		this.isIndoor = isIndoor;
+		this.address = address;
+	}
+    
+    public SportsVenueImpl() {
+		this.name = null;
+		this.isIndoor = false;
+		this.address = null;
+	}
+
+
+	/** Return the name of this sports venue.
      * @return the name of this sports venue
      */
     public String getName() {
@@ -58,12 +72,12 @@ public class SportsVenueImpl extends Persistent implements SportsVenue {
 
 
 	public long getId() {
-		return 0;
+		return id;
 	}
 
 
 	public void setId(long id) {
-		
+		this.id = id;
 	}
 
 
