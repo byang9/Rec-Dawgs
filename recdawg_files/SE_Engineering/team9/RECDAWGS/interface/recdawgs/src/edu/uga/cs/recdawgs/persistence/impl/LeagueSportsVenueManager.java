@@ -57,7 +57,7 @@ class LeagueSportsVenueManager {
         }
     }
 
-    public Iterator<League> restore(SportsVenue v) throws RDException {
+    public Iterator<League> restoreWithSportsVenue(SportsVenue v) throws RDException {
         String       selectSql = "select v.id, v.name, v.address, v.isIndoor";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
