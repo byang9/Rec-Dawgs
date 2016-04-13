@@ -15,7 +15,7 @@ import edu.uga.Matchup.RDException;
 import edu.uga.Matchup.entity.Matchup;
 import edu.uga.Matchup.entity.Team;
 
-public class MatchupIterator implements Iterator<Club>{
+public class MatchupIterator implements Iterator<Matchup>{
 	private ResultSet		rs = null;
 	private ObjectLayer		objectLayer = null;
 	private boolean			more = false;
