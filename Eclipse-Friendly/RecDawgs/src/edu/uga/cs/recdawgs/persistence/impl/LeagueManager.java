@@ -28,8 +28,8 @@ class LeagueManager
     }
     
     public void save(League league) throws RDException {
-        String insertLeagueSql = "insert into league ( name, winnerID, isIndoor, minTeams, maxTeams, minTeamMembers, maxTeamMembers, matchRules, leagueRules ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
-        String updateLeagueSql = "update league set name = ?, winnerID = ?, isIndoor = ?, minTeams = ?, maxTeams = ?, minTeamMembers = ?, maxTeamMembers = ?, matchRules = ?, leagueRules = ? where id = ?";
+        String insertLeagueSql = "insert into league ( name, winnerId, isIndoor, minTeams, maxTeams, minTeamMembers, maxTeamMembers, matchRules, leagueRules ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+        String updateLeagueSql = "update league set name = ?, winnerId = ?, isIndoor = ?, minTeams = ?, maxTeams = ?, minTeamMembers = ?, maxTeamMembers = ?, matchRules = ?, leagueRules = ? where id = ?";
         PreparedStatement stmt = null;
         int inscnt;
         long leagueID;
@@ -94,6 +94,74 @@ class LeagueManager
             throw new RDException("LeagueManager.save: failed to save a League: " + e);
         }
     }
+
+
+    public void saveTeamWinnerOfLeague(Team team, League league) throws RDException {
+        String insertLeagueSql = "insert into league ( name, winnerId, isIndoor, minTeams, maxTeams, minTeamMembers, maxTeamMembers, matchRules, leagueRules ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+        String updateLeagueSql = "update league set name = ?, winnerId = ?, isIndoor = ?, minTeams = ?, maxTeams = ?, minTeamMembers = ?, maxTeamMembers = ?, matchRules = ?, leagueRules = ? where id = ?";
+        PreparedStatement stmt = null;
+        int inscnt;
+        long leagueID;
+                 
+        try {
+            if (!league.isPersistent())
+                stmt = (PreparedStatement) conn.prepareStatement(insertLeagueSql);
+            else
+                stmt = (PreparedStatement) conn.prepareStatement(updateLeagueSql);
+
+            if (league.isPersistent())
+                stmt.setLong(1, league.getId());
+            
+            if (league.getName() != null) // name is unique unique and non null
+                stmt.setString(2, league.getName());
+            else 
+                throw new RDException("LeagueManager.save: can't save a League: name undefined");
+
+            stmt.setLong(3, league.setWinnerOfLeague(team));
+            stmt.setBoolean(4, league.getIsIndoor());
+            stmt.setLong(5, league.getMinTeams());
+            stmt.setLong(6, league.getMinTeams());
+            stmt.setLong(7, league.getMinMembers());
+            stmt.setLong(8, league.getMaxMembers());
+            stmt.setString(9, league.getMatchRules());
+            stmt.setString(10, league.getLeagueRules());
+
+            inscnt = stmt.executeUpdate();
+
+            if (!league.isPersistent()) {
+                if (inscnt >= 1) {
+                    String sql = "select last_insert_id()";
+                    if (stmt.execute(sql)) { // statement returned a result
+
+                        // retrieve the result
+                        ResultSet r = stmt.getResultSet();
+
+                        // we will use only the first row!
+                        //
+                        while (r.next()) {
+
+                            // retrieve the last insert auto_increment value
+                            leagueID = r.getLong(1);
+                            if (leagueID > 0)
+                                league.setId(leagueID); // set this person's db id (proxy object)
+                        }
+                    }
+                }
+                else
+                    throw new RDException("LeagueManager.save: failed to save a winner of League");
+            }
+            else {
+                if (inscnt < 1)
+                    throw new RDException("LeagueManager.save: failed to save a winner of League"); 
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new RDException("LeagueManager.save: failed to save a winner of League: " + e);
+        }
+    }
+
+
 
     public Iterator<League> restore(League league) throws RDException {
         String       selectLeagueSql = "select l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
