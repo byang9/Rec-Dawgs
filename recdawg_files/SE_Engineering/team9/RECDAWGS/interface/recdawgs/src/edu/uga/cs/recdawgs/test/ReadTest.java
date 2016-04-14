@@ -76,3 +76,24 @@ public class DeleteTest{
                 System.out.println(a);
             }
         }
+        catch( RDException ce )
+         {
+             System.err.println( "RDException: " + ce );
+             ce.printStackTrace();
+         }
+         catch( Exception e )
+         {
+             System.err.println( "Exception: " + e );
+             e.printStackTrace();
+         }
+         finally {
+             // close the connection
+             try {
+                 conn.close();
+             }
+             catch( Exception e ) {
+                 System.err.println( "Exception: " + e );
+             }
+         }   
+    }
+}
