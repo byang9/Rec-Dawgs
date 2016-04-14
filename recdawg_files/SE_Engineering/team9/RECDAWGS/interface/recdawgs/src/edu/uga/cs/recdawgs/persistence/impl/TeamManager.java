@@ -9,6 +9,7 @@ import java.util.Iterator;
 import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
@@ -26,7 +27,7 @@ public class TeamManager {
     }//constructor
                                                                                                                            
     public void save(Team team) throws RDException{
-        String insertTeamSql = "insert into team ( name, leagueid, captainid ) values ( ?, ?, ? )";              
+        String insertTeamSql = "insert into team ( name, leagueId, captainId ) values ( ?, ?, ? )";              
         String updateTeamSql = "update team  set name = ?, leagueId = ?, captainId = ?";          
         PreparedStatement stmt;
         int inscnt;
@@ -93,7 +94,7 @@ public class TeamManager {
     }//save
     
     public void save(Student student, Team team) throws RDException{
-        String insertTeamSql = "insert into team ( name, leagueid, captainid ) values ( ?, ?, ? )";              
+        String insertTeamSql = "insert into team ( name, leagueId, captainId ) values ( ?, ?, ? )";              
         String updateTeamSql = "update team  set name = ?, leagueId = ?, captainId = ?";          
         PreparedStatement stmt;
         int inscnt;
@@ -244,6 +245,44 @@ public class TeamManager {
         throw new RDException("TeamManager.restore: Could not restore persistent Team object");
 
     }//restore
+
+
+    //restoreTeamParticipatesInLeague
+    public Iterator<Team> restore(League league) throws RDException{
+        String selectTeamSql = "select * team";
+        Statement stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+
+        query.append ( selectTeamSql );
+
+        if (league != null){
+            if (league.getId() >= 0)
+                query.append(" where leagueid = " + league.getId()); //team id is unique, so it is sufficient to get student
+        }
+
+        try {
+            stmt = conn.createStatement();
+
+            if (stmt.execute(query.toString())){
+                ResultSet r = stmt.getResultSet();
+                if (stmt.execute("select name, leagueid, captainid from team where leagueid = " + r.getLong(1))) {
+                    ResultSet r2 = stmt.getResultSet();
+                    return new TeamIterator(r2, objectLayer);
+                }
+            }
+
+        }
+        catch(Exception e){
+            throw new RDException( "TeamManager.restore: Could not restore persistent Team object; Root cause: " + e);
+        }
+        throw new RDException("TeamManager.restore: Could not restore persistent Team object");
+
+    }//restore
+
+
     
     public Student restoreCaptain(Team team) throws RDException{
         String selectTeamSql = "select id, name, leagueId, established, captainId";
@@ -335,6 +374,31 @@ public class TeamManager {
             //DELETE t1, t2 FROM t1, t2 WHERE t1.id = t2.id;
             //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
             stmt = (PreparedStatement) conn.prepareStatement( deleteTeamSql );
+            
+            stmt.setLong( 1, team.getId() );
+            
+            stmt.executeUpdate();
+         
+        }
+        catch( SQLException e ) {
+            System.out.println("Error: " + e);
+        }
+
+    }//delete
+
+    public void delete(Team team, League league){
+        String               deleteTeamLeagueSql = "update team set leagueid = null where id = " + team.getId();              
+        PreparedStatement    stmt = null;
+        
+        // form the query based on the given Team object instance
+        if( !team.isPersistent() ) // is the Team object persistent?  If not, nothing to actually delete
+            return;
+        
+        try {
+            
+            //DELETE t1, t2 FROM t1, t2 WHERE t1.id = t2.id;
+            //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
+            stmt = (PreparedStatement) conn.prepareStatement( deleteTeamLeagueSql );
             
             stmt.setLong( 1, team.getId() );
             

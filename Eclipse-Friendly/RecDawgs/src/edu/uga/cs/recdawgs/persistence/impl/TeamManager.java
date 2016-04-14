@@ -9,6 +9,7 @@ import java.util.Iterator;
 import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
@@ -386,7 +387,7 @@ public class TeamManager {
     }//delete
 
     public void delete(Team team, League league){
-        String               deleteTeamLeagueSql = "update team set leagueId = null where id = " + team.getId();              
+        String               deleteTeamLeagueSql = "update team set leagueid = null where id = " + team.getId();              
         PreparedStatement    stmt = null;
         
         // form the query based on the given Team object instance

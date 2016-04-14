@@ -12,9 +12,7 @@ import java.util.Date;
 
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.entity.Match;
 import edu.uga.cs.recdawgs.entity.ScoreReport;
-import edu.uga.cs.recdawgs.entity.User;
 
 public class ScoreReportIterator implements Iterator<ScoreReport>{
 	private ResultSet		rs = null;
@@ -37,33 +35,31 @@ public class ScoreReportIterator implements Iterator<ScoreReport>{
 	}
 
 	public ScoreReport next(){
-		long	matchID;
-		long	homeTeamId;
-		long	awayTeamId;
+//		long	matchID;
+//		long	homeTeamId;
+//		long	awayTeamId;
 		long	homePoints;
 		long	awayPoints;
 		Date	date;
-		long	studentID;
+		//long	studentID;
 
 		if( more ){
 			try{
-				matchID = rs.getLong( 1 );
-				homeTeamId = rs.getLong( 2 );
-				awayTeamId = rs.getLong( 3 );
+//				matchID = rs.getLong( 1 );
+//				homeTeamId = rs.getLong( 2 );
+//				awayTeamId = rs.getLong( 3 );
 				homePoints = rs.getLong( 4 );
 				awayPoints = rs.getLong( 5 );
 				date = rs.getDate( 6 );
-				studentID = rs.getLong( 7 );
+				//studentID = rs.getLong( 7 );
 
 				more = rs.next();
 				
-				return objectLayer.createScoreReport((int)homePoints, (int)awayPoints, date, studentID, matchID);
+				return objectLayer.createScoreReport((int)homePoints, (int)awayPoints, date, objectLayer.createStudent(), objectLayer.createMatch());
 			}
 			catch( Exception e ){
 				throw new NoSuchElementException( "ScoreReportIterator: No next ScoreReport object; root cause: " + e );
 			}
-
-			return null;
 		}
 		else{
 			throw new NoSuchElementException( "ScoreReportIterator: No next ScoreReport object" );

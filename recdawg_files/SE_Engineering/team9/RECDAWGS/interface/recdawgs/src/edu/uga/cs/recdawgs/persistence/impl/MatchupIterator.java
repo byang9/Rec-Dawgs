@@ -36,39 +36,31 @@ public class MatchupIterator implements Iterator<Match>{
 	}
 
 	public Match next(){
-		long	id;
-		long	homeTeamId;
-		long	awayTeamId;
+		//long	id;
+		//long	homeTeamId;
+		//long	awayTeamId;
 		long	homePoints;
 		long	awayPoints;
 		Date	matchDate;
 		boolean	isCompleted;
-		String	homeTeamName;
-		String	awayTeamName;
 		Team homeTeam = null;
 		Team awayTeam = null;
 
 		if( more ){
 			try{
-				id = rs.getLong( 1 );
-				homeTeamId = rs.getLong( 2 );
-				awayTeamId = rs.getLong( 3 );
+				//id = rs.getLong( 1 );
+				//homeTeamId = rs.getLong( 2 );
+				//awayTeamId = rs.getLong( 3 );
 				homePoints = rs.getLong( 4 );
 				awayPoints = rs.getLong( 5 );
 				matchDate = rs.getDate( 6 );
 				isCompleted = rs.getBoolean( 7 );
-				homeTeamName = rs.getString( 8 );
-				awayTeamName = rs.getString( 9 );
 
 				more = rs.next();
 			}
 			catch( Exception e ){
 				throw new NoSuchElementException( "MatchupIterator: No next Matchup object; root cause: " + e );
 			}
-			
-			//ObjectFromID objFromID = new ObjectFromID(conn, objectLayer);
-			//homeTeam = objFromID.getTeamFromID(homeTeamId);
-			//awayTeam = objFromID.getTeamFromID(homeTeamId);
 
 			Match match = null;
 			try {

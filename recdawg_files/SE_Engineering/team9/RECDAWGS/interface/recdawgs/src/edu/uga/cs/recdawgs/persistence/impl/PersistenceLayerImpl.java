@@ -268,36 +268,44 @@ public class PersistenceLayerImpl implements PersistenceLayer {
         teamMatchManager.deleteAwayTeam(team, match);
     }
     
+    // Saves a team and league association
     public void storeTeamParticipatesInLeague(Team team, League league) throws RDException {
-        
+        teamManager.save(team);
     }
     
+    // Returns all teams in a specific league
     public Iterator<Team> restoreTeamParticipatesInLeague(League league) throws RDException {
-        
+        return teamManager.restore(league);
     }
     
+    // Returns the league that the given team is part of
     public League restoreTeamParticipatesInLeague(Team team) throws RDException {
-        
+        return leagueManager.restore(team);
     }
     
+    // Deletes the team and league association
     public void deleteTeamParticipatesInLeague(Team team, League league) throws RDException {
-        
+        teamManager.delete(team, league);
     }
     
+    // Saves the winner of the league
     public void storeTeamWinnerOfLeague(Team team, League league) throws RDException {
-        
+        leagueManager.saveTeamWinnerOfLeague(team, league);
     }
     
+    // Returns the winner of league
     public Team restoreTeamWinnerOfLeague(League league) throws RDException {
-        
+        return leagueManager.restoreWinner(league);
     }
     
+    // Returns the league that the given team is the winner of
     public League restoreTeamWinnerOfLeague(Team team) throws RDException {
-        
+        return leagueManager.restoreWinner(team);
     }
     
+    // Deletes the winner league association
     public void deleteTeamWinnerOfLeague(Team team, League league) throws RDException {
-        
+        leagueManager.delete(team, league);
     }
     
     // Stores League-SportsVenue many-to-many association -- inside LeagueSportsVenueManager
@@ -320,42 +328,52 @@ public class PersistenceLayerImpl implements PersistenceLayer {
         lsvManager.delete(league, sportsVenue);
     }
     
+    // Saves a league round association
     public void storeLeagueRound(League league, Round round) throws RDException {
-        
+        roundManager.save(league, round);
     }
     
+    // Returns all rounds associated with league
     public Iterator<Round> restoreLeagueRound(League league) throws RDException {
-        
+        return roundManager.restore(league);
     }
     
+    // Deletes league round association
     public void deleteLeagueRound(League league, Round round) throws RDException {
-        
+        roundManager.delete(league, round);
     }
     
+    // Saves a match round association
     public void storeRoundMatch(Round round, Match match) throws RDException {
         
     }
     
+    // Returns all matches that have to do with leagues
     public Iterator<Match> restoreRoundMatch(Round round) throws RDException {
-        
+        return null;
     }
     
+    // Deletes round match association
     public void deleteRoundMatch(Round round, Match match) throws RDException {
         
     }
     
+    // Stores a match sports venue association
     public void storeMatchSportsVenue(Match match, SportsVenue sportsVenue) throws RDException {
         
     }
     
+    // Returns all matches that have to do with sports venue
     public Iterator<Match> restoreMatchSportsVenue(SportsVenue sportsVenue) throws RDException {
-        
+        return null;
     }
     
+    // Returns sports venue of match
     public SportsVenue restoreMatchSportsVenue(Match match) throws RDException {
-        
+        return null;
     }
     
+    // Deletes the match sports venue association
     public void deleteMatchSportsVenue(Match match, SportsVenue sportsVenue) throws RDException {
     	
     }

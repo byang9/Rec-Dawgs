@@ -1,4 +1,4 @@
-package edu.uga.cs.recdawgs.test.object;
+package edu.uga.cs.recdawgs.test;
 
 import java.sql.Connection;
 import java.util.Date;
@@ -24,24 +24,24 @@ public class WriteTest
          ObjectLayer objectLayer = null;
          PersistenceLayer persistence = null;
          
-         Admin         logan;
-         Admin         bowen;
+         Administrator logan;
+         Administrator bowen;
 
          Student       jay;
          Student       fred;
          Student       ani;
          Student       joe;
 
-         League         soccer;
-         League         basketball;
+         League        soccer;
+         League        basketball;
 
-         Team           teamA1;
-         Team           teamB1;
-         Team           teamA2;
-         Team           teamB2;
+         Team          teamA1;
+         Team          teamB1;
+         Team          teamA2;
+         Team          teamB2;
 
-         SportsVenue          ramsey;
-         SportsVenue          iMFields;
+         SportsVenue   ramsey;
+         SportsVenue   iMFields;
 
 
          
@@ -69,7 +69,7 @@ public class WriteTest
              bowen = objectLayer.createAdministrator("bowen", "yang","by1","recdawgs","by@uga.edu");
 
              persistence.storeAdministrator(logan);
-             persistence.storedministrator(bowen);
+             persistence.storeAdministrator(bowen);
 
 
              //create a few Students
@@ -79,14 +79,14 @@ public class WriteTest
              ani = objectLayer.createStudent("ani", "skywalker", "as1", "recdawgs3", "as@uga.edu", "8109998882", "Drawing", "777 Lucky Drive, Athens, GA");
              joe = objectLayer.createStudent("joe", "johnson", "jj", "recdawgs4", "johnson@uga.edu", "8104221334", "Sports Medicine", "651 Brookhaven Cr. Athens, GA");
 
-             persistence.storePerson( jay );
-             persistence.storePerson( fred );
-             persistence.storePerson( ani );
-             persistence.storePerson( joe );
+             persistence.storeStudent( jay );
+             persistence.storeStudent( fred );
+             persistence.storeStudent( ani );
+             persistence.storeStudent( joe );
              
              //String name, String leagueRules, String matchRules, boolean isIndoor, int minTeams, int maxTeams, int minPlayers, int maxPlayers
-             soccer = objectLayer.createLeague("soccer", "no cheating", False, 10 , 16, 10, 12);
-             basketball = objectLayer.createLeague("basketball", "no cheating", True, 10 , 16, 10, 12);
+             soccer = objectLayer.createLeague("Soccer", "no cheating", "please", false, 10 , 16, 10, 12);
+             basketball = objectLayer.createLeague("Basketball", "no cheating", "don't", true, 10 , 16, 10, 12);
 
              persistence.storeLeague(soccer);
              persistence.storeLeague(basketball);
@@ -103,8 +103,8 @@ public class WriteTest
              persistence.storeTeam(teamB2);
 
              //createSportsVenue(String name, String address, boolean isIndoor)
-             ramsey = objectLayer.createSportsVenue("Ramsey", "1 East Campus Rd., Athens, GA", True);
-             iMFields = objectLayer.createSportsVenue("IM Fields", "13 Intramural Fields., Athens, GA", False);
+             ramsey = objectLayer.createSportsVenue("Ramsey", "1 East Campus Rd., Athens, GA", true);
+             iMFields = objectLayer.createSportsVenue("IM Fields", "13 Intramural Fields., Athens, GA", false);
              persistence.storeSportsVenue(ramsey);
              persistence.storeSportsVenue(iMFields);
 

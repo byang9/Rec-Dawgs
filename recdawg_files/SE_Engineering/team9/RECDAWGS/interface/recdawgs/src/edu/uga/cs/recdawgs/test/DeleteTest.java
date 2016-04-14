@@ -3,9 +3,12 @@ package edu.uga.cs.recdawgs.test;
 import java.sql.Connection;
 import java.util.Iterator;
 
+import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.*;
 import edu.uga.cs.recdawgs.object.*;
+import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.*;
+import edu.uga.cs.recdawgs.persistence.impl.PersistenceLayerImpl;
 
 public class DeleteTest{
     public static void main(String[] args){
@@ -33,13 +36,13 @@ public class DeleteTest{
             League tennisLeague = null;
             League swimLeague = objectLayer.createLeague();
             swimLeague.setName("Swimming");
-            leagueIter = objectLayer.findClub(swimLeague);
+            leagueIter = objectLayer.findLeague(swimLeague);
             while (leagueIter.hasNext()){
                 tennisLeague = leagueIter.next();
                 System.out.println("League: " +tennisLeague);
             }
             if(tennisLeague != null){
-                objectLayer.deleteClub(tennisLeague);
+                objectLayer.deleteLeague(tennisLeague);
                 System.out.println("Deleted Leagues");
             }else{
                 System.out.println("Error finding Leagues");

@@ -3,11 +3,14 @@ package edu.uga.cs.recdawgs.test;
 import java.sql.Connection;
 import java.util.Iterator;
 
+import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.*;
 import edu.uga.cs.recdawgs.object.*;
+import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.*;
+import edu.uga.cs.recdawgs.persistence.impl.PersistenceLayerImpl;
 
-public class DeleteTest{
+public class ReadTest{
     public static void main(String[] args){
         Connection  conn = null;
         ObjectLayer objectLayer = null;

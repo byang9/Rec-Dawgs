@@ -1,8 +1,8 @@
-package edu.uga.cs.recdawgs.test.object;
+package edu.uga.cs.recdawgs.test;
 
 import java.sql.Connection;
 import java.util.Date;
-
+import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Administrator;
@@ -39,44 +39,44 @@ public class UpdateTest
          // connect the ObjectModel module to the Persistence module
          objectLayer.setPersistence( persistence ); 
          
-         Iterator<Club> clubIter = null;
+         Iterator<Administrator> adminIter = null;
                   
          try {
             //////////////////////////////////////////////////////////////////////////////////////////////////////
             //ADMIN UPDATE
             Administrator tempAdmin = null;
             Administrator modelAdmin = objectLayer.createAdministrator();
-            modelAdmin.setName("Justin");
+            modelAdmin.setFirstName("Justin");
             adminIter = objectLayer.findAdministrator( modelAdmin );
             while(adminIter.hasNext()){
                 tempAdmin = adminIter.next();
                 System.out.println(tempAdmin);
             }
-            tempAdmin.setName( "Francis" );
+            tempAdmin.setFirstName( "Francis" );
             objectLayer.storeAdministrator( tempAdmin );
             System.out.println( "Updated the name of Justin to Francis." );
             //////////////////////////////////////////////////////////////////////////////////////////////////////
             //STUDENT UPDATE
             Student tempStudent = null;
             Student modelStudent = objectLayer.createStudent();
-            modelStudent.setName("Jay");
-            studentIter = objectLayer.findAdministrator( modelStudent );
+            modelStudent.setFirstName("Jay");
+            Iterator<Student> studentIter = objectLayer.findStudent( modelStudent );
             while(studentIter.hasNext()){
                 tempStudent = studentIter.next();
                 System.out.println(tempAdmin);
             }
-            tempStudent.setName( "Jerry" );
+            tempStudent.setFirstName( "Jerry" );
             objectLayer.storeStudent( tempStudent );
             System.out.println( "Updated the name of Jay to Jerry." );
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////
             //LEAGUE UPDATE
-            Student tempLeague = null;
-            Student modelLeague = objectLayer.createLeague();
+            League tempLeague = null;
+            League modelLeague = objectLayer.createLeague();
             modelLeague.setName("Basketball");
-            leagueIter = objectLayer.findLeague( modelLeague );
+            Iterator<League> leagueIter = objectLayer.findLeague( modelLeague );
             while(leagueIter.hasNext()){
-                tempLeague = studentIter.next();
+                tempLeague = leagueIter.next();
                 System.out.println(tempLeague);
             }
             tempLeague.setName( "Advanced Basketball" );
@@ -85,25 +85,25 @@ public class UpdateTest
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////// 
             //SPORTSVENUE UPDATE
-            Student tempVenue = null;
-            Student modelVenue = objectLayer.createVenue();
+            SportsVenue tempVenue = null;
+            SportsVenue modelVenue = objectLayer.createSportsVenue();
             modelVenue.setName("Ramsey");
-            venueIter = objectLayer.findAdministrator( modelVenue );
+            Iterator<SportsVenue> venueIter = objectLayer.findSportsVenue( modelVenue );
             while(venueIter.hasNext()){
                 tempVenue = venueIter.next();
                 System.out.println(tempVenue);
             }
             tempVenue.setName( "Ramsey Center" );
-            objectLayer.storeVenue( tempVenue );
+            objectLayer.storeSportsVenue( tempVenue );
             System.out.println( "Updated the name of Ramsey to Ramsey Center." );
 
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////
             //TEAM UPDATE
-            Student tempTeam = null;
-            Student modelTeam = objectLayer.createTeam();
+            Team tempTeam = null;
+            Team modelTeam = objectLayer.createTeam();
             modelTeam.setName("Hurricanes");
-            teamtIter = objectLayer.findTeam( modelTeam );
+            Iterator<Team> teamIter = objectLayer.findTeam( modelTeam );
             while(teamIter.hasNext()){
                 tempTeam = teamIter.next();
                 System.out.println(tempTeam);
