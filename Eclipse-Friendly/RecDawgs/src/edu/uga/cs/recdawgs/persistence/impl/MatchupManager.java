@@ -55,7 +55,6 @@ public class MatchupManager{
 
 			stmt.setLong(4, matchup.getHomePoints());
 			stmt.setLong(5, matchup.getAwayPoints());
-			stmt.setDate(6, matchup.getDate());
 			stmt.setBoolean(7, matchup.getIsCompleted());
 
 			inscnt = stmt.executeUpdate();
@@ -280,5 +279,94 @@ public class MatchupManager{
 			e.printStackTrace();
 			throw new RDException( "MatchupManager.delete: failed to delete a Matchup: " + e );
 		}
+	}
+
+	public Iterator<Match> restoreHomeTeamMatch(Team team) throws RDException {
+		//String
+		String			selectTeamSql = "select t.id, t.name, t.leagueid, t.established, t.captainid, " +
+										"p.id, p.firstname, p.lastname, p.username, p.password, p.email, " +
+										"p.isStudent, p.studentID, p.address, p.phone, l.id, l.name, " +
+										"l.winnerId, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers, " +
+										"l.maxTeamMembers, l.matchRules, l.leagueRules from team t, person " +
+										"p where t.captainid = p.id, and league l where t.leagueid = l.id";
+		Statement		stmt = null;
+		StringBuffer	query = new StringBuffer( 100 );
+		StringBuffer	condition = new StringBuffer( 100 );
+		
+		condition.setLength(0);
+		
+		query.append(selectTeamSql);
+		
+		if( team != null ){
+			if( team.getId() >= 0 )
+				query.append( " and id = " + team.getId() );
+			else if(team.getName() != null)
+				query.append( " and name = '" + team.getName() + "'" );
+			else if(team.getParticipatesInLeague().getId() != 0)
+				query.append( " and leagueid = '" + team.getParticipatesInLeague().getId() + "'" );
+			else if(team.getCaptain().getId() != 0)
+				query.append( " and captainid = '" + team.getCaptain().getId() + "'" );
+		}
+		
+		try{
+			stmt = conn.createStatement();
+			
+			// retrieve the persistent Person object
+			//
+			if( stmt.execute( query.toString() ) ) {
+				ResultSet r = stmt.getResultSet();
+				Iterator<Match> teamIter = new MatchupIterator( r, objectLayer );
+			}
+		}
+		catch( Exception e ){
+			throw new RDException( "MatchupManager.restoreHomeTeamMatch: Could not restore persistent Team object; Root cause: " + e );
+		}
+		
+		// if we readh this point it's an error
+		throw new RDException( "MatchupManager.restoreHomeTeamMatch: Could not restore persistent Team object" );
+	}
+
+	public Iterator<Match> restoreAwayTeamMatch(Team team) throws RDException {
+		//String
+		String			selectTeamSql = "select t.id, t.name, t.leagueid, t.established, t.captainid, " +
+										"p.id, p.firstname, p.lastname, p.username, p.password, p.email, " +
+										"p.isStudent, p.studentID, p.address, p.phone, l.id, l.name, " +
+										"l.winnerId, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers, " +											"l.maxTeamMembers, l.matchRules, l.leagueRules from team t, person " +
+										"p where t.captainid = p.id, and league l where t.leagueid = l.id";
+		Statement		stmt = null;
+		StringBuffer	query = new StringBuffer( 100 );
+		StringBuffer	condition = new StringBuffer( 100 );
+				
+		condition.setLength(0);
+				
+		query.append(selectTeamSql);
+				
+		if( team != null ){
+			if( team.getId() >= 0 )
+				query.append( " and id = " + team.getId() );
+			else if(team.getName() != null)
+				query.append( " and name = '" + team.getName() + "'" );
+			else if(team.getParticipatesInLeague().getId() != 0)
+				query.append( " and leagueid = '" + team.getParticipatesInLeague().getId() + "'" );
+			else if(team.getCaptain().getId() != 0)
+				query.append( " and captainid = '" + team.getCaptain().getId() + "'" );
+		}
+				
+		try{
+			stmt = conn.createStatement();
+					
+			// retrieve the persistent Person object
+			//
+			if( stmt.execute( query.toString() ) ) {
+				ResultSet r = stmt.getResultSet();
+				Iterator<Match> teamIter = new MatchupIterator( r, objectLayer );
+			}
+		}
+		catch( Exception e ){
+			throw new RDException( "MatchupManager.restoreHomeTeamMatch: Could not restore persistent Team object; Root cause: " + e );
+		}
+				
+		// if we read this point it's an error
+		throw new RDException( "MatchupManager.restoreHomeTeamMatch: Could not restore persistent Team object" );
 	}
 }

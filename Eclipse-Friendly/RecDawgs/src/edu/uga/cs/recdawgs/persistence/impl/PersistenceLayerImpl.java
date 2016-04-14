@@ -23,7 +23,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     private PersonManager personManager = null;
     private LeagueManager leagueManager = null;
     private MatchupManager matchManager = null;
-    private ScoreReportManager = scoreReportManager = null;
+    private ScoreReportManager scoreReportManager = null;
     
     // Association Managers
     private LeagueSportsVenueManager lsvManager = null;
@@ -141,7 +141,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     
     // Returns ScoreReport Iterator from given modelScoreReport -- inside ScoreReportManager
     public Iterator<ScoreReport> restoreScoreReport(ScoreReport modelScoreReport) throws RDException {
-        return sportsReportManager.restore(modelScoreReport);
+        return scoreReportManager.restore(modelScoreReport);
     }
     
     // Stores ScoreReport -- inside ScoreReportManager
@@ -182,7 +182,18 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     /* Associations in Persistence Layer */
     
     public void storeStudentCaptainOfTeam(Student student, Team team) throws RDException {
-        
+    	if( student == null )
+    		throw new RDException( "The team's captain is null" );
+    	if( !student.isPersistent() )
+    		throw new RDException( "The team's captain is not persistent" );
+    	
+    	if( team == null )
+    		throw new RDException( "The team is null" );
+    	if( !team.isPersistent() )
+    		throw new RDException( "The team is not persistent" );
+    	
+        teamManager.save(team);
+        personManager.save(student);
     }
     
     public Student restoreStudentCaptainOfTeam(Team team) throws RDException {
@@ -218,15 +229,15 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     public Team restoreTeamHomeTeamMatch(Match match) throws RDException {
-        
+        return matchManager.restoreHomeTeam(match);
     }
     
     public Iterator<Match> restoreTeamHomeTeamMatch(Team team) throws RDException {
-        
+        return matchManager.restoreHomeTeamMatch(team);
     }
     
     public void deleteTeamHomeTeamMatch(Team team, Match match) throws RDException {
-        
+        matchManager.delete(match);
     }
     
     public void storeTeamAwayTeamMatch(Team team, Match match) throws RDException {
@@ -238,7 +249,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     public Iterator<Match> restoreTeamAwayTeamMatch(Team team) throws RDException {
-        
+        return matchManager.restoreAwayTeamMatch(team);
     }
     
     public void deleteTeamAwayTeamMatch(Team team, Match match) throws RDException {
@@ -334,7 +345,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     public void deleteMatchSportsVenue(Match match, SportsVenue sportsVenue) throws RDException {
-        
+        matchSportsVenueManager.delete( matchSportsVenue );
     }
     
  }

@@ -6,6 +6,7 @@
 package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,12 +42,45 @@ public class ScoreReportManager {
 			if( !scoreReport.isPersistent() )
 				stmt = (PreparedStatement) conn.prepareStatement(insertScoreReportSql);
 			else
+<<<<<<< HEAD
+				stmt = (PreparedStatement) conn.prepareStatement(updateMatchupSql);
+			if( scoreReport.getMatch().getId() >= 0 )
+=======
 				stmt = (PreparedStatement) conn.prepareStatement(updateScoreReportSql);
 			if( scoreReport.getMatch() != null )
+>>>>>>> origin/master
 				stmt.setLong(1, scoreReport.getMatch().getId());
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report ID undefined" );
 
+<<<<<<< HEAD
+			if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
+				stmt.setLong(2, scoreReport.getMatch().getHomeTeam().getId() );
+			else
+				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report home team ID undefined" );
+
+			if( scoreReport.getMatch().getAwayTeam().getId() >= 0 )
+				stmt.setLong(3, scoreReport.getMatch().getAwayTeam().getId() );
+			else
+				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report away team ID undefined" );
+
+			if( scoreReport.getHomePoint() >= 0 )
+				stmt.setLong(4, scoreReport.getHomePoint() );
+			else
+				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report home points undefinded" );
+
+			if( scoreReport.getAwayPoints() >= 0 )
+				stmt.setLong(5, scoreReport.getAwayPoints());
+			else
+				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report away points undefined" );
+
+			if( scoreReport.getDate() != null )
+				stmt.setDate(6, scoreReport.getDate());
+			else
+				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report date undefined" );
+
+			if( scoreReport.getStudent().getId() >= 0 )
+=======
 			if( scoreReport.getMatch().getHomeTeam() != null )
 				stmt.setLong(2, scoreReport.getMatch().getHomeTeam().getId());
 			else
@@ -66,6 +100,7 @@ public class ScoreReportManager {
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report date undefined" );
 
 			if( scoreReport.getStudent() != null )
+>>>>>>> origin/master
 				stmt.setLong(7, scoreReport.getStudent().getId());
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report student ID undefined" );
@@ -117,6 +152,17 @@ public class ScoreReportManager {
 		if( scoreReport != null ){
 			if( scoreReport.getMatch().getId() >= 0 )
 				query.append( " and s.id = " + scoreReport.getMatch().getId() );
+<<<<<<< HEAD
+			else if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
+				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() + "'" );
+			else if( scoreReport.getMatch().getAwayTeam().getId() >= 0 )
+				query.append( " and s.awayTeamId = '" + scoreReport.getMatch().getAwayTeam().getId() + "'" );
+			else if( scoreReport.getHomePoint() >= 0 )
+				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() + "'" );
+			else if( scoreReport.getAwayPoints() >= 0 )
+				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() + "'" );
+			else if(scoreReport.getDate() != null ){
+=======
 			else if( scoreReport.getMatch().getHomeTeam() != null )
 				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() + "'" );
 			else if( scoreReport.getMatch().getAwayTeam() != null )
@@ -124,11 +170,16 @@ public class ScoreReportManager {
 			query.append( " and s.homePoints = '" + scoreReport.getHomePoint() + "'" );
 			query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() + "'" );
 			if(scoreReport.getDate() != null ){
+>>>>>>> origin/master
 					if( query.length() > 0 )
 						query.append( " and" );
 					query.append( " s.date = '" + scoreReport.getDate() + "'");
 			}
+<<<<<<< HEAD
+			else if( scoreReport.getStudent().getId() >= 0 )
+=======
 			else if( scoreReport.getStudent() != null )
+>>>>>>> origin/master
 				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'" );
 		}
 
@@ -156,24 +207,24 @@ public class ScoreReportManager {
 
 		condition.setLength( 0 );
 
-		query.append( selectPersonSql );
+		query.append( selectTeamSql );
 
 		if( scoreReport != null ){
 			if( scoreReport.getMatch().getId() >= 0 )
 				query.append( " and s.id = " + scoreReport.getMatch().getId() + "'" );
-			else if( scoreReport.getMatch().getHomeTeam().getId() != null )
+			else if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
 				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() );
-			else if( scoreReport.getMatch().getAwayTeam().getId() != null )
+			else if( scoreReport.getMatch().getAwayTeam().getId() >= 0 )
 				query.append( " and s.awayTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() );
-			else if( scoreReport.getHomePoint() != null )
+			else if( scoreReport.getHomePoint() >= 0 )
 				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() );
-			else if( scoreReport.getAwayPoints() != null )
+			else if( scoreReport.getAwayPoints() >= 0 )
 				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() );
 			else if( scoreReport.getDate() != null )
 				query.append( " and s.matchDate = '" + scoreReport.getDate() + "'");
 			else if( query.length() > 0 )
 				query.append( query );
-			else if( scoreReport.getStudent().getId() != null )
+			else if( scoreReport.getStudent().getId() >= 0 )
 				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'");
 			else{
 
@@ -188,7 +239,8 @@ public class ScoreReportManager {
 			if( stmt.execute( query.toString() ) ){
 				ResultSet r = stmt.getResultSet();
 				Iterator<Matchup> matchupIter = new MatchupIterator( r, objectLayer );
-				if ( matchupIter != null && teamIter.hasNext() ){
+				Iterator<Team> teamIter = new TeamIterator( r, objectLayer );
+				if ( matchupIter != null && teamIter .hasNext() ){
 					return matchupIter.next();
 				}
 				else

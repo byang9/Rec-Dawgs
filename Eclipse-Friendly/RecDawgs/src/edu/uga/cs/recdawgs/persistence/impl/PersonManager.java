@@ -10,7 +10,12 @@ import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.User;
+<<<<<<< HEAD
+
+package edu.uga.cs.recdawgs.RDException;
+=======
 import edu.uga.cs.recdawgs.object.ObjectLayer;
+>>>>>>> origin/master
 
 
 
@@ -24,12 +29,24 @@ public class PersonManager {
     }
 
     //TODO throws Exception
+<<<<<<< HEAD
+    public void save(User person) throws RDException{
+        String               insertPersonSql = 
+        "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address, phone) 
+        values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";              
+        String               updatePersonSql = 
+        "update person  set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, address = ? phone = ?";              
+        PreparedStatement    stmt;
+        int                  inscnt;
+        long                 personId;
+=======
     public void save(User user) throws RDException{
         String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address, phone) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";              
         String updatePersonSql = "update person  set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, address = ? phone = ?";              
         PreparedStatement stmt;
         int inscnt;
         long personId;
+>>>>>>> origin/master
 
 
         try{

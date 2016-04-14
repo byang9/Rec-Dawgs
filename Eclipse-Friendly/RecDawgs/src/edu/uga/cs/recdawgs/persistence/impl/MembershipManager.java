@@ -10,10 +10,12 @@ import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Membership;
+import edu.uga.cs.recdawgs.entity.Student;
+import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
-public class MembershipManager(){
+public class MembershipManager {
     private ObjectLayer objectLayer = null;
     private Connection  conn = null;
 
@@ -22,14 +24,14 @@ public class MembershipManager(){
     	this.objectLayer = objectLayer;
     }
                                                                                                                          
-    public void save(Membership membership) throws RDException{
+    public void save(Student student, Team team) throws RDException{
         String insertMembershipSql = "insert into membership (studentid, teamid) values (?,?)";
         PreparedStatement  stmt = null;
         int inscnt;
         long membershipId;
 
 
-        if( membership.getStudent() == null || membership.getTeam() == null )
+        if( student.isPersistent() && team.isPersistent() )
             throw new RDException( "MembershipManager.save: Attempting to save a Membership with no Student or team defined" );
         if( !membership.getStudent().isPersistent() || !membership.getTeam().isPersistent() )
             throw new RDException( "MembershipManager.save: Attempting to save a Membership where either Student or Team are not persistent" );
