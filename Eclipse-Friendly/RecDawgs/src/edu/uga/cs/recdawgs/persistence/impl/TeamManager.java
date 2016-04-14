@@ -244,6 +244,44 @@ public class TeamManager {
         throw new RDException("TeamManager.restore: Could not restore persistent Team object");
 
     }//restore
+
+
+
+    public Iterator<Team> restore(League league) throws RDException{
+        String selectTeamSql = "select * team";
+        Statement stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+
+        query.append ( selectTeamSql );
+
+        if (league != null){
+            if (league.getId() >= 0)
+                query.append(" where leagueid = " + league.getId()); //team id is unique, so it is sufficient to get student
+        }
+
+        try {
+            stmt = conn.createStatement();
+
+            if (stmt.execute(query.toString())){
+                ResultSet r = stmt.getResultSet();
+                if (stmt.execute("select name, leagueid, captainid from team where leagueid = " + r.getLong(1))) {
+                    ResultSet r2 = stmt.getResultSet();
+                    return new TeamIterator(r2, objectLayer);
+                }
+            }
+
+        }
+        catch(Exception e){
+            throw new RDException( "TeamManager.restore: Could not restore persistent Team object; Root cause: " + e);
+        }
+        throw new RDException("TeamManager.restore: Could not restore persistent Team object");
+
+    }//restore
+
+
     
     public Student restoreCaptain(Team team) throws RDException{
         String selectTeamSql = "select id, name, leagueId, established, captainId";

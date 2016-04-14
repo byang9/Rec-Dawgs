@@ -269,11 +269,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     public void storeTeamParticipatesInLeague(Team team, League league) throws RDException {
-        
+
+        teamManager.save(team);
     }
     
     public Iterator<Team> restoreTeamParticipatesInLeague(League league) throws RDException {
-        
+        return teamManager.restore(league);
     }
     
     public League restoreTeamParticipatesInLeague(Team team) throws RDException {
