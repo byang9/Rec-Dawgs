@@ -278,11 +278,11 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     public League restoreTeamParticipatesInLeague(Team team) throws RDException {
-        
+        return leagueManager.restore(team);
     }
     
     public void deleteTeamParticipatesInLeague(Team team, League league) throws RDException {
-        
+        teamManager.delete(team, league);
     }
     
     public void storeTeamWinnerOfLeague(Team team, League league) throws RDException {

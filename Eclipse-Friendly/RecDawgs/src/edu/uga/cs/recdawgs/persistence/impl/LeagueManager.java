@@ -165,6 +165,52 @@ class LeagueManager
         throw new RDException( "LeagueManager.restore: Could not restore persistent League object" );
     }
 
+
+
+    //restoreTeamParticipatesInLeague
+    public League restore(Team team) throws RDException{
+        String selectTeamSql = "Select l.id, l.name, l.winnerId, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers,
+                            l.maxTeamMembers, l.matchRules, l.leagueRules 
+                            from league l, team t";
+        Statement stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+
+        condition.setLength( 0 );
+
+        query.append ( selectTeamSql );
+
+        if (team != null){
+            if (team.getLeagueId() >= 0)
+                query.append( " where leagueId = " + team.getLeagueId()); //team id is unique, so it is sufficient to get team
+                    
+        }
+
+        try {
+            stmt = conn.createStatement();
+
+            if (stmt.execute(query.toString())){
+                ResultSet r = stmt.getResultSet();
+                if (stmt.execute("select name, leagueRules, matchRules, isIndoor, minTeams, maxTeams, minPlayers, maxPlayers where id = " + r.getLong(1))) {
+                    //createLeague( String name, String leagueRules, String matchRules, 
+                    //boolean isIndoor, int minTeams, int maxTeams, int minPlayers, int maxPlayers )
+
+                    ResultSet r2 = stmt.getResultSet();
+                    return objectLayer.createLeague(r2.getString(2), r2.getString(3), r2.getString(4), r2.getBoolean(5), r2.getInteger(6), r2.getInteger(8), r2.getInteger(9), r2.getInteger(10));
+                }
+            }
+
+        }
+        catch(Exception e){
+            throw new RDException( "LeagueManager.restore: Could not restore persistent League object; Root cause: " + e);
+        }
+        throw new RDException("LeagueManager.restore: Could not restore persistent League object");
+
+    }//restore
+
+
+
+
     public void delete(League league) throws RDException {
         String               deleteLeagueSql = "delete from league where id = ?";     
         PreparedStatement    stmt = null;

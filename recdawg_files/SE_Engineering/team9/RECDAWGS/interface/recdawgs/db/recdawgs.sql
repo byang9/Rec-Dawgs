@@ -23,7 +23,7 @@ CREATE TABLE person (
     password        VARCHAR(255) NOT NULL,
     email           VARCHAR(255) NOT NULL,
     isStudent       BOOLEAN NOT NULL,
-    studentID       INT UNSIGNED,
+    studentId       INT UNSIGNED,
     address         VARCHAR(255),
     phone           VARCHAR(255)
 );
@@ -34,8 +34,8 @@ CREATE TABLE person (
 CREATE TABLE team (
     id              INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name            VARCHAR(255) NOT NULL UNIQUE,
-    leagueid        INT UNSIGNED NOT NULL,
-    captainid       INT UNSIGNED NOT NULL,
+    leagueId        INT UNSIGNED NOT NULL,
+    captainId       INT UNSIGNED NOT NULL,
   
     FOREIGN KEY (captainid) REFERENCES person(id), 
     FOREIGN KEY (leagueid) REFERENCES league(id)
@@ -99,7 +99,7 @@ CREATE TABLE scorereport (
     homePoints	    INT UNSIGNED NOT NULL,
     awayPoints		INT UNSIGNED NOT NULL,
     matchDate		DATETIME NOT NULL,
-    studentID       INT UNSIGNED NOT NULL,
+    studentId       INT UNSIGNED NOT NULL,
 
     FOREIGN KEY (matchId) REFERENCES matchup(id),
     FOREIGN KEY (studentID) REFERENCES person(id)
@@ -109,7 +109,7 @@ CREATE TABLE scorereport (
 # Table definition for table 'round'
 #
 CREATE TABLE round (
-    leagueid        INT UNSIGNED,
+    leagueId        INT UNSIGNED,
     roundNo         INT UNSIGNED,
     PRIMARY KEY     (leagueid, roundNo),  
     FOREIGN KEY     (leagueid) REFERENCES league(id) ON DELETE CASCADE
@@ -130,8 +130,8 @@ CREATE TABLE venue (
 #
 CREATE TABLE hasVenue (
     id   	      INT UNSIGNED PRIMARY KEY,
-    leagueid      INT UNSIGNED NOT NULL,
-    venueid       INT UNSIGNED NOT NULL,
+    leagueId      INT UNSIGNED NOT NULL,
+    venueId       INT UNSIGNED NOT NULL,
   
   FOREIGN KEY (leagueid) REFERENCES league(id),
   FOREIGN KEY (venueid) REFERENCES venue(id)
