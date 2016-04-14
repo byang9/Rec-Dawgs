@@ -8,14 +8,14 @@ package edu.uga.cs.recdawgs.persistence.impl;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.Date;
-import java.util.RDException;
+import java.util.NoSuchElementException;
 
-import edu.uga.Matchup.object.ObjectLayer;
-import edu.uga.Matchup.RDException;
-import edu.uga.Matchup.entity.Matchup;
-import edu.uga.Matchup.entity.Team;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.Match;
+import edu.uga.cs.recdawgs.entity.Team;
 
-public class MatchupIterator implements Iterator<Matchup>{
+public class MatchupIterator implements Iterator<Match>{
 	private ResultSet		rs = null;
 	private ObjectLayer		objectLayer = null;
 	private boolean			more = false;
@@ -35,7 +35,7 @@ public class MatchupIterator implements Iterator<Matchup>{
 		return more;
 	}
 
-	public Matchup next(){
+	public Match next(){
 		long	id;
 		long	homeTeamId;
 		long	awayTeamId;
@@ -45,8 +45,6 @@ public class MatchupIterator implements Iterator<Matchup>{
 		boolean	isCompleted;
 		String	homeTeamName;
 		String	awayTeamName;
-		long	homeTeamId;
-		long	awayTeamId;
 		Team homeTeam = null;
 		Team awayTeam = null;
 
@@ -60,7 +58,7 @@ public class MatchupIterator implements Iterator<Matchup>{
 				matchDate = rs.getDate( 6 );
 				isCompleted = rs.getBoolean( 7 );
 				homeTeamName = rs.getString( 8 );
-				awayTeamname = rs.getString( 9 );
+				awayTeamName = rs.getString( 9 );
 				homeTeamId = rs.getLong( 10 );
 				awayTeamId = rs.getLong( 11 );
 
@@ -70,10 +68,9 @@ public class MatchupIterator implements Iterator<Matchup>{
 				throw new NoSuchElementException( "MatchupIterator: No next Matchup object; root cause: " + e );
 			}
 
-			homeTeam = objectLayer.createTeam( name );
-			awayTeam = objectLayer.createTeam( name );
+			Match match = objectLayer.createMatch(homePoints, awayPoints, matchDate, isCompleted, homeTeam, awayTeam);
 
-			return matchup;
+			return match;
 		}
 		else{
 			throw new NoSuchElementException( "MatchupIterator: No next Matchup object" );

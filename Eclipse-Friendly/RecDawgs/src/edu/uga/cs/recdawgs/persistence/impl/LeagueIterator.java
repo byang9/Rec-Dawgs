@@ -1,13 +1,11 @@
 package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.ResultSet;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
-import edu.uga.cs.recdawgs.entity.User;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 /**
@@ -41,7 +39,6 @@ public class LeagueIterator implements Iterator<League> {
     public League next() {
         long   id;
         String name;
-        long winnerID;
         boolean isIndoor;
         long minTeams;
         long maxTeams;
@@ -56,7 +53,6 @@ public class LeagueIterator implements Iterator<League> {
             try {
                 id = rs.getLong(1);
                 name = rs.getString(2);
-                winnerID = rs.getLong(3);
                 isIndoor = rs.getBoolean(4);
                 minTeams = rs.getLong(5);
                 maxTeams = rs.getLong(6);
@@ -72,11 +68,11 @@ public class LeagueIterator implements Iterator<League> {
             }
             
             try {
-                league = objectLayer.createLeague(name, winnerID, isIndoor, minTeams, maxTeams, minTeamMembers, maxTeamMembers, matchRules, leagueRules);
+                league = objectLayer.createLeague(name, leagueRules, matchRules, isIndoor, (int)minTeams, (int)maxTeams, (int)minTeamMembers, (int)maxTeamMembers);
                 league.setId(id);
             }
-            catch (RDException ce) {
-                throw new RDException("This shouldn't ever happen: LeagueIterator: " + ce);
+            catch (RDException e) {
+                System.out.println("ERROR (LeagueIterator): " + e);
             }
             
             return league;

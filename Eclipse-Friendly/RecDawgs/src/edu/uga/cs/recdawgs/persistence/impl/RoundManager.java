@@ -1,4 +1,4 @@
-package edu.uga.clubs.persistence.impl;
+package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -40,10 +40,8 @@ public class RoundManager
                 stmt.setLong(1, round.getLeague().getId());
             else 
                 throw new RDException("RoundManager.save: can't save a Round: league ID undefined");
-            if (round.getRoundNum() != null) // round number
-                stmt.setLong(2, round.getRoundNum());
-            else 
-                throw new RDException("RoundManager.save: can't save a Round: Round number undefined");
+            
+            stmt.setLong(2, round.getNumber());
             
             inscnt = stmt.executeUpdate();
             
@@ -61,7 +59,7 @@ public class RoundManager
                         // retrieve the last insert auto_increment value
                         roundId = r.getLong( 1 );
                         if( roundId > 0 )
-                            round.setNumber( roundId ); // set this roudnmanager's db id (proxy object)
+                            round.setNumber( (int)roundId ); // set this roudnmanager's db id (proxy object)
                     }
                 }
             }
@@ -93,7 +91,7 @@ public class RoundManager
                 query.append( " where id = " + round.getNumber() );
             else {
 
-                if( round.getLeague().getId() != null ) {
+                if( round.getLeague() != null ) {
                     condition.append( " and m.personid = " + round.getLeague().getId()); 
                 }
             }

@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
-import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -315,7 +314,7 @@ public class MatchupManager{
 			//
 			if( stmt.execute( query.toString() ) ) {
 				ResultSet r = stmt.getResultSet();
-				Iterator<Match> teamIter = new MatchupIterator( r, objectLayer );
+				return new MatchupIterator( r, objectLayer );
 			}
 		}
 		catch( Exception e ){
@@ -359,7 +358,7 @@ public class MatchupManager{
 			//
 			if( stmt.execute( query.toString() ) ) {
 				ResultSet r = stmt.getResultSet();
-				Iterator<Match> teamIter = new MatchupIterator( r, objectLayer );
+				return new MatchupIterator( r, objectLayer );
 			}
 		}
 		catch( Exception e ){

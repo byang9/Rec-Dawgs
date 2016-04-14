@@ -2,13 +2,12 @@ package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.ResultSet;
 import java.util.Iterator;
-import java.util.Date;
-import java.util.RDException;
+import java.util.NoSuchElementException;
 
 
-import edu.uga.League.object.ObjectLayer;
-import edu.uga.League.RDException;
-import edu.uga.League.entity.Round;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.Round;
 
 
 public class RoundIterator implements Iterator<Round> {
@@ -33,14 +32,12 @@ public class RoundIterator implements Iterator<Round> {
     }
 
     public Round next() {
-        long        leagueId;
         long        roundNo;
         
 
         if (more) {
 
             try {
-                leagueId = rs.getLong(1);
                 roundNo = rs.getLong(2);
 
                 more = rs.next();
@@ -49,16 +46,16 @@ public class RoundIterator implements Iterator<Round> {
                 throw new NoSuchElementException( "RoundIterator: No next Round object; root cause: " + e );
             }
             
-            round = objectLayer.createRound(leageuId,roundNo);
-            round.setId(id);
-            try {
-                //League.setFounderId( founderId );
-            }
-            catch (Exception ce) {
-                // safe to ignore: we explicitly set the persistent id of the founder Person object above!
-            }
+            Round round;
+			try {
+				round = objectLayer.createRound((int)roundNo);
+				return round;
+			} catch (RDException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             
-            return round;
+            return null;
         }
         else {
             throw new NoSuchElementException("RoundIterator: No next Round object");

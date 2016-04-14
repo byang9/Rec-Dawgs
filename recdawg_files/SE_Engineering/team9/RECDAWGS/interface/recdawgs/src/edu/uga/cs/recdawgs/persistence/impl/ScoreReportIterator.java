@@ -57,20 +57,16 @@ public class ScoreReportIterator implements Iterator<ScoreReport>{
 
 				more = rs.next();
 				
-				return objectLayer.createScoreReport(homePoints, awayPoints, date, studentID, matchID);
+				return objectLayer.createScoreReport((int)homePoints, (int)awayPoints, date, studentID, matchID);
 			}
 			catch( Exception e ){
 				throw new NoSuchElementException( "ScoreReportIterator: No next ScoreReport object; root cause: " + e );
 			}
 
-			return scoreReport;
+			return null;
 		}
 		else{
 			throw new NoSuchElementException( "ScoreReportIterator: No next ScoreReport object" );
-		}
-
-		public void remove(){
-			throw new UnsupportedOperationException();
 		}
 	}
 }

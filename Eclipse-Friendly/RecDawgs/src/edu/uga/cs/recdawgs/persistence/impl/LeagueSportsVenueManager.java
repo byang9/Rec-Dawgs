@@ -33,8 +33,6 @@ class LeagueSportsVenueManager {
         String insertRelationSql = "insert into hasVenue ( leagueid, venueid ) values ( ?, ? )";
         String updateRelationSql = "update hasVenue set leagueid = ?, venueid = ? where id = ?";
         PreparedStatement stmt = null;
-        int inscnt;
-        long relationID;
                  
         try {
             if (!l.isPersistent() || !sv.isPersistent())
@@ -48,7 +46,7 @@ class LeagueSportsVenueManager {
             if (sv.isPersistent())
                 stmt.setLong(3, sv.getId());
 
-            inscnt = stmt.executeUpdate();
+            stmt.executeUpdate();
             
         }
         catch (SQLException e) {
@@ -93,9 +91,46 @@ class LeagueSportsVenueManager {
         }
         return null;
     }
+    
+    public Iterator<SportsVenue> restoreWithLeague(League l) throws RDException {
+        String       selectSql = "select l.id, v.id from hasVenue";
+        // HasVenue -- leagueid | (venueid)
+        // League -- league rows that have leagueid
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer(100);
+        StringBuffer condition = new StringBuffer(100);
 
-    public void delete(League league) throws RDException {
-        String               deleteLeagueSql = "delete from league where id = ?";     
+        condition.setLength(0);
+        
+        // form the query based on the given League object instance
+        query.append(selectSql);
+        
+        if (l != null) {
+            if (l.getId() >= 0) // id is unique, so it is sufficient to get a league
+                query.append( " where l.id = " + l.getId());
+        }
+        
+        try {
+
+            stmt = conn.createStatement();
+
+            // retrieve the persistent SVIterator object
+            if (stmt.execute(query.toString())) { // statement returned a result
+                ResultSet r = stmt.getResultSet();
+                if (stmt.execute("select v.id, v.name, v.address, v.isIndoor from venue v where v.id = " + r.getLong(1))) {
+                	ResultSet r2 = stmt.getResultSet();
+                	return new VenueIterator(r2, objectLayer);
+                }
+            }
+        }
+        catch (Exception e) {      // just in case...
+            throw new RDException( "LeagueSportsVenueManager.restore: Could not restore persistent League object; Root cause: " + e );
+        }
+        return null;
+    }
+
+    public void delete(League league, SportsVenue sv) throws RDException {
+        String               deleteLeagueSql = "delete from hasVenue where id = ?";     
         PreparedStatement    stmt = null;
         int                  inscnt;
              

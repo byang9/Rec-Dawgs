@@ -1,3 +1,5 @@
+package edu.uga.cs.recdawgs.persistence.impl;
+
 import java.sql.Connection;
 import java.util.Iterator;
 
@@ -11,7 +13,6 @@ import edu.uga.cs.recdawgs.entity.SportsVenue;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
-//import entities
 //import object layet
 //import persistence layer
 import edu.uga.cs.recdawgs.persistence.PersistenceLayer;
@@ -26,6 +27,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     private LeagueManager leagueManager = null;
     private MatchupManager matchManager = null;
     private ScoreReportManager scoreReportManager = null;
+    private RoundManager roundManager = null;
     
     // Association Managers
     private LeagueSportsVenueManager lsvManager = null;
@@ -40,6 +42,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     	this.leagueManager = new LeagueManager(conn, objectLayer);
         this.matchManager = new MatchupManager(conn, objectLayer);
         this.scoreReportManager = new ScoreReportManager(conn, objectLayer);
+        this.roundManager = new RoundManager(conn, objectLayer);
     	System.out.println("PersistenceLayerImpl initialized.");
     }
     
@@ -183,19 +186,8 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
     /* Associations in Persistence Layer */
     
-    public void storeStudentCaptainOfTeam(Student student, Team team) throws RDException {
-    	if( student == null )
-    		throw new RDException( "The team's captain is null" );
-    	if( !student.isPersistent() )
-    		throw new RDException( "The team's captain is not persistent" );
+    public void storeStudentCaptainOfTeam(Student student, Team team) throws RDException {    	
     	
-    	if( team == null )
-    		throw new RDException( "The team is null" );
-    	if( !team.isPersistent() )
-    		throw new RDException( "The team is not persistent" );
-    	
-        teamManager.save(team);
-        personManager.save(student);
     }
     
     public Student restoreStudentCaptainOfTeam(Team team) throws RDException {
@@ -210,36 +202,42 @@ public class PersistenceLayerImpl implements PersistenceLayer {
         
     }
     
+    // Saves a student and team relationship
     public void storeStudentMemberOfTeam(Student student, Team team) throws RDException {
-        
+        membershipManager.save(student, team);
     }
     
+    // Returns students that are part of the given team
     public Iterator<Student> restoreStudentMemberOfTeam(Team team) throws RDException {
-        
+        return membershipManager.restore(team);
     }
     
+    // Returns teams that the given student is on
     public Iterator<Team> restoreStudentMemberOfTeam(Student student) throws RDException {
-        
+        return membershipManager.restore(student);
     }
     
+    // Deletes a team to student relationship
     public void deleteStudentMemberOfTeam(Student student, Team team) throws RDException {
-        
+        membershipManager.delete(student, team);
     }
     
     public void storeTeamHomeTeamMatch(Team team, Match match) throws RDException {
         
     }
     
+    // Returns teams that are from a given match
     public Team restoreTeamHomeTeamMatch(Match match) throws RDException {
         return matchManager.restoreHomeTeam(match);
     }
     
+    // Returns matches from a given a home team
     public Iterator<Match> restoreTeamHomeTeamMatch(Team team) throws RDException {
         return matchManager.restoreHomeTeamMatch(team);
     }
     
     public void deleteTeamHomeTeamMatch(Team team, Match match) throws RDException {
-        matchManager.delete(match);
+        
     }
     
     public void storeTeamAwayTeamMatch(Team team, Match match) throws RDException {
@@ -250,6 +248,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
         
     }
     
+    // Returns the matches from a given away team
     public Iterator<Match> restoreTeamAwayTeamMatch(Team team) throws RDException {
         return matchManager.restoreAwayTeamMatch(team);
     }
@@ -297,12 +296,12 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     
     // Returns League Iterator from League-SportsVenue many-to-many association -- inside LeagueSportsVenueManager
     public Iterator<League> restoreLeagueSportsVenue(SportsVenue sportsVenue) throws RDException {
-        lsvManager.restoreFromSportsVenue(sportsVenue);
+        return lsvManager.restoreWithSportsVenue(sportsVenue);
     }
     
     // Returns SportsVenue Iterator from League-SportsVenue many-to-many association -- inside LeagueSportsVenueManager
     public Iterator<SportsVenue> restoreLeagueSportsVenue(League league) throws RDException {
-        lsvManager.restoreFromLeague(league);
+        return lsvManager.restoreWithLeague(league);
     }
     
     // Deletes League-SportsVenue many-to-many association -- inside LeagueSportsVenueManager
@@ -347,7 +346,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     public void deleteMatchSportsVenue(Match match, SportsVenue sportsVenue) throws RDException {
-        matchSportsVenueManager.delete( matchSportsVenue );
+    	
     }
     
  }

@@ -145,7 +145,6 @@ public class TeamManager {
     public void delete(Team team){
         String               deleteTeamSql = "delete from team where id = ?";              
         PreparedStatement    stmt = null;
-        int                  inscnt;
         
         // form the query based on the given Team object instance
         if( !team.isPersistent() ) // is the Team object persistent?  If not, nothing to actually delete
@@ -159,7 +158,7 @@ public class TeamManager {
             
             stmt.setLong( 1, team.getId() );
             
-            inscnt = stmt.executeUpdate();
+            stmt.executeUpdate();
          
         }
         catch( SQLException e ) {

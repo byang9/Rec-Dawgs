@@ -179,8 +179,7 @@ public interface ObjectLayer
      * @return a new League instance with the given attribute values
      * @throws RDException in case name is null or any of the team/player numbers is not positive or the given maximum is less than the corresponding minimum
      */
-    public League createLeague( String name, String leagueRules, String matchRules,
-            boolean isIndoor, int minTeams, int maxTeams, int minPlayers, int maxPlayers ) throws RDException;
+    public League createLeague( String name, String leagueRules, String matchRules, boolean isIndoor, int minTeams, int maxTeams, int minPlayers, int maxPlayers ) throws RDException;
 
     /**
      * Create a new League object with undefined attribute values.
