@@ -6,19 +6,14 @@
 package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
 import com.mysql.jdbc.PreparedStatement;
-import java.sql.Date;
-
 import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.entity.Match;
 import edu.uga.cs.recdawgs.entity.ScoreReport;
-import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 public class ScoreReportManager {
@@ -42,18 +37,14 @@ public class ScoreReportManager {
 			if( !scoreReport.isPersistent() )
 				stmt = (PreparedStatement) conn.prepareStatement(insertScoreReportSql);
 			else
-<<<<<<< HEAD
-				stmt = (PreparedStatement) conn.prepareStatement(updateMatchupSql);
+				stmt = (PreparedStatement) conn.prepareStatement(updateScoreReportSql);
 			if( scoreReport.getMatch().getId() >= 0 )
-=======
 				stmt = (PreparedStatement) conn.prepareStatement(updateScoreReportSql);
 			if( scoreReport.getMatch() != null )
->>>>>>> origin/master
 				stmt.setLong(1, scoreReport.getMatch().getId());
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report ID undefined" );
 
-<<<<<<< HEAD
 			if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
 				stmt.setLong(2, scoreReport.getMatch().getHomeTeam().getId() );
 			else
@@ -75,12 +66,11 @@ public class ScoreReportManager {
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report away points undefined" );
 
 			if( scoreReport.getDate() != null )
-				stmt.setDate(6, scoreReport.getDate());
+				stmt.setDate(6, new java.sql.Date(scoreReport.getDate().getTime()));
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report date undefined" );
 
 			if( scoreReport.getStudent().getId() >= 0 )
-=======
 			if( scoreReport.getMatch().getHomeTeam() != null )
 				stmt.setLong(2, scoreReport.getMatch().getHomeTeam().getId());
 			else
@@ -100,7 +90,6 @@ public class ScoreReportManager {
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report date undefined" );
 
 			if( scoreReport.getStudent() != null )
->>>>>>> origin/master
 				stmt.setLong(7, scoreReport.getStudent().getId());
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report student ID undefined" );
@@ -152,7 +141,6 @@ public class ScoreReportManager {
 		if( scoreReport != null ){
 			if( scoreReport.getMatch().getId() >= 0 )
 				query.append( " and s.id = " + scoreReport.getMatch().getId() );
-<<<<<<< HEAD
 			else if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
 				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() + "'" );
 			else if( scoreReport.getMatch().getAwayTeam().getId() >= 0 )
@@ -161,8 +149,8 @@ public class ScoreReportManager {
 				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() + "'" );
 			else if( scoreReport.getAwayPoints() >= 0 )
 				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() + "'" );
-			else if(scoreReport.getDate() != null ){
-=======
+			else if(scoreReport.getDate() != null )
+				query.append( " and s.matchDate = '" + scoreReport.getDate() + "'" );
 			else if( scoreReport.getMatch().getHomeTeam() != null )
 				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() + "'" );
 			else if( scoreReport.getMatch().getAwayTeam() != null )
@@ -170,16 +158,11 @@ public class ScoreReportManager {
 			query.append( " and s.homePoints = '" + scoreReport.getHomePoint() + "'" );
 			query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() + "'" );
 			if(scoreReport.getDate() != null ){
->>>>>>> origin/master
 					if( query.length() > 0 )
 						query.append( " and" );
 					query.append( " s.date = '" + scoreReport.getDate() + "'");
 			}
-<<<<<<< HEAD
-			else if( scoreReport.getStudent().getId() >= 0 )
-=======
 			else if( scoreReport.getStudent() != null )
->>>>>>> origin/master
 				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'" );
 		}
 
@@ -197,119 +180,6 @@ public class ScoreReportManager {
 		}
 
 		throw new RDException( "ScoreReportManager.restore: Could not restore persistent ScoreReport object" );
-	}
-
-	public Team restoreMatchup( ScoreReport scoreReport ) throws RDException{
-		String			selectTeamSql = "select m.id, m.homeTeamId, m.awayTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isComplete from matchup m where s.matchId = m.id";
-		Statement		stmt = null;
-		StringBuffer	query = new StringBuffer( 100 );
-		StringBuffer	condition = new StringBuffer( 100 );
-
-		condition.setLength( 0 );
-
-		query.append( selectTeamSql );
-
-		if( scoreReport != null ){
-			if( scoreReport.getMatch().getId() >= 0 )
-				query.append( " and s.id = " + scoreReport.getMatch().getId() + "'" );
-			else if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
-				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() );
-			else if( scoreReport.getMatch().getAwayTeam().getId() >= 0 )
-				query.append( " and s.awayTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() );
-			else if( scoreReport.getHomePoint() >= 0 )
-				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() );
-			else if( scoreReport.getAwayPoints() >= 0 )
-				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() );
-			else if( scoreReport.getDate() != null )
-				query.append( " and s.matchDate = '" + scoreReport.getDate() + "'");
-			else if( query.length() > 0 )
-				query.append( query );
-			else if( scoreReport.getStudent().getId() >= 0 )
-				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'");
-			else{
-
-			}
-		}
-
-		// retrieve the persistent Matchup object
-		//
-		try{
-			stmt = conn.createStatement();
-
-			if( stmt.execute( query.toString() ) ){
-				ResultSet r = stmt.getResultSet();
-				Iterator<Matchup> matchupIter = new MatchupIterator( r, objectLayer );
-				Iterator<Team> teamIter = new TeamIterator( r, objectLayer );
-				if ( matchupIter != null && teamIter .hasNext() ){
-					return matchupIter.next();
-				}
-				else
-					return null;
-			}
-		}
-		catch( Exception e ){
-			throw new RDException( "ScoreReportManager.restoreMatchup: Could not restore persistent Matchup object; Root cause: " + e );
-		}
-
-		// if we reach this point, it's an error
-		throw new RDException( "ScoreReportManager.restoreMatchup: Could not restore persistent Matchup object" );
-	}
-
-	public Person restorePerson( ScoreReport scoreReport ) throws RDException{
-		String			selectPersonSql = "select p.id, p.firstName, p.lastName, p.userName, p.password, p.email, p.isStudent, p.studentId, p.address, p.phone from person p, score report s where p.id = s.studentId";
-		Statement		stmt = null;
-		StringBuffer	query = new StringBuffer( 100 );
-		StringBuffer	condition = new StringBuffer( 100 );
-
-		condition.setLength( 0 );
-
-		// form the query based on the given Person object instance
-		query.append( selectPersonSql );
-
-		if( scoreReport != null ){
-			if( scoreReport.getMatch().getId() >= 0 )
-				query.append( " and s.matchId = " + scoreReport.getMatch().getId() );
-			else if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )
-				query.append( " and s.homeTeamId = " + scoreReport.getMatch().getHomeTeam().getId() );
-			else if( scoreReport.getMatch().getAwayTeam().getId() >= 0 )
-				query.append( " and s.awayTeamId = " + scoreReport.getMatch().getAwayTeam().getId() );
-			else if( scoreReport.getHomePoint() != null )
-				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() );
-			else if( scoreReport.getAwayPoints() != null )
-				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() );
-			else if( scoreReport.getDate() != null )
-				query.append( " and s.matchDate = '" + scoreReport.getDate() + "'");
-			else if( query.length() > 0 )
-				query.append( query );
-			else if( scoreReport.getStudent().getId() != null )
-				query.append( " and s.studentId = '" + scoreReport.getStudent().getId() + "'");
-			else{
-
-			}
-		}
-
-		try{
-
-			stmt = conn.createStatement();
-
-			// retrieve the persistent Person object
-			//
-			if( stmt.execute( query.toString() ) ){
-				ResultSet r = stmt.getResultSet();
-				Iterator<Person> personIter = new PersonIterator( r, objectLayer );
-				if( personIter != null && personIter.hasNext() ) {
-					return personIter.next();
-				}
-				else
-					return null;
-			}
-		}
-		catch( Exception e ){
-			throw new RDException( "ScoreReportManager.restorePerson: Could not restore persistent Person object; Root cause: " + e );
-		}
-
-		// if we reach this point, it's an error
-		throw new ScoreReportException( "ScoreReportManager.restorePerson: Could not restore persistent Person object" );
 	}
 
 	public void delete(ScoreReport scoreReport) throws RDException{

@@ -58,7 +58,9 @@ class LeagueSportsVenueManager {
     }
 
     public Iterator<League> restoreWithSportsVenue(SportsVenue v) throws RDException {
-        String       selectSql = "select v.id, v.name, v.address, v.isIndoor";
+        String       selectSql = "select l.id, v.id from hasVenue";
+        // HasVenue -- leagueid | (venueid)
+        // League -- league rows that have leagueid
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -70,20 +72,7 @@ class LeagueSportsVenueManager {
         
         if (v != null) {
             if (v.getId() >= 0) // id is unique, so it is sufficient to get a league
-                query.append( " and id = " + v.getId());
-            else if (v.getName() != null) // vName is unique, so it is sufficient to get a league
-                query.append(" and name = '" + v.getName() + "'");
-            else {
-
-                if (v.address() != null)
-                    condition.append( " and address = '" + v.getAddress() + "'");   
-
-                if (v.getIsIndoor() != null) {
-                    if (condition.length() > 0)
-                        condition.append(" and");
-                    condition.append(" isIndoor = '" + v.getIsIndoor() + "'");
-                }
-            }
+                query.append( " where v.id = " + v.getId());
         }
         
         try {
@@ -93,28 +82,16 @@ class LeagueSportsVenueManager {
             // retrieve the persistent SVIterator object
             if (stmt.execute(query.toString())) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                VenueIterator svI = new VenueIterator(r, objectLayer);
+                if (stmt.execute("select l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules l.leagueRules from league l where l.id = " + r.getLong(1))) {
+                	ResultSet r2 = stmt.getResultSet();
+                	return new LeagueIterator(r2, objectLayer);
+                }
             }
         }
         catch (Exception e) {      // just in case...
             throw new RDException( "LeagueSportsVenueManager.restore: Could not restore persistent League object; Root cause: " + e );
         }
-        
-        try {
-
-            stmt = conn.createStatement();
-
-            // retrieve the persistent Person object
-            if (stmt.execute(query.toString())) { // statement returned a result
-                ResultSet r = stmt.getResultSet();
-                return new LeagueIterator(r, objectLayer);
-            }
-        }
-        catch (Exception e) {      // just in case...
-            throw new RDException( "LeagueSportsVenueManager.restore: Could not restore persistent League object; Root cause: " + e );
-        }
-
-        throw new RDException( "LeagueSportsVenueManager.restore: Could not restore persistent League object" );
+        return null;
     }
 
     public void delete(League league) throws RDException {

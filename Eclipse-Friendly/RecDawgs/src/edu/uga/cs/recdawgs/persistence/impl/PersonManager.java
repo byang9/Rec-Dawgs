@@ -10,12 +10,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.User;
-<<<<<<< HEAD
-
-package edu.uga.cs.recdawgs.RDException;
-=======
 import edu.uga.cs.recdawgs.object.ObjectLayer;
->>>>>>> origin/master
 
 
 
@@ -28,25 +23,13 @@ public class PersonManager {
     	this.objectLayer = objectLayer;
     }
 
-    //TODO throws Exception
-<<<<<<< HEAD
-    public void save(User person) throws RDException{
-        String               insertPersonSql = 
-        "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address, phone) 
-        values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";              
-        String               updatePersonSql = 
-        "update person  set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, address = ? phone = ?";              
-        PreparedStatement    stmt;
-        int                  inscnt;
-        long                 personId;
-=======
+ 
     public void save(User user) throws RDException{
         String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address, phone) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";              
         String updatePersonSql = "update person  set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, address = ? phone = ?";              
         PreparedStatement stmt;
         int inscnt;
         long personId;
->>>>>>> origin/master
 
 
         try{
@@ -63,7 +46,7 @@ public class PersonManager {
             
             //last name
             if (user.getLastName()!= null){
-                stmt.setString(2, user.getLastName();
+                stmt.setString(2, user.getLastName());
             }
             else
                 throw new RDException("PersonManager.save: can't save a Person: lastName undefined" );
@@ -111,7 +94,7 @@ public class PersonManager {
                 */
 
             if (user.isPersistent())
-                stmt.setLong(1, user.getId()));
+                stmt.setLong(1, user.getId());
 
             inscnt = stmt.executeUpdate();
 
@@ -144,8 +127,8 @@ public class PersonManager {
 
     }//save
 
-    public Iterator<Person> restore(Person modelPerson) throws RDException {
-        String selectPersonSql = "firstname, lastname, username, password, email, isStudent, studentID, address, phone"
+    public Iterator<User> restore(User modelPerson) throws RDException {
+        String selectPersonSql = "u.firstname, u.lastname, u.username, u.password, u.email, u.isStudent, u.studentID, u.address, u.phone";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
