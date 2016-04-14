@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import edu.uga.clubs.RDException;
-import edu.uga.clubs.session.SessionManager;
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.session.*;
 
 import org.apache.log4j.Logger;
 

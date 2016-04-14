@@ -8,6 +8,7 @@ import edu.uga.cs.recdawgs.entity.*;
 import edu.uga.cs.recdawgs.object.*;
 import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.*;
+import edu.uga.cs.recdawgs.persistence.impl.DbUtils;
 import edu.uga.cs.recdawgs.persistence.impl.PersistenceLayerImpl;
 
 public class ReadTest{

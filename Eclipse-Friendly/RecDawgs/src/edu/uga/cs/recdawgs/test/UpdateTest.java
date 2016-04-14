@@ -1,7 +1,6 @@
 package edu.uga.cs.recdawgs.test;
 
 import java.sql.Connection;
-import java.util.Date;
 import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
