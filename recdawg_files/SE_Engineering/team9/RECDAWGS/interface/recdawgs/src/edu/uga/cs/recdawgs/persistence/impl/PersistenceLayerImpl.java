@@ -32,6 +32,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     // Association Managers
     private LeagueSportsVenueManager lsvManager = null;
     private MembershipManager membershipManager = null;
+    private TeamMatchManager teamMatchManager = null;
    
     public PersistenceLayerImpl(Connection conn, ObjectLayer objectLayer){
     	this.venueManager = new VenueManager(conn, objectLayer);
@@ -43,6 +44,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
         this.matchManager = new MatchupManager(conn, objectLayer);
         this.scoreReportManager = new ScoreReportManager(conn, objectLayer);
         this.roundManager = new RoundManager(conn, objectLayer);
+        this.teamMatchManager = new TeamMatchManager(conn, objectLayer);
     	System.out.println("PersistenceLayerImpl initialized.");
     }
     
@@ -186,20 +188,24 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 
     /* Associations in Persistence Layer */
     
+    // Saves a captain into a team
     public void storeStudentCaptainOfTeam(Student student, Team team) throws RDException {    	
-    	
+    	teamManager.save(student, team);
     }
     
+    // Returns a student who is the captain of the given team
     public Student restoreStudentCaptainOfTeam(Team team) throws RDException {
-        
+        return teamManager.restoreCaptain(team);
     }
     
+    // Returns all teams that a certain student is captain of
     public Iterator<Team> restoreStudentCaptainOfTeam(Student student) throws RDException {
-        
+        return teamManager.restore(student);
     }
     
+    // Deletes captain association from team
     public void deleteStudentCaptainOfTeam(Student student, Team team) throws RDException {
-        
+        teamManager.delete(student, team);
     }
     
     // Saves a student and team relationship
@@ -222,39 +228,44 @@ public class PersistenceLayerImpl implements PersistenceLayer {
         membershipManager.delete(student, team);
     }
     
+    // Stores the home team association to a match
     public void storeTeamHomeTeamMatch(Team team, Match match) throws RDException {
-        
+        teamMatchManager.saveHomeTeam(team, match);
     }
     
-    // Returns teams that are from a given match
+    // Returns the home teams that are from a given match
     public Team restoreTeamHomeTeamMatch(Match match) throws RDException {
-        return matchManager.restoreHomeTeam(match);
+        return teamMatchManager.restoreHomeTeam(match);
     }
     
     // Returns matches from a given a home team
     public Iterator<Match> restoreTeamHomeTeamMatch(Team team) throws RDException {
-        return matchManager.restoreHomeTeamMatch(team);
+        return teamMatchManager.restoreHomeTeamMatch(team);
     }
     
+    // Removes the home team association to a match
     public void deleteTeamHomeTeamMatch(Team team, Match match) throws RDException {
-        
+        teamMatchManager.deleteHomeTeam(team, match);
     }
     
+    // Stores the away team association to a match
     public void storeTeamAwayTeamMatch(Team team, Match match) throws RDException {
-        
+    	teamMatchManager.saveAwayTeam(team, match);
     }
     
+    // Returns the away team that are from a given match
     public Team restoreTeamAwayTeamMatch(Match match) throws RDException {
-        
+        return teamMatchManager.restoreAwayTeam(match);
     }
     
     // Returns the matches from a given away team
     public Iterator<Match> restoreTeamAwayTeamMatch(Team team) throws RDException {
-        return matchManager.restoreAwayTeamMatch(team);
+        return teamMatchManager.restoreAwayTeamMatch(team);
     }
     
+    // Removes the away team association to a match
     public void deleteTeamAwayTeamMatch(Team team, Match match) throws RDException {
-        
+        teamMatchManager.deleteAwayTeam(team, match);
     }
     
     public void storeTeamParticipatesInLeague(Team team, League league) throws RDException {

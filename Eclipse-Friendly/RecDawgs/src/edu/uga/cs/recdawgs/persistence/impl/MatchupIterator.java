@@ -59,16 +59,24 @@ public class MatchupIterator implements Iterator<Match>{
 				isCompleted = rs.getBoolean( 7 );
 				homeTeamName = rs.getString( 8 );
 				awayTeamName = rs.getString( 9 );
-				homeTeamId = rs.getLong( 10 );
-				awayTeamId = rs.getLong( 11 );
 
 				more = rs.next();
 			}
 			catch( Exception e ){
 				throw new NoSuchElementException( "MatchupIterator: No next Matchup object; root cause: " + e );
 			}
+			
+			//ObjectFromID objFromID = new ObjectFromID(conn, objectLayer);
+			//homeTeam = objFromID.getTeamFromID(homeTeamId);
+			//awayTeam = objFromID.getTeamFromID(homeTeamId);
 
-			Match match = objectLayer.createMatch(homePoints, awayPoints, matchDate, isCompleted, homeTeam, awayTeam);
+			Match match = null;
+			try {
+				match = objectLayer.createMatch((int)homePoints, (int)awayPoints, matchDate, isCompleted, homeTeam, awayTeam);
+			} catch (RDException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			return match;
 		}
