@@ -4,21 +4,41 @@ import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.persistence.impl.Persistent;
 
 
-public class StudentImpl extends Persistent implements User{
+public class StudentImpl extends Persistent implements Student {
 
-    String studentId;
-    String major;
-    String address
+	private String firstName;
+	private String lastName;
+	private String userName;
+	private String password;
+	private String emailAddress;
+	private String studentId;
+	private String major;
+	private String address;
 
-    public StudentImpl(String studentId, 
-                       String major, 
-                       String address)
-    {
+    public StudentImpl(String firstName, String lastName, String userName, String password, String emailAddress, String studentId, String major, String address) {
         super(-1);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
+        this.emailAddress = emailAddress;
         this.studentId = studentId;
         this.major = major;
         this.address = address;
     }
+    
+    public StudentImpl() {
+        super(-1);
+        this.firstName = null;
+        this.lastName = null;
+        this.userName = null;
+        this.password = null;
+        this.emailAddress = null;
+        this.studentId = null;
+        this.major = null;
+        this.address = null;
+    }
+    
     /** Return the student id for this student.
      * @return the String representing the id of the student
      */
@@ -63,7 +83,7 @@ public class StudentImpl extends Persistent implements User{
 
     public String toString()
     {
-        return "Student[" + getStudentId() + "] " + getMajor() + " " + getAddress() 
+        return "Student[" + getStudentId() + "] " + getMajor() + " " + getAddress();
     }
     
     public boolean equals( Object otherStudent )
@@ -71,8 +91,58 @@ public class StudentImpl extends Persistent implements User{
         if( otherStudent == null )
             return false;
         if( otherStudent instanceof Student ) // name is a unique attribute
-            return getName().equals( ((Student)otherStudent).getName() );
+            return getUserName().equals( ((Student)otherStudent).getUserName() );
         return false;        
     }
+    
+	@Override
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	@Override
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	@Override
+	public String getLastName() {
+		return lastName;
+	}
+	
+	@Override
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	@Override
+	public String getUserName() {
+		return userName;
+	}
+	
+	@Override
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	@Override
+	public String getPassword() {
+		return password;
+	}
+	
+	@Override
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	@Override
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	
+	@Override
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
 
 }

@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import edu.uga.League.RDException;
-import edu.uga.League.entity.League;
-import edu.uga.League.entity.Person;
-import edu.uga.League.object.ObjectLayer;
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.User;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 /**
  * LeagueIterator is the class iterates between Leagues

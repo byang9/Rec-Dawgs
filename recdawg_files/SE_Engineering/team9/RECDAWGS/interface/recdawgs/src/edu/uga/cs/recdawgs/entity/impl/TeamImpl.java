@@ -1,10 +1,13 @@
 package edu.uga.cs.recdawgs.entity.impl;
 
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.persistence.impl.Persistent;
 
 
-public class TeamImpl extends Persistent implements Team{
+public class TeamImpl extends Persistent implements Team {
 
 	private String name;
 	private Student captain;
@@ -32,7 +35,7 @@ public class TeamImpl extends Persistent implements Team{
      * @param name the new name for this team
      * @throws RDException in case a team with the given name already exists
      */
-    public void setName( String name ) throws RDException{
+    public void setName( String name ) throws RDException {
     	this.name = name;
     }
     
@@ -47,7 +50,7 @@ public class TeamImpl extends Persistent implements Team{
      * @param student the student who is the new captain of this team
      * @throws RDException in case the student is null
      */
-    public void setCaptain( Student student ) throws RDException{
+    public void setCaptain( Student student ) throws RDException {
     	this.captain = student;
     }
     
@@ -62,7 +65,7 @@ public class TeamImpl extends Persistent implements Team{
      * @param league the new league for this team
      * @throws RDException in case the league is null
      */
-    public void setParticipatesInLeague( League league ) throws RDException{
+    public void setParticipatesInLeague( League league ) throws RDException {
     	this.league = league;
     }
     
@@ -83,7 +86,7 @@ public class TeamImpl extends Persistent implements Team{
 
     public String toString()
     {
-        return "Team[" + getName() + "] " + getCaptin() + " " + getParticipatesInLeague() + " " + getWinnerOfLeague();
+        return "Team[" + getName() + "] " + getCaptain() + " " + getParticipatesInLeague() + " " + getWinnerOfLeague();
     }
     
     public boolean equals( Object otherTeam )

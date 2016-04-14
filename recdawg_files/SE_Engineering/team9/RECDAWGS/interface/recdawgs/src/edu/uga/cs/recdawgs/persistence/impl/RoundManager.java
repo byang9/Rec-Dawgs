@@ -30,13 +30,13 @@ public class RoundManager
         int                  inscnt;
         long                 roundId;
         
-        if( round.getLeague().getId() == null)
-            throw new ClubsException( "RoundManager.save: Attempting to save a Round with no League defined" );
+        if( round.getLeague() == null)
+            throw new RDException( "RoundManager.save: Attempting to save a Round with no League defined" );
                               
         try {
             stmt = (PreparedStatement) conn.prepareStatement( insertRoundSql );
             
-            if (round.getLeague().getId() != null) // league id
+            if (round.getLeague() != null) // league id
                 stmt.setLong(1, round.getLeague().getId());
             else 
                 throw new RDException("RoundManager.save: can't save a Round: league ID undefined");

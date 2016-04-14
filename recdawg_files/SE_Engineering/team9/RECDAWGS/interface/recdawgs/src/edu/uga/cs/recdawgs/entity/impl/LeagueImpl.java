@@ -1,12 +1,12 @@
 package edu.uga.cs.recdawgs.entity.impl;
 
 import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.persistence.Persistable;
+import edu.uga.cs.recdawgs.persistence.impl.Persistent;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Team;
 
 
-public class LeagueImpl extends Pesistence implements League {
+public class LeagueImpl extends Persistent implements League {
     
     private String name;
     private Team winnerOfLeague;
@@ -19,7 +19,31 @@ public class LeagueImpl extends Pesistence implements League {
     private String leagueRules;
     
     
-    /** Return the name of this league.
+    public LeagueImpl(String name, String leagueRules, String matchRules, boolean isIndoor, int minTeams, int maxTeams, int minPlayers, int maxPlayers) {
+		this.name = name;
+		this.leagueRules = leagueRules;
+		this.matchRules = matchRules;
+		this.isIndoor = isIndoor;
+		this.minTeams = minTeams;
+		this.maxTeams = maxTeams;
+		this.minTeamMembers = minPlayers;
+		this.maxTeamMembers = maxPlayers;
+	}
+    
+    
+    public LeagueImpl() {
+		this.name = null;
+		this.leagueRules = null;
+		this.matchRules = null;
+		this.isIndoor = false;
+		this.minTeams = 0;
+		this.maxTeams = 0;
+		this.minTeamMembers = 0;
+		this.maxTeamMembers = 0;
+	}
+
+
+	/** Return the name of this league.
      * @return the name of this league
      */
     public String getName() {
@@ -123,7 +147,7 @@ public class LeagueImpl extends Pesistence implements League {
     /** Return the minimum number of team players in this league.
      * @return the minimum number of team players in this league
      */
-    public int getMinTeamMembers() {
+    public int getMinMembers() {
         return minTeamMembers;
     }
     
@@ -132,7 +156,7 @@ public class LeagueImpl extends Pesistence implements League {
      * @param minMembers the new minimum number of team players in this league
      * @throws RDException in case minMembers is not positive
      */
-    public void setMinTeamMembers(int minTeamMembers) throws RDException {
+    public void setMinMembers(int minTeamMembers) throws RDException {
         if (minTeamMembers < 0) throw new RDException("RDException in LeagueImpl.java: Cannot set minTeamMembers to be below 0.");
         this.minTeamMembers = minTeamMembers;
     }
@@ -141,7 +165,7 @@ public class LeagueImpl extends Pesistence implements League {
     /** Return the maximum number of team players in this league.
      * @return the maximum number of team players in this league
      */
-    public int getMaxTeamMembers() {
+    public int getMaxMembers() {
         return maxTeamMembers;
     }
     
@@ -150,7 +174,7 @@ public class LeagueImpl extends Pesistence implements League {
      * @param maxMembers the new maximum number of team players in this league
      * @throws RDException in case maxMembers is not positive or less than the current minimum number of team players for this league
      */
-    public void setMaxTeamMembers( int maxTeamMembers ) throws RDException {
+    public void setMaxMembers( int maxTeamMembers ) throws RDException {
         if (maxTeamMembers < 0) throw new RDException("RDException in LeagueImpl.java: Cannot set maxTeamMembers to be below 0.");
         if (maxTeamMembers < minTeamMembers) throw new RDException("RDException in LeagueImpl.java: Cannot set maxTeamMembers to be below minTeamMembers.");
         this.maxTeamMembers = maxTeamMembers;
@@ -173,5 +197,33 @@ public class LeagueImpl extends Pesistence implements League {
         if (team == null) throw new RDException("RDException in LeagueImpl.java: Cannot set winnerOfLeague cannot be null or a team that is not in this League.");
         this.winnerOfLeague = team;
     }
+
+
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setId(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isPersistent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setIsIndoor(Boolean isIndoor) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

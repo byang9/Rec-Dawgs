@@ -10,8 +10,6 @@ import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
-import edu.uga.cs.recdawgs.entity.Team;
-import edu.uga.cs.recdawgs.entity.User;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 /**
@@ -100,7 +98,7 @@ class LeagueManager
     public Iterator<League> restore(League league) throws RDException {
         String       selectLeagueSql = "select l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
                                       "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules" +
-                                      "l.leagueRules, p.id, p.name, t.id, t.name";
+                                      "l.leagueRules from league l";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);

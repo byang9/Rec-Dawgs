@@ -10,10 +10,12 @@ import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Membership;
+import edu.uga.cs.recdawgs.entity.Student;
+import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
-public class MembershipManager(){
+public class MembershipManager {
     private ObjectLayer objectLayer = null;
     private Connection  conn = null;
 
@@ -23,24 +25,45 @@ public class MembershipManager(){
     }
                                                                                                                          
     public void save(Student student, Team team) throws RDException{
-        String insertMembershipSql = "insert into membership (personid, teamid) values (?,?)";
+        String insertMembershipSql = "insert into membership (studentid, teamid) values (?,?)";
         PreparedStatement  stmt = null;
         int inscnt;
         long membershipId;
 
 
-        if( student == null || team == null )
+        if( student.isPersistent() && team.isPersistent() )
             throw new RDException( "MembershipManager.save: Attempting to save a Membership with no Student or team defined" );
-        if( !student.isPersistent() || !team.isPersistent() )
+        if( !membership.getStudent().isPersistent() || !membership.getTeam().isPersistent() )
             throw new RDException( "MembershipManager.save: Attempting to save a Membership where either Student or Team are not persistent" );
         
         try {
             stmt = (PreparedStatement) conn.prepareStatement( insertMembershipSql );
             
-            stmt.setLong( 1, student.getId() );
-            stmt.setLong( 2, team.getId() );
+            stmt.setLong( 1, membership.getStudent().getId() );
+            stmt.setLong( 2, membership.getTeam().getId() );
 
             inscnt = stmt.executeUpdate();
+            
+            if( inscnt >= 1 ) {
+                String sql = "select last_insert_id()";
+                if( stmt.execute( sql ) ) { // statement returned a result
+
+                    // retrieve the result
+                    ResultSet r = stmt.getResultSet();
+
+                    // we will use only the first row!
+                    //
+                    while( r.next() ) {
+
+                        // retrieve the last insert auto_increment value
+                        membershipId = r.getLong( 1 );
+                        if( membershipId > 0 )
+                            membership.setId( membershipId ); // set this membership's db id (proxy object)
+                    }
+                }
+            }
+            else
+                throw new RDException( "MembershipManager.save: failed to save a Membership" );
         }
         catch( SQLException e ) {
             e.printStackTrace();
@@ -50,15 +73,17 @@ public class MembershipManager(){
 	
     }
 
-    public Iterator<Team> restore(Team team) throws RDException{
-         String selectMembershipSql = "select s.id, t.id, "
+    public Iterator<Membership> restore(Membership membership) throws RDException{
+         String selectMembershipSql = "select m.id, s.id, t.id, "
                                      + "s.firstName, s.lastName, s.userName, s.password, s.email, s.isStudent, s.studentAddress, s.phone, t.name,t.est, t.captain "
-                                     + "from team t, student s ";              
+                                     + "from team t, membership m, student s where t.id = m.teamid and m.studentid = s.id";              
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
-        if( team != null && !team.isPersistent() )
+        if( membership.getStudent() != null && !membership.getStudent().isPersistent() )
+            throw new ClubsException( "MembershipManager.restore: the argument membership includes a non-persistent Student object" );
+        if( membership.getTeam() != null && !membership.getTeam().isPersistent() )
             throw new ClubsException( "MembershipManager.restore: the argument membership includes a non-persistent Team object" ); 
         
         condition.setLength( 0 );
@@ -66,14 +91,17 @@ public class MembershipManager(){
         // form the query based on the given Club object instance
         query.append( selectMembershipSql );
         
-        if( team != null ) {
-            if( team.isPersistent() ) // id is unique, so it is sufficient to get a membership
-                query.append( " where id = " + team.getId() );
+        if( membership != null ) {
+            if( membership.isPersistent() ) // id is unique, so it is sufficient to get a membership
+                query.append( " where id = " + membership.getId() );
             else {
 
+                if( membership.getStudent() != null ) {
+                    condition.append( " and m.studentid = " + membership.getStudent().getId() ); 
+                }
 
-                if( team != null ) {
-                    condition.append( " and m.teamid = " + team.getId() ); 
+                if( membership.getTeam() != null ) {
+                    condition.append( " and m.teamid = " + membership.getTeam().getId() ); 
                 }
 
                 if( condition.length() > 0 )
@@ -88,7 +116,7 @@ public class MembershipManager(){
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                return new TeamIterator( r, objectLayer );
+                return new MembershipIterator( r, objectLayer );
             }
         }
         catch( Exception e ) {      // just in case...
@@ -99,12 +127,12 @@ public class MembershipManager(){
         throw new RDException( "MembershipManager.restore: Could not restore persistent Membership object" );
     }
 
-    public void delete(Team team) throws RDException{
+    public void delete(Membership membership) throws RDException{
         String               deleteMembershipSql = "delete from membership where id = ?";              
         PreparedStatement    stmt = null;
         int                  inscnt;
              
-        if( !team.isPersistent() ) // is the Membership object persistent?  If not, nothing to actually delete
+        if( !membership.isPersistent() ) // is the Membership object persistent?  If not, nothing to actually delete
             return;
         
         try {

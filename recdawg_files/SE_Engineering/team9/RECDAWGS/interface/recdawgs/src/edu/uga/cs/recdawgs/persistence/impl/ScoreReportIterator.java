@@ -7,13 +7,14 @@ package edu.uga.cs.recdawgs.persistence.impl;
 
 import java.sql.ResultSet;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Date;
-import java.util.RDException;
 
-import edu.uga.ScoreReport.object.ObjectLayer;
-import edu.uga.ScoreReport.RDException;
-import edu.uga.ScoreReport.entity.Matchup;
-import edu.uga.ScoreReport.entity.Person;
+import edu.uga.cs.recdawgs.object.ObjectLayer;
+import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.Match;
+import edu.uga.cs.recdawgs.entity.ScoreReport;
+import edu.uga.cs.recdawgs.entity.User;
 
 public class ScoreReportIterator implements Iterator<ScoreReport>{
 	private ResultSet		rs = null;
@@ -36,25 +37,27 @@ public class ScoreReportIterator implements Iterator<ScoreReport>{
 	}
 
 	public ScoreReport next(){
-		long	matchId;
+		long	matchID;
 		long	homeTeamId;
 		long	awayTeamId;
-		long	homeTeamPoints;
-		long	awayTeamPoints;
-		Date	matchDate;
-		long	studentId;
+		long	homePoints;
+		long	awayPoints;
+		Date	date;
+		long	studentID;
 
 		if( more ){
 			try{
-				matchId = rs.getLong( 1 );
+				matchID = rs.getLong( 1 );
 				homeTeamId = rs.getLong( 2 );
 				awayTeamId = rs.getLong( 3 );
-				homeTeamPoints = rs.getLong( 4 );
-				awayTeamPoints = rs.getLong( 5 );
-				matchDate = rs.getDate( 6 );
-				studentId = rs.getLong( 7 );
+				homePoints = rs.getLong( 4 );
+				awayPoints = rs.getLong( 5 );
+				date = rs.getDate( 6 );
+				studentID = rs.getLong( 7 );
 
 				more = rs.next();
+				
+				return objectLayer.createScoreReport(homePoints, awayPoints, date, studentID, matchID);
 			}
 			catch( Exception e ){
 				throw new NoSuchElementException( "ScoreReportIterator: No next ScoreReport object; root cause: " + e );

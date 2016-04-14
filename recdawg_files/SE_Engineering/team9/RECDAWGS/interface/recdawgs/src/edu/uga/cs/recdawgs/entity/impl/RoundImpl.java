@@ -1,25 +1,32 @@
-package edu.uga.cs.recdawgs.entity;
+package edu.uga.cs.recdawgs.entity.impl;
 
 import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.persistence.Persistable;
+import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.persistence.impl.Persistent;
+import edu.uga.cs.recdawgs.entity.Round;
 
 /** This class represents a round of matches played in some sports league.  Each round of
  * matches is numbered (the round number must be positive).
  *
  */
-public Round 
-    extends Persistable
-{
+public class RoundImpl extends Persistent implements Round {
     
-    private int roundNumber=-1;
-    private String roundLeague="";
+    private int roundNumber;
+    private League roundLeague;
+    
+    public RoundImpl(int roundNumber) {
+    	this.roundNumber = roundNumber;
+    }
+    
+    public RoundImpl() {
+    	this.roundNumber = 0;
+    }
+    
     /** Return this round's number.
      * @return the number of this round of matches.
      */
     public int getNumber(){
-        if(number != -1){
-            return roundNumber;
-        }
+    	return roundNumber;
     }
 
     /** Set the new number for this round of matches.
@@ -38,9 +45,7 @@ public Round
      * @return the league in which this round of matches is played
      */
     public League getLeague(){
-        if(roundLeague.length != 0){
-            return roundLeague;
-        }
+    	return roundLeague;
     }
 
     /** Set the League in which this round of matches is played.
