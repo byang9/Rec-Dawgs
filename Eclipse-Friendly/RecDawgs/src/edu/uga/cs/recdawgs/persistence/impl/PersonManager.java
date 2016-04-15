@@ -204,7 +204,7 @@ public class PersonManager {
     }//save
 
     public Iterator<Student> restore(Student modelPerson) throws RDException {
-        String selectPersonSql = "p.firstname, p.lastname, p.username, p.password, p.email, p.isStudent, p.studentID, p.address from person p";
+        String selectPersonSql = "select p.id, p.firstname, p.lastname, p.username, p.password, p.email, p.isStudent, p.studentID, p.address from person p";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -271,7 +271,7 @@ public class PersonManager {
     }
 
     public Iterator<Administrator> restore(Administrator modelPerson) throws RDException {
-        String selectPersonSql = "u.firstname, u.lastname, u.username, u.password, u.email, u.isStudent from person u";
+        String selectPersonSql = "select u.id,u.firstname, u.lastname, u.username, u.password, u.email, u.isStudent from person u";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);

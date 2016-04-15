@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
+import edu.uga.cs.recdawgs.entity.*;
 import edu.uga.cs.recdawgs.entity.impl.*;
 import edu.uga.cs.recdawgs.object.*;
 import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.*;
-import edu.uga.cs.recdawgs.persistence.impl.DbUtils;
-import edu.uga.cs.recdawgs.persistence.impl.PersistenceLayerImpl;
+import edu.uga.cs.recdawgs.persistence.impl.*;
 
 public class ReadTest{
     public static void main(String[] args){

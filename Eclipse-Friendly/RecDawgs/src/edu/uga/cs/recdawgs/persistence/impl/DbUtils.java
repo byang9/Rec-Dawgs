@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.session.*;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 /**
  * This class performs database operations.
@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
  */
 public class DbUtils {
 
-    private static Logger log = SessionManager.getLog();
+   // private static Logger log = SessionManager.getLog();
     
 
     /**
@@ -35,7 +35,7 @@ public class DbUtils {
             conn.setAutoCommit(false);
         } 
         catch( SQLException ex ) {
-            log.error( "DbUtils.disableAutoCommit: SQLException on setting auto-commit false ", ex );
+            //log.error( "DbUtils.disableAutoCommit: SQLException on setting auto-commit false ", ex );
             throw new RDException( "DbUtils.disableAutoCommit: Transaction error. " + ex.getMessage() );
         }
     }
@@ -51,7 +51,7 @@ public class DbUtils {
             conn.setAutoCommit(true);
         } 
         catch( SQLException ex ) {
-            log.error( "DbUtils.enableAutoCommit: SQLException on setting auto-commit true ", ex );
+            //log.error( "DbUtils.enableAutoCommit: SQLException on setting auto-commit true ", ex );
             throw new RDException( "DbUtils.enableAutoCommit: Transaction error. " + ex.getMessage() );
         }
     }
@@ -66,7 +66,7 @@ public class DbUtils {
         try {
             conn.commit();
         } catch (SQLException ex) {
-            log.error("DbUtils.commit: SQLException on commit ", ex);
+            //log.error("DbUtils.commit: SQLException on commit ", ex);
             throw new RDException( "DbUtils.commit: SQLException on commit " + ex.getMessage() );
         }
     }
@@ -81,7 +81,7 @@ public class DbUtils {
         try {
             conn.rollback();
         } catch (SQLException ex) {
-            log.error( "DbUtils.rollback: SQLException on rollback ", ex );
+            //log.error( "DbUtils.rollback: SQLException on rollback ", ex );
             throw new RDException( "DbUtils.rollback: Unable to rollback transaction. " + ex.getMessage() );
         }
     }
@@ -98,7 +98,7 @@ public class DbUtils {
             Class.forName(DbAccessConfig.DB_DRIVE_NAME);
         } 
         catch (ClassNotFoundException ex) {
-            log.error( "DbUtils.connect:  unable to find JDBC Driver", ex );
+            //log.error( "DbUtils.connect:  unable to find JDBC Driver", ex );
             throw new RDException( "DbUtils.connect: Unable to find Driver" );
         }
         try {
@@ -107,7 +107,7 @@ public class DbUtils {
                                                 DbAccessConfig.DB_CONNECTION_PWD );
         } 
         catch (SQLException ex) {
-            log.error( "DbUtils.connect: Unable to connect to database", ex );
+            //log.error( "DbUtils.connect: Unable to connect to database", ex );
             throw new RDException( "DbUtils.connect: Unable to connect to database " + ex.getMessage() );
         }
     }
