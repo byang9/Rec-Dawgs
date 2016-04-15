@@ -168,7 +168,7 @@ class LeagueManager
 
     public Iterator<League> restore(League league) throws RDException {
         String       selectLeagueSql = "select l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
-                                      "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules" +
+                                      "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules," +
                                       "l.leagueRules from league l";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);

@@ -161,7 +161,7 @@ public class TeamManager {
     }//save
 
     public Iterator<Team> restore(Team team) throws RDException{
-        String selectTeamSql = "select id, name, leagueId, established, captainId";
+        String selectTeamSql = "select t.id, t.name, t.leagueId, t.captainId from team t";
         Statement stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );

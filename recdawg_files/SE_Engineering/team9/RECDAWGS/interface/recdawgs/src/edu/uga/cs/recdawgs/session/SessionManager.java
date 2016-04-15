@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.User;
@@ -38,7 +38,7 @@ public class SessionManager
      */
     private static Map<String, Session> loggedIn;
     
-    private static Logger log = Logger.getLogger( SessionManager.class );
+    //private static Logger log = Logger.getLogger( SessionManager.class );
     
     static{
         sessions = new HashMap<String, Session>();
@@ -125,7 +125,7 @@ public class SessionManager
             s.getConnection().close();
         } 
         catch( SQLException sqe ) { 
-            log.error( "SessionManager.removeSession: cannot close connection", sqe );
+            //log.error( "SessionManager.removeSession: cannot close connection", sqe );
             throw new RDException( "SessionManager.removeSession: Cannot close connection" );
         } // try
         sessions.remove( s.getSessionId() );
@@ -163,8 +163,8 @@ public class SessionManager
             }
         }
         catch( Exception e ) {
-            log.error(
-                    "SessionManager.secureHash: Invalid Encryption Algorithm", e );
+            //log.error(
+              //      "SessionManager.secureHash: Invalid Encryption Algorithm", e );
             throw new RDException(
                     "SessionManager.secureHash: Invalid Encryption Algorithm" );
         }
@@ -176,9 +176,9 @@ public class SessionManager
      * @return Logger object. 
      * @author Arsham Mesbah
      */
-    public static Logger getLog()
-    {
-        return log; 
-    }
+    //public static Logger getLog()
+    //{
+     //   return log; 
+    //}
 
 }

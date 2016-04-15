@@ -91,7 +91,7 @@ class VenueManager
     }
 
     public Iterator<SportsVenue> restore(SportsVenue venue) throws RDException {
-        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor from venue";
+        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor from venue v";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);

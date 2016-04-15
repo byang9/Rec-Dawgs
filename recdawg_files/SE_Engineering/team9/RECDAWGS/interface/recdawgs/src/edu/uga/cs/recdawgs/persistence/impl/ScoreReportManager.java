@@ -126,9 +126,10 @@ public class ScoreReportManager {
 	public Iterator<ScoreReport> restore(ScoreReport scoreReport) throws RDException{
 
 		//setString
-		String			selectScoreReportSql = "select s.matchId, s.homeTeamId, s.awayTeamId, s.homePoints, s.awayPoints, s.matchDate, s.studentId, " +
+		String			selectScoreReportSql = "select s.matchId, s.homeTeamId, s.awayTeamId, s.homePoints, s.awayPoints, s.matchDate, s.studentId,  "+
 												"m.id, m.homeTeamId, m.awayTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
-												"p.id, p.firstName, p.lastName, p.username, p.password, p.email, p.isStudent, p.studentId, p.address, p.phone";
+												"p.id, p.firstName, p.lastName, p.username, p.password, p.email, p.isStudent, p.studentId, p.address, p.phone "+
+												"from scorereport s, matchup m, person p";
 		Statement		stmt = null;
 		StringBuffer	query = new StringBuffer( 100 );
 		StringBuffer	condition = new StringBuffer( 100 );
@@ -176,7 +177,7 @@ public class ScoreReportManager {
 			}
 		}
 		catch( Exception e ){
-			//throw new RDException( "ScoreReportManager.restore: Could not restore persistent ScoreReport object; Root cause: " + e );
+			throw new RDException( "ScoreReportManager.restore: Could not restore persistent ScoreReport object; Root cause: " + e );
 		}
 
 		throw new RDException( "ScoreReportManager.restore: Could not restore persistent ScoreReport object" );
