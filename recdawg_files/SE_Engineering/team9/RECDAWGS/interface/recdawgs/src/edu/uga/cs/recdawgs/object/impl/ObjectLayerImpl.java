@@ -38,6 +38,10 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     /* Start of Methods */
     
+    public void setPersistence(PersistenceLayer persistence) {
+    	this.persistence = persistence;
+    }
+    
     // Creates admin with given attributes
     public Administrator createAdministrator(String firstName, String lastName, String userName, String password, String emailAddress) throws RDException {
         return new AdminImpl(firstName, lastName, userName, password, emailAddress);

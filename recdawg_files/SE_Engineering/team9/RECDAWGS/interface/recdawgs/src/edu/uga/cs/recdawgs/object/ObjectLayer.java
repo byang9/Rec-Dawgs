@@ -12,6 +12,7 @@ import edu.uga.cs.recdawgs.entity.ScoreReport;
 import edu.uga.cs.recdawgs.entity.SportsVenue;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.cs.recdawgs.persistence.PersistenceLayer;
 
 
 
@@ -750,5 +751,7 @@ public interface ObjectLayer
      * @throws RDException in case either the match or sportsVenue is null or another error occurs
      */
     public void deleteMatchSportsVenue( Match match, SportsVenue sportsVenue ) throws RDException;
+
+	public void setPersistence(PersistenceLayer persistence);
 
 }
