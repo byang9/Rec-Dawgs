@@ -91,7 +91,7 @@ public class MatchupManager{
 		//setString		
 		String			selectMatchupSql = "select m.id, m.homeTeamId, m.awayTeamId, m.homeTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
 											"ht.id, at.id, ht.name, ht.leagueid, ht.established, ht.captainid, at.name, at.leagueid, at.established, at.captainid " +
-											"from matchup m, team ht where m.homeTeamId = ht.id and team at where m.awayTeamId = at.id";
+											"from matchup m, team ht, team at where m.homeTeamId = ht.id and m.awayTeamId = at.id";
 		Statement		stmt = null;
 		StringBuffer 	query = new StringBuffer( 100 );
 		StringBuffer	condition = new StringBuffer( 100 );
