@@ -10,7 +10,7 @@ import edu.uga.cs.recdawgs.object.*;
 import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.*;
 import edu.uga.cs.recdawgs.persistence.impl.*;
-
+//testing Read
 public class ReadTest{
     public static void main(String[] args){
         Connection  conn = null;
