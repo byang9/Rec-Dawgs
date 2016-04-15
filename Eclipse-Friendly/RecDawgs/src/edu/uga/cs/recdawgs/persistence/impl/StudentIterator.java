@@ -39,7 +39,7 @@ public class StudentIterator implements Iterator<Student>{
         String email;
         String isStudent;
         String studentId;
-        String major;
+        //String major;
         String address;
 
         if ( more ){

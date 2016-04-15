@@ -27,7 +27,7 @@ public class PersonManager {
 
  
     public void save(Student user) throws RDException{
-        String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address) values ( ?, ?, ?, ?, ?, ?, ?, ? )";              
+        String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address ) values ( ?, ?, ?, ?, ?, ?, ?, ? )";              
         String updatePersonSql = "update person set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, address = ?";              
         PreparedStatement stmt;
         int inscnt;
@@ -80,6 +80,7 @@ public class PersonManager {
                 stmt.setString(7, user.getStudentId());
             else
                 throw new RDException("PersonManager.save: can't save a Person: studentId undefined");
+            
             //get address
             if (user.getAddress() != null)
                 stmt.setString(8, user.getAddress());

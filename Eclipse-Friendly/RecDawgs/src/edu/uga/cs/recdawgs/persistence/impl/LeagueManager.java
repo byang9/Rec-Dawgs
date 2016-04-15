@@ -42,24 +42,26 @@ class LeagueManager
                 stmt = (PreparedStatement) conn.prepareStatement(updateLeagueSql);
 
             if (league.isPersistent())
-                stmt.setLong(1, league.getId());
+                stmt.setLong(10, league.getId());
             
             if (league.getName() != null) // name is unique unique and non null
-                stmt.setString(2, league.getName());
+                stmt.setString(1, league.getName());
             else 
                 throw new RDException("LeagueManager.save: can't save a League: name undefined");
 
             if (league.getWinnerOfLeague() != null) {
-                stmt.setLong(3, league.getWinnerOfLeague().getId());
+                stmt.setLong(2, league.getWinnerOfLeague().getId());
+            } else {
+            	stmt.setLong(2, 0);
             }
 
-            stmt.setBoolean(4, league.getIsIndoor());
+            stmt.setBoolean(3, league.getIsIndoor());
+            stmt.setLong(4, league.getMinTeams());
             stmt.setLong(5, league.getMinTeams());
-            stmt.setLong(6, league.getMinTeams());
-            stmt.setLong(7, league.getMinMembers());
-            stmt.setLong(8, league.getMaxMembers());
-            stmt.setString(9, league.getMatchRules());
-            stmt.setString(10, league.getLeagueRules());
+            stmt.setLong(6, league.getMinMembers());
+            stmt.setLong(7, league.getMaxMembers());
+            stmt.setString(8, league.getMatchRules());
+            stmt.setString(9, league.getLeagueRules());
 
             inscnt = stmt.executeUpdate();
 

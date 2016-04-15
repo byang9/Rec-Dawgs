@@ -28,8 +28,8 @@ class VenueManager
     }
     
     public void save(SportsVenue venue) throws RDException {
-        String insertVenueSql = "insert into venue ( name, address, isIndoor ) values ( ?, ?, ? )";
-        String updateVenueSql = "update venue set name = ?, address = ?, isIndoor = ?";
+        String insertVenueSql = "insert into venue ( name, address, isIndoor, id ) values ( ?, ?, ?, ? )";
+        String updateVenueSql = "update venue set name = ?, address = ?, isIndoor = ?, id = ?";
         PreparedStatement stmt = null;
         int inscnt;
         long venueID;
@@ -40,20 +40,20 @@ class VenueManager
             else
                 stmt = (PreparedStatement) conn.prepareStatement(updateVenueSql);
 
-            if (venue.isPersistent())
-                stmt.setLong(1, venue.getId());
+            //if (venue.isPersistent())
+                stmt.setLong(4, venue.getId());
             
             if (venue.getName() != null) // name is unique unique and non null
-                stmt.setString(2, venue.getName());
+                stmt.setString(1, venue.getName());
             else 
                 throw new RDException("VenueManager.save: can't save a Venue: name undefined");
 
             if (venue.getAddress() != null)
-                stmt.setString(3, venue.getAddress());
+                stmt.setString(2, venue.getAddress());
             else
                 throw new RDException("VenueManager.save: can't save a Venue: address undefined");
 
-            stmt.setBoolean(4, venue.getIsIndoor());
+            stmt.setBoolean(3, venue.getIsIndoor());
 
             inscnt = stmt.executeUpdate();
 
@@ -91,7 +91,7 @@ class VenueManager
     }
 
     public Iterator<SportsVenue> restore(SportsVenue venue) throws RDException {
-        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor from venue";
+        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor from venue v";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);

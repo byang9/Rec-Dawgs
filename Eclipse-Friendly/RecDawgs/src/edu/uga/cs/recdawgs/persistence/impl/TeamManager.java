@@ -28,7 +28,7 @@ public class TeamManager {
                                                                                                                            
     public void save(Team team) throws RDException{
         String insertTeamSql = "insert into team ( name, leagueId, captainId ) values ( ?, ?, ? )";              
-        String updateTeamSql = "update team  set name = ?, leagueId = ?, captainId = ?";          
+        String updateTeamSql = "update team  set name = ?, leagueId = ?, captainId = ?, id = ?";          
         PreparedStatement stmt;
         int inscnt;
         long teamId;
@@ -41,23 +41,23 @@ public class TeamManager {
                 stmt = (PreparedStatement) conn.prepareStatement (updateTeamSql);
 
             if(team.getName() != null)
-                stmt.setString(2, team.getName());
+                stmt.setString(1, team.getName());
             else
                 throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
 
             if(team.getParticipatesInLeague() != null)
-                stmt.setLong(3, team.getParticipatesInLeague().getId());
+                stmt.setLong(2, team.getParticipatesInLeague().getId());
             else
                 throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
 
             if(team.getCaptain() != null)
-                stmt.setLong(4, team.getCaptain().getId());
+                stmt.setLong(3, team.getCaptain().getId());
             else
                 throw new RDException("TeamManager.save: can't save a Team: captainId undefined");
 
             //if the team is persistent, set the Id.
             if (team.isPersistent())
-                stmt.setLong(1, team.getId());
+                stmt.setLong(4, team.getId());
 
             inscnt = stmt.executeUpdate();
 

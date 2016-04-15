@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.*;
-import edu.uga.cs.recdawgs.entity.impl.*;
 import edu.uga.cs.recdawgs.object.*;
 import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.*;
