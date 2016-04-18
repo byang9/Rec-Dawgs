@@ -40,11 +40,13 @@ class LeagueSportsVenueManager {
             else
                 stmt = (PreparedStatement) conn.prepareStatement(updateRelationSql);
 
-            if (l.isPersistent())
-                stmt.setLong(2, l.getId());
+            if (l.getId() >= 0)
+                stmt.setLong(1, l.getId());
             
-            if (sv.isPersistent())
-                stmt.setLong(3, sv.getId());
+            if (sv.getId() >= 0)
+                stmt.setLong(2, sv.getId());
+            else 
+            	throw new RDException("Sports Venue needs an ID to save a hasVenue relationship");
 
             stmt.executeUpdate();
             

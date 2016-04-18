@@ -27,11 +27,9 @@ public class ScoreReportManager {
 	}
 
 	public void save(ScoreReport scoreReport) throws RDException{
-		String insertScoreReportSql = "insert into score report ( matchId, homeTeamId, awayTeamId, homePoints, awayPoints, matchDate, studentId ) values ( ?, ?, ?, ?, ?, ?, ? )";
-		String updateScoreReportSql = "update score report set matchId = ?, homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, studentId = ?";
+		String insertScoreReportSql = "insert into scorereport ( matchId, homeTeamId, awayTeamId, homePoints, awayPoints, matchDate, studentId ) values ( ?, ?, ?, ?, ?, ?, ? )";
+		String updateScoreReportSql = "update scorereport set matchId = ?, homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, studentId = ?";
 		PreparedStatement stmt = null;
-		int inscnt;
-		long scoreReportId;
 
 		try{
 			if( !scoreReport.isPersistent() )
@@ -94,28 +92,8 @@ public class ScoreReportManager {
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report student ID undefined" );
 
-			inscnt = stmt.executeUpdate();
+			stmt.executeUpdate();
 
-			if( !scoreReport.isPersistent() ){
-				if(inscnt >= 1 ){
-					String sql = "select last_insert_id()";
-					if( stmt.execute( sql ) ){
-						ResultSet r = stmt.getResultSet();
-
-						while( r.next() ){
-							scoreReportId = r.getLong( 1 );
-							if( scoreReportId > 0 )
-								scoreReport.setId( scoreReportId );
-						}
-					}
-				}
-				else
-					throw new RDException( "ScoreReportManager.save: failed to save a ScoreReport" );
-			}
-			else{
-				if( inscnt < 1 )
-					throw new RDException( "ScoreReportManager.save: failed to save a ScoreReport" );
-			}
 		}
 		catch( SQLException e ){
 			e.printStackTrace();

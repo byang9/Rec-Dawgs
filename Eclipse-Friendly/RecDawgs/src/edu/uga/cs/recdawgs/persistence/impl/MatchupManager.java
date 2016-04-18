@@ -28,7 +28,7 @@ public class MatchupManager{
 
 	public void save( Match matchup ) throws RDException{
 		String insertMatchupSql = "insert into matchup ( homeTeamId, awayTeamId, homePoints, awayPoints, matchDate, isCompleted ) values ( ?, ?, ?, ?, ?, ? )";
-		String updateMatchupSql = "update matchup set homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, isCompleted = ?";
+		String updateMatchupSql = "update matchup set homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, isCompleted = ? where id = ?";
 		PreparedStatement stmt = null;
 		int inscnt;
 		long matchupId;
@@ -39,21 +39,23 @@ public class MatchupManager{
 			else
 				stmt = (PreparedStatement) conn.prepareStatement(updateMatchupSql);
 			
-			stmt.setLong(1, matchup.getId());
+			if (matchup.isPersistent())
+				stmt.setLong(7, matchup.getId());
 
 			if( matchup.getHomeTeam() != null )
-				stmt.setLong(2, matchup.getHomeTeam().getId());
+				stmt.setLong(1, matchup.getHomeTeam().getId());
 			else
 				throw new RDException( "MatchupManager.save: can't save a Matchup: home team undefined" );
 			
 			if( matchup.getAwayTeam() != null )
-				stmt.setLong(3, matchup.getAwayTeam().getId());
+				stmt.setLong(2, matchup.getAwayTeam().getId());
 			else
 				throw new RDException( "MatchupManager.save: can't save a Matchup: away team undefined" );
 
-			stmt.setLong(4, matchup.getHomePoints());
-			stmt.setLong(5, matchup.getAwayPoints());
-			stmt.setBoolean(7, matchup.getIsCompleted());
+			stmt.setLong(3, matchup.getHomePoints());
+			stmt.setLong(4, matchup.getAwayPoints());
+			stmt.setDate(5, new java.sql.Date(matchup.getDate().getTime()));
+			stmt.setBoolean(6, matchup.getIsCompleted());
 
 			inscnt = stmt.executeUpdate();
 
@@ -90,7 +92,7 @@ public class MatchupManager{
 	{
 		//setString		
 		String			selectMatchupSql = "select m.id, m.homeTeamId, m.awayTeamId, m.homeTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
-											"ht.id, at.id, ht.name, ht.leagueid, ht.established, ht.captainid, at.name, at.leagueid, at.established, at.captainid " +
+											"ht.id, at.id, ht.name, ht.leagueid, ht.captainid, at.name, at.leagueid, at.captainid " +
 											"from matchup m, team ht, team at where m.homeTeamId = ht.id and m.awayTeamId = at.id";
 		Statement		stmt = null;
 		StringBuffer 	query = new StringBuffer( 100 );
@@ -141,7 +143,7 @@ public class MatchupManager{
 	public void delete(Match matchup)
 		throws RDException
 	{
-		String				deleteMatchSql = "delete from mathcup where id = ?";
+		String				deleteMatchSql = "delete from matchup where id = ?";
 		PreparedStatement	stmt = null;
 		int					inscnt;
 

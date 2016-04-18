@@ -23,9 +23,9 @@ CREATE TABLE person (
     password        VARCHAR(255) NOT NULL,
     email           VARCHAR(255) NOT NULL,
     isStudent       BOOLEAN NOT NULL,
-    studentId       INT UNSIGNED,
-    address         VARCHAR(255),
-    phone           VARCHAR(255)
+    studentID       BIGINT UNSIGNED,
+    major	    VARCHAR(255),
+    address         VARCHAR(255)
 );
 
 #
@@ -34,8 +34,8 @@ CREATE TABLE person (
 CREATE TABLE team (
     id              INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name            VARCHAR(255) NOT NULL UNIQUE,
-    leagueId        INT UNSIGNED NOT NULL,
-    captainId       INT UNSIGNED NOT NULL,
+    leagueid        INT UNSIGNED NOT NULL,
+    captainid       INT UNSIGNED NOT NULL,
   
     FOREIGN KEY (captainid) REFERENCES person(id), 
     FOREIGN KEY (leagueid) REFERENCES league(id)
@@ -93,13 +93,13 @@ CREATE TABLE matchup (
 # Table definition for table 'scorereport'
 #
 CREATE TABLE scorereport (
-    matchId			INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    homeTeamId		INT UNSIGNED NOT NULL,
-    awayTeamId		INT UNSIGNED NOT NULL,
+    matchId  		 INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    homeTeamId		 INT UNSIGNED NOT NULL,
+    awayTeamId		 INT UNSIGNED NOT NULL,
     homePoints	    INT UNSIGNED NOT NULL,
-    awayPoints		INT UNSIGNED NOT NULL,
-    matchDate		DATETIME NOT NULL,
-    studentId       INT UNSIGNED NOT NULL,
+    awayPoints	    INT UNSIGNED NOT NULL,
+    matchDate	    DATETIME NOT NULL,
+    studentID       INT UNSIGNED NOT NULL,
 
     FOREIGN KEY (matchId) REFERENCES matchup(id),
     FOREIGN KEY (studentID) REFERENCES person(id)
@@ -109,7 +109,7 @@ CREATE TABLE scorereport (
 # Table definition for table 'round'
 #
 CREATE TABLE round (
-    leagueId        INT UNSIGNED,
+    leagueid        INT UNSIGNED,
     roundNo         INT UNSIGNED,
     PRIMARY KEY     (leagueid, roundNo),  
     FOREIGN KEY     (leagueid) REFERENCES league(id) ON DELETE CASCADE
@@ -119,7 +119,7 @@ CREATE TABLE round (
 # Table definition for table 'venue'
 #
 CREATE TABLE venue (
-    id   	      INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id   	  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     name          VARCHAR(255) NOT NULL UNIQUE,
     address       VARCHAR(255) NOT NULL UNIQUE,
     isIndoor      BOOLEAN NOT NULL
@@ -129,9 +129,9 @@ CREATE TABLE venue (
 # Table definition for table 'hasVenue'
 #
 CREATE TABLE hasVenue (
-    id   	      INT UNSIGNED PRIMARY KEY,
-    leagueId      INT UNSIGNED NOT NULL,
-    venueId       INT UNSIGNED NOT NULL,
+    id   	  INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    leagueid      INT UNSIGNED NOT NULL,
+    venueid       INT UNSIGNED NOT NULL,
   
   FOREIGN KEY (leagueid) REFERENCES league(id),
   FOREIGN KEY (venueid) REFERENCES venue(id)
