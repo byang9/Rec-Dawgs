@@ -27,7 +27,7 @@ public class PersonManager {
 
  
     public void save(Student user) throws RDException{
-        String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address) values ( ?, ?, ?, ?, ?, ?, ?, ? )";              
+        String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address ) values ( ?, ?, ?, ?, ?, ?, ?, ? )";              
         String updatePersonSql = "update person set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, address = ?";              
         PreparedStatement stmt;
         int inscnt;
@@ -80,6 +80,7 @@ public class PersonManager {
                 stmt.setString(7, user.getStudentId());
             else
                 throw new RDException("PersonManager.save: can't save a Person: studentId undefined");
+            
             //get address
             if (user.getAddress() != null)
                 stmt.setString(8, user.getAddress());
@@ -204,7 +205,7 @@ public class PersonManager {
     }//save
 
     public Iterator<Student> restore(Student modelPerson) throws RDException {
-        String selectPersonSql = "u.firstname, u.lastname, u.username, u.password, u.email, u.isStudent, u.studentID, u.address";
+        String selectPersonSql = "select p.id, p.firstname, p.lastname, p.username, p.password, p.email, p.isStudent, p.studentID, p.address from person p";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -251,10 +252,6 @@ public class PersonManager {
 
                 condition.append(" address = '" + modelPerson.getAddress() + "'");
 
-                if( condition.length() > 0 ) {
-                    query.append(  " where " );
-                    query.append( condition );
-                }
                 
             }
 
@@ -268,13 +265,14 @@ public class PersonManager {
             }
         }
         catch(Exception e){
+        	System.out.println(selectPersonSql);
             throw new RDException( "PersonManager.restore: Could not restore persistent Person object; Root cause: " + e );
         }
         throw new RDException("PersonManager.restore: Could not restore persistent Person object" );
     }
 
     public Iterator<Administrator> restore(Administrator modelPerson) throws RDException {
-        String selectPersonSql = "u.firstname, u.lastname, u.username, u.password, u.email, u.isStudent";
+        String selectPersonSql = "select u.id,u.firstname, u.lastname, u.username, u.password, u.email, u.isStudent from person u";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);

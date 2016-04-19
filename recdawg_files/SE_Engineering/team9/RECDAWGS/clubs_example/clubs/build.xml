@@ -17,9 +17,10 @@
 
   <path id="classpath">
       <fileset dir="/opt/classes">
-          <include name="servlet-api.jar"/>
+          <include name="jboss-servlet-api_3.1_spec-1.0.0.Final.jar"/>
           <include name="freemarker.jar"/>
-          <include name="mysql-connector-java-5.1.26-bin.jar"/>
+          <include name="mysql-connector-java-5.1.37-bin.jar"/>
+          <include name="log4j-1.2.17.jar"/>
       </fileset>
   </path>
 
@@ -32,9 +33,10 @@
   </target>
 
   <target name="compile">
-      <echo>Compile the source files</echo>
+      <pathconvert property="classpathProp" refid="classpath"/>
+      <echo>Compile the source files: classpath is ${classpathProp}</echo>
       <javac srcdir="${src.dir}" destdir="${class.dir}">
-          <classpath refid="classpath"/>
+           <classpath refid="classpath"/> 
       </javac>
   </target>	
 	

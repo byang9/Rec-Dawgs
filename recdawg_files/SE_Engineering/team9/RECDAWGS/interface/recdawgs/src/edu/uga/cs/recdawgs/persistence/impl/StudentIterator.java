@@ -20,7 +20,7 @@ public class StudentIterator implements Iterator<Student>{
     	    this.more = rs.next();
     	}//try
         catch( Exception e ) {  // just in case...                                                                                                      
-            throw new RDException( "PersonIterator: Cannot create Person iterator; root cause: " + e );
+            throw new RDException( "StudentIterator: Cannot create Person iterator; root cause: " + e );
         }
 
     }//constructor
@@ -37,8 +37,9 @@ public class StudentIterator implements Iterator<Student>{
         String userName;
         String password;
         String email;
+        String isStudent;
         String studentId;
-        String major;
+        //String major;
         String address;
 
         if ( more ){
@@ -51,20 +52,20 @@ public class StudentIterator implements Iterator<Student>{
                 userName = rs.getString(4);
                 password = rs.getString(5);
                 email = rs.getString(6);
+                isStudent = rs.getString(7);
                 studentId = rs.getString(8);
-                major = rs.getString(9);
-                address = rs.getString(10);
+                address = rs.getString(9);
 
                 more = rs.next();
 
             }
             catch(Exception e){
-                throw new NoSuchElementException( "PersonIterator: No next Person object; root cause: " + e );
+                throw new NoSuchElementException( "StudentIterator: No next Person object; root cause: " + e );
             }
 
             Student user;
 			try {
-				user = objectLayer.createStudent( firstName, lastName, userName, password, email, studentId, major, address);
+				user = objectLayer.createStudent( firstName, lastName, userName, password, email,isStudent, studentId, address);
 				user.setId( id );
 
 				return user;

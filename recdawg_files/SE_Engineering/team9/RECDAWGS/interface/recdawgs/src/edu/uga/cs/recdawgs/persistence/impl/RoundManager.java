@@ -100,7 +100,7 @@ public class RoundManager
     public Iterator<Round> restore(Round round) 
             throws RDException
     {
-        String selectRoundSql = "select r.leagueid, r.number from round r";              
+        String selectRoundSql = "select r.leagueid, r.roundNo from round r";              
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );

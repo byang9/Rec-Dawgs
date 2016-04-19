@@ -270,7 +270,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     
     // Saves a team and league association
     public void storeTeamParticipatesInLeague(Team team, League league) throws RDException {
-        teamManager.save(team);
+        teamManager.save(team, league);
     }
     
     // Returns all teams in a specific league

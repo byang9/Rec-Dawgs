@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.User;
@@ -39,7 +39,7 @@ public class Session
     private User person;
     private String id;
     private Date expiration;
-    private static Logger log = SessionManager.getLog();
+    //private static Logger log = SessionManager.getLog();
     
     /***********************************************************
      * Constructs a new session for a current connection
@@ -160,7 +160,7 @@ public class Session
             SessionManager.removeSession( this );
         } 
         catch( RDException e ) {
-            log.error( e.toString(), e );
+            //log.error( e.toString(), e );
             try {
                 throw e;
             } 

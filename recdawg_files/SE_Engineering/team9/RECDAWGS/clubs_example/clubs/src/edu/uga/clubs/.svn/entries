@@ -1,0 +1,83 @@
+10
+
+dir
+24
+http://uml.cs.uga.edu/svn/clubs/src/edu/uga/clubs
+http://uml.cs.uga.edu/svn/clubs
+
+
+
+2015-11-19T04:01:24.462061Z
+23
+kochut
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e76cea05-69fc-4888-bcf1-a57b1522391a
+
+test
+dir
+
+session
+dir
+
+persistence
+dir
+
+object
+dir
+
+ClubsException.java
+file
+
+
+
+
+2015-11-03T14:18:20.016628Z
+6a51467774fa62df85a5624903b9e953
+2015-09-15T02:44:13.202689Z
+2
+kochut
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+280
+
+presentation
+dir
+
+entity
+dir
+
+logic
+dir
+

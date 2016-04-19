@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/clubs/!svn/ver/3/src/edu/uga/clubs/entity/impl
+END
+ClubImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/clubs/!svn/ver/3/src/edu/uga/clubs/entity/impl/ClubImpl.java
+END
+PersonImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/clubs/!svn/ver/3/src/edu/uga/clubs/entity/impl/PersonImpl.java
+END
+MembershipImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/clubs/!svn/ver/3/src/edu/uga/clubs/entity/impl/MembershipImpl.java
+END

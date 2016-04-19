@@ -1,6 +1,7 @@
 package edu.uga.cs.recdawgs.test;
 
 import java.sql.Connection;
+import java.util.Date;
 
 //TODO imports
 import edu.uga.cs.recdawgs.RDException;
@@ -8,6 +9,8 @@ import edu.uga.cs.recdawgs.entity.Administrator;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.cs.recdawgs.entity.Match;
+import edu.uga.cs.recdawgs.entity.ScoreReport;
 import edu.uga.cs.recdawgs.entity.SportsVenue;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
@@ -24,23 +27,35 @@ public class WriteTest
          PersistenceLayer persistence = null;
          
          Administrator logan;
+         Administrator justin;
+         Administrator jay;
          Administrator bowen;
 
-         Student       jay;
+         Student       tim;
+         Student       gary;
          Student       fred;
-         Student       ani;
-         Student       joe;
+         Student       hank;
+         Student       bob;
+         Student       brandon;
 
-         League        soccer;
-         League        basketball;
+         League        golf;
+         League        bowling;
+         League        baseball;
 
-         Team          teamA1;
-         Team          teamB1;
-         Team          teamA2;
-         Team          teamB2;
+         Team          teamUno;
+         Team          teamDos;
+         Team          baseball1;
+         Team          baseball2;
+         Team          baseball3;
+         Team          baseball4;
 
-         SportsVenue   ramsey;
-         SportsVenue   iMFields;
+         SportsVenue   golfCourse;
+         SportsVenue   quad;
+         SportsVenue   baseballField;
+         
+         Match		   baseballgame;
+         
+         ScoreReport   baseballreport;
 
 
          
@@ -61,53 +76,98 @@ public class WriteTest
          objectLayer.setPersistence( persistence );   
 
          try {
-             
+        	 
              // create a few Admins
              //createAdministrator(String firstName, String lastName, String userName, String password, String emailAddress) 
-             logan = objectLayer.createAdministrator("logan", "jahnke","lj1","recdawgs","lj@uga.edu");
-             bowen = objectLayer.createAdministrator("bowen", "yang","by1","recdawgs","by@uga.edu");
+             logan = objectLayer.createAdministrator("Logan", "Jahnke","loganjahnke","admin","jahnke@uga.edu");
+             justin = objectLayer.createAdministrator("Justin", "Tumale","justintumale","admin","jtumale1@uga.edu");
+             jay = objectLayer.createAdministrator("Jerry", "Springfield","jerryspringfield","admin","jls93@uga.edu");
+             bowen = objectLayer.createAdministrator("Bowen", "Yang","bowenyang","admin","byang9@uga.edu");
 
              persistence.storeAdministrator(logan);
+             persistence.storeAdministrator(justin);
+             persistence.storeAdministrator(jay);
              persistence.storeAdministrator(bowen);
 
 
              //create a few Students
              //createStudent(String firstName, String lastName, String userName, String password, String emailAddress, String studentId, String major, String address)
-             jay = objectLayer.createStudent("jay", "springfield", "js1", "recdawgs1", "js@uga.edu", "8109998888", "CS", "123 Fairy Lane, Athens, GA");
-             fred = objectLayer.createStudent("fred", "flintstone", "ff1", "recdawgs2", "ff@uga.edu","8109998881", "CS", "565 Stonewall Drive, Athens, GA");
-             ani = objectLayer.createStudent("ani", "skywalker", "as1", "recdawgs3", "as@uga.edu", "8109998882", "Drawing", "777 Lucky Drive, Athens, GA");
-             joe = objectLayer.createStudent("joe", "johnson", "jj", "recdawgs4", "johnson@uga.edu", "8104221334", "Sports Medicine", "651 Brookhaven Cr. Athens, GA");
+             tim = objectLayer.createStudent("Tim", "Time", "tt1", "recdawgs", "tt@uga.edu", "151", "Communication", "123 Fairy Lane, Athens, GA");
+             gary = objectLayer.createStudent("Gary", "Garsmith", "gg1", "recdawgs", "gg@uga.edu","535", "Friendship", "666 Doomsville Street, Athens, GA");
+             fred = objectLayer.createStudent("Fred", "Flinestone", "ff1", "recdawgs", "ff@uga.edu","657", "Computer Science", "122 Hit n' Run Lane, Athens, GA");
+             hank = objectLayer.createStudent("Hank", "Aaron", "ha1", "recdawgs", "ha@uga.edu","234", "Math", "404 Not Found Street, Athens, GA");
+             bob = objectLayer.createStudent("Bob", "Millie", "bm1", "recdawgs", "bm@uga.edu","345", "Pre-Med", "403 Redirected Street, Athens, GA");
+             brandon = objectLayer.createStudent("Brandon", "Rockwell", "br1", "recdawgs", "brandon.rockwell42@uga.edu","999", "Biochemistry", "100 First Road, Athens, GA");
 
-             persistence.storeStudent( jay );
+             persistence.storeStudent( tim );
+             persistence.storeStudent( gary );
              persistence.storeStudent( fred );
-             persistence.storeStudent( ani );
-             persistence.storeStudent( joe );
+             persistence.storeStudent( hank );
+             persistence.storeStudent( bob );
+             persistence.storeStudent( brandon );
              
              //String name, String leagueRules, String matchRules, boolean isIndoor, int minTeams, int maxTeams, int minPlayers, int maxPlayers
-             soccer = objectLayer.createLeague("Soccer", "no cheating", "please", false, 10 , 16, 10, 12);
-             basketball = objectLayer.createLeague("Basketball", "no cheating", "don't", true, 10 , 16, 10, 12);
+             golf = objectLayer.createLeague("Golf", "no cheating", "please", false, 10 , 16, 10, 12);
+             bowling = objectLayer.createLeague("Bowling", "no cheating", "don't", true, 10 , 16, 10, 12);
+             baseball = objectLayer.createLeague("Baseball", "no cheating", "don't", true, 4 , 8, 9, 15);
 
-             persistence.storeLeague(soccer);
-             persistence.storeLeague(basketball);
+             persistence.storeLeague(golf);
+             persistence.storeLeague(bowling);
+             persistence.storeLeague(baseball);
+             
+             //createSportsVenue(String name, String address, boolean isIndoor)
+             golfCourse = objectLayer.createSportsVenue("The Golf Course", "1 East Campus Rd., Athens, GA", true);
+             quad = objectLayer.createSportsVenue("Myers Quad", "Myers Building, Athens, GA", false);
+             baseballField = objectLayer.createSportsVenue("Baseball Field", "Baseball Building, Athens, GA", false);
+             
+             persistence.storeSportsVenue(golfCourse);
+             persistence.storeSportsVenue(quad);
+             persistence.storeSportsVenue(baseballField);
 
              //Team createTeam(String name)
-             teamA1 = objectLayer.createTeam("Hurricanes");
-             teamB1 = objectLayer.createTeam("Dolphins");
-             teamA2 = objectLayer.createTeam("Bulldogs");
-             teamB2 = objectLayer.createTeam("Parrots");
-
-             persistence.storeTeam(teamA1);
-             persistence.storeTeam(teamB1);
-             persistence.storeTeam(teamA2);
-             persistence.storeTeam(teamB2);
-
-             //createSportsVenue(String name, String address, boolean isIndoor)
-             ramsey = objectLayer.createSportsVenue("Ramsey", "1 East Campus Rd., Athens, GA", true);
-             iMFields = objectLayer.createSportsVenue("IM Fields", "13 Intramural Fields., Athens, GA", false);
-             persistence.storeSportsVenue(ramsey);
-             persistence.storeSportsVenue(iMFields);
-
+             teamUno = objectLayer.createTeam("Golf Team Bro");
+             teamUno.setParticipatesInLeague(golf);
+             teamUno.setCaptain(tim);
+             teamDos = objectLayer.createTeam("Football Club FC");
+             teamDos.setParticipatesInLeague(bowling);
+             teamDos.setCaptain(gary);
+             baseball1 = objectLayer.createTeam("The Braves");
+             baseball1.setParticipatesInLeague(baseball);
+             baseball1.setCaptain(fred);
+             baseball2 = objectLayer.createTeam("Titans");
+             baseball2.setParticipatesInLeague(baseball);
+             baseball2.setCaptain(bob);
+             baseball3 = objectLayer.createTeam("Pollution");
+             baseball3.setParticipatesInLeague(baseball);
+             baseball3.setCaptain(hank);
+             baseball4 = objectLayer.createTeam("Galactic Empire");
+             baseball4.setParticipatesInLeague(baseball);
+             baseball4.setCaptain(brandon);
              
+             persistence.storeTeam(teamUno);
+             persistence.storeTeam(teamDos);
+             persistence.storeTeam(baseball1);
+             persistence.storeTeam(baseball2);
+             persistence.storeTeam(baseball3);
+             persistence.storeTeam(baseball4);
+             
+             // Add League and Sports Venue Connection
+             persistence.storeLeagueSportsVenue(baseball, baseballField);
+             
+             // Add Baseball Match
+             baseballgame = objectLayer.createMatch(7, 6, new Date(java.lang.System.currentTimeMillis()), true, baseball4, baseball2);
+             persistence.storeMatch(baseballgame);
+             
+             // Add Score Report
+             baseballreport = objectLayer.createScoreReport(7, 6, new Date(java.lang.System.currentTimeMillis()), brandon, baseballgame);
+             persistence.storeScoreReport(baseballreport);
+
+             // Add Associations
+             persistence.storeMatchSportsVenue(baseballgame, baseballField);
+             persistence.storeTeamParticipatesInLeague(baseball4, baseball);
+             persistence.storeTeamParticipatesInLeague(baseball3, baseball);
+             persistence.storeTeamParticipatesInLeague(baseball2, baseball);
+             persistence.storeTeamParticipatesInLeague(baseball1, baseball);
              
              System.out.println( "Entity objects created and saved in the persistence module" );
              
