@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html>
+    <head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>RecDawgs - Sign In</title>
+        
+    <title>RecDawgs</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,20 +26,18 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
-
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
-    <!-- Navigation -->
+<body>
+<!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="signedin">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="index.html">
-                    <i class="fa fa-soccer-ball-o"></i>  <span class="light">Rec</span>Dawgs
+                    <span style="color: black"><i class="fa fa-soccer-ball-o"></i> <span class="light">Rec</span>Dawgs</span>
                 </a>
             </div>
 
@@ -53,35 +49,72 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href=""><i class="fa fa-user"></i> Sign Up</a>
+                        <a class="page-scroll" href="#about"><i class="fa fa-tasks"></i> Actions</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="signup.html"><i class="fa fa-sign-out"></i> Sign Out</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
+        </div>
     </nav>
+    
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="signedin">
+            <div class="intro-body">
+                <div class="container">
+                    <div class="row">
+                        <h1>Welcome ${firstname}</h1>
+                        <h3>You are logged in as ${username}</h3>
+                        <div class="col-md-8 col-md-offset-2">
+                            <h1 class="brand-heading"></h1>
+                            <p class="intro-text"></p>
+                            <a href="#about" class="btn btn-circle page-scroll">
+                                <i class="fa fa-angle-double-down animated"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <!-- Sign in Section -->
-    <section id="signin" class="container content-section text-center">
+
+    <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/signin">
-                    <h4>First Name: </h4><INPUT NAME="firstname" TYPE=text size=50 required></INPUT>
-                    <h4>Last Name: </h4><INPUT NAME="lastname" TYPE=text size=50 required></INPUT>
-                    <h4>Username: </h4><INPUT NAME="username" TYPE=text size=50 required></INPUT>
-                    <h4>Password: </h4><INPUT NAME="password" TYPE=password size=50 required></INPUT>
-                    <h4>Email: </h4><INPUT NAME="email" TYPE=email size=50 required></INPUT>
-                    <h4>Student ID: </h4><INPUT NAME="studentid" TYPE=number size=50 required></INPUT>
-                    <h4>Major: </h4><INPUT NAME="major" TYPE=text size=50></INPUT>
-                    <h4>Address: </h4><INPUT NAME="address" TYPE=text size=50></INPUT>
-                    <br>
-                    <INPUT type=submit></INPUT>
-                </form>
+                <i class="fa fa-soccer-ball-o"></i>
+                <h3>View all <a href="FindAllLeagues">Leagues</a></h3>
+                
+                <hr>
+
+                <i class="fa fa-group"></i>
+                <h3>View all <a href="FindAllTeams">Teams</a></h3>
+
+                <hr>
+                
+                <i class="fa fa-building"></i>
+                <h3>View all <a href="FindAllVenues">Sports Venues</a></h3>
+                
+                <hr>
+
+                <i class="fa fa-file-text"></i>
+                <h3>View all <a href="FindAllReports">Score Reports</a></h3>
+                
+                <hr>
+
+                <i class="fa fa-user"></i>
+                <h3>View all <a href="FindAllUsers">Users</a></h3>
+                
+                <hr>
             </div>
         </div>
     </section>
-
+    
     <!-- Footer -->
     <footer>
         <div class="container text-center">
@@ -100,7 +133,5 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
-
 </body>
-
 </html>

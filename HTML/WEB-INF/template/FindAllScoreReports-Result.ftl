@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
 
     <meta charset="utf-8">
@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>RecDawgs - Sign In</title>
+    
+    <title>All Score Reports</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,11 +28,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
+<body>
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
@@ -53,7 +51,13 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href=""><i class="fa fa-user"></i> Sign Up</a>
+                        <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about"><i class="fa fa-file-text"></i> Score Reports</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
                     </li>
                 </ul>
             </div>
@@ -61,27 +65,39 @@
         </div>
         <!-- /.container -->
     </nav>
-
-    <!-- Sign in Section -->
-    <section id="signin" class="container content-section text-center">
+    
+    <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/signin">
-                    <h4>First Name: </h4><INPUT NAME="firstname" TYPE=text size=50 required></INPUT>
-                    <h4>Last Name: </h4><INPUT NAME="lastname" TYPE=text size=50 required></INPUT>
-                    <h4>Username: </h4><INPUT NAME="username" TYPE=text size=50 required></INPUT>
-                    <h4>Password: </h4><INPUT NAME="password" TYPE=password size=50 required></INPUT>
-                    <h4>Email: </h4><INPUT NAME="email" TYPE=email size=50 required></INPUT>
-                    <h4>Student ID: </h4><INPUT NAME="studentid" TYPE=number size=50 required></INPUT>
-                    <h4>Major: </h4><INPUT NAME="major" TYPE=text size=50></INPUT>
-                    <h4>Address: </h4><INPUT NAME="address" TYPE=text size=50></INPUT>
-                    <br>
-                    <INPUT type=submit></INPUT>
-                </form>
+                <h1>All Score Reports</h1>
+                </div>
+                <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
+                  <tr>
+                      <td><b>Id</b></td>
+                      <td><b>Home Team</b></td>
+                      <td><b>Home Points</b></td>
+                      <td><b>Away Points</b></td>
+                      <td><b>Away Team</b></td>
+                      <td><b>Match Date</b></td>
+                  </tr>
+                 <#list reports as report>
+                  <tr>
+                      <td>${report[0]}</td>
+                      <td>${report[1]}</td>
+                      <td>${report[2]}</td>
+                      <td>${report[3]}</td>
+                      <td>${report[4]}</td>
+                      <td>${report[5]}</td>
+                  </tr>
+                 </#list></table>
             </div>
-        </div>
+            
+        <hr>
+        <p>Back to the <a href="ShowMainWindow"> main window</a></p>
     </section>
+  
 
+  
     <!-- Footer -->
     <footer>
         <div class="container text-center">
@@ -100,7 +116,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
-
+    
 </body>
-
 </html>
