@@ -16,7 +16,6 @@ import edu.uga.cs.recdawgs.RDException;
 
 /**
  * This class performs database operations.
- * @author durandal, Haseeb Yousaf
  */
 public class DbUtils {
 
