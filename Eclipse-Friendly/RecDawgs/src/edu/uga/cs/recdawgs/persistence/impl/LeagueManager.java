@@ -185,11 +185,11 @@ class LeagueManager
             if (league.getId() >= 0) // id is unique, so it is sufficient to get a league
                 query.append( " where id = " + league.getId());
             else if (league.getName() != null) // leagueName is unique, so it is sufficient to get a league
-                query.append(" and name = '" + league.getName() + "'");
+                query.append(" where name = '" + league.getName() + "'");
             else {
 
                 if (league.getWinnerOfLeague() != null)
-                    condition.append( " and winnerId = '" + league.getWinnerOfLeague().getId() + "'");   
+                    condition.append( " where winnerId = '" + league.getWinnerOfLeague().getId() + "'");   
 
                 if (condition.length() > 0)
                     condition.append(" and");
@@ -220,7 +220,7 @@ class LeagueManager
                 condition.append(" leagueRules = '" + league.getLeagueRules() + "'");
             }
         }
-        
+
         try {
 
             stmt = conn.createStatement();
@@ -260,12 +260,12 @@ class LeagueManager
                 query.append( " and t.name = " + team.getName()); //team name is unique, so it is sufficient to get team
                     
         }
-
         try {
             stmt = conn.createStatement();
 
             if (stmt.execute(query.toString())){
                 ResultSet r = stmt.getResultSet();
+                System.out.println(query);
                 return objectLayer.createLeague(r.getString(4), r.getString(11), r.getString(10), r.getBoolean(6), (int)r.getLong(7),  (int)r.getLong(8),  (int)r.getLong(9),  (int)r.getLong(10));
             }
 
