@@ -24,7 +24,7 @@ CREATE TABLE person (
     email           VARCHAR(255) NOT NULL,
     isStudent       BOOLEAN NOT NULL,
     studentID       BIGINT UNSIGNED,
-    major	    VARCHAR(255),
+    major	        VARCHAR(255),
     address         VARCHAR(255)
 );
 
@@ -36,9 +36,8 @@ CREATE TABLE team (
     name            VARCHAR(255) NOT NULL UNIQUE,
     leagueid        INT UNSIGNED NOT NULL,
     captainid       INT UNSIGNED NOT NULL,
-  
-    FOREIGN KEY (captainid) REFERENCES person(id), 
-    FOREIGN KEY (leagueid) REFERENCES league(id)
+    #FOREIGN KEY (leagueid) REFERENCES league(id)
+    FOREIGN KEY (captainid) REFERENCES person(id)
 );
 
 #
@@ -72,6 +71,7 @@ CREATE TABLE league (
 
     FOREIGN KEY (winnerId) REFERENCES team(id) 
 );
+
 
 #
 # Table definition for table 'matchup'
@@ -136,3 +136,6 @@ CREATE TABLE hasVenue (
   FOREIGN KEY (leagueid) REFERENCES league(id),
   FOREIGN KEY (venueid) REFERENCES venue(id)
 );
+
+#add additional foreign keys
+ALTER TABLE team ADD CONSTRAINT fk_league_id FOREIGN KEY (leagueid) REFERENCES league(id);

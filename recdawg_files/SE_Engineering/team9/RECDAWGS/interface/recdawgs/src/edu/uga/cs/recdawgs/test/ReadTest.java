@@ -5,12 +5,11 @@ import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.*;
-import edu.uga.cs.recdawgs.entity.impl.*;
 import edu.uga.cs.recdawgs.object.*;
 import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.*;
 import edu.uga.cs.recdawgs.persistence.impl.*;
-
+//testing Read
 public class ReadTest{
     public static void main(String[] args){
         Connection  conn = null;
@@ -35,7 +34,7 @@ public class ReadTest{
             Iterator<League> leagueIter = objectLayer.findLeague(null);
             while(leagueIter.hasNext()){
                 League a = leagueIter.next();
-                System.out.println(a);
+                System.out.println(a.getName());
             }
             System.out.println("Round objects: ");
             Iterator<Round> roundIter = objectLayer.findRound(null);
@@ -59,19 +58,19 @@ public class ReadTest{
             Iterator<SportsVenue> sportsVenueIter = objectLayer.findSportsVenue(null);
             while(sportsVenueIter.hasNext()){
                 SportsVenue a = sportsVenueIter.next();
-                System.out.println(a);
+                System.out.println(a.getName());
             }
             System.out.println("Student objects: ");
             Iterator<Student> studentIter = objectLayer.findStudent(null);
             while(studentIter.hasNext()){
                 Student a = studentIter.next();
-                System.out.println(a);
+                System.out.println(a.getFirstName() +" " + a.getLastName());
             }
             System.out.println("Administrator objects: ");
             Iterator<Administrator> administratorIter = objectLayer.findAdministrator(null);
             while(administratorIter.hasNext()){
                 Administrator a = administratorIter.next();
-                System.out.println(a);
+                System.out.println(a.getFirstName());
             }
             System.out.println("ScoreReport objects: ");
             Iterator<ScoreReport> scoreReportIter = objectLayer.findScoreReport(null);
