@@ -1,5 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
@@ -9,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>All Leagues</title>
+    <title>Uh-Oh</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -29,91 +27,23 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand page-scroll" href="index.html">
-                    <i class="fa fa-soccer-ball-o"></i>  <span class="light">Rec</span>Dawgs
-                </a>
-            </div>
+    <hr>
+    <div class="container text-center">
+        <h1>RecDawgs Exception was caught</h1>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about"><i class="fa fa-soccer-ball-o"></i> Leagues</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    
-    <section id="about" class="container content-section text-center">
-        <form method=get action="http://localhost:8080/clubs/ViewTeamsOfLeague">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h1>Current Active Leagues</h1>
-                <p>Click a league name to see league teams</p>
-            </div>
-                <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
-                  <tr>
-                      <td><b>Id</b></td>
-                      <td><b>Name</b></td>
-                      <td><b>Winner Team</b></td>
-                      <td><b>Played Indoor</b></td>
-                      <td><b>Minimum Teams</b></td>
-                      <td><b>Maximum Teams</b></td>
-                      <td><b>Minimum Members</b></td>
-                      <td><b>Maximum Members</b></td>
-                      <td><b>Match Rules</b></td>
-                      <td><b>League Rules</b></td>
-                  </tr>
-                 <#list leagues as league>
-                  <tr>
-                      <td>${league[0]}</td>
-                      <td><input type=submit name="league" value=${league[1]} style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
-                      <td>${league[2]}</td>
-                      <td>${league[3]}</td>
-                      <td>${league[4]}</td>
-                      <td>${league[5]}</td>
-                      <td>${league[6]}</td>
-                      <td>${league[7]}</td>
-                      <td>${league[8]}</td>
-                      <td>${league[9]}</td>
-                  </tr>
-                 </#list></table>
-            </div>
-        </form>
-        <hr>
-        <p>Back to the <a href="ShowMainWindow"> main window</a></p>
-    </section>
-  
+        <h3>Cannot fulfill the request.</h3>
+        <h4>Reason: </h4><h5>We aren't done coding yet.</h5>
 
-  
-    <!-- Footer -->
+        <p>Back to the <a href="index.html"> main window</a></p>
+    </div>
+<!-- Footer -->
     <footer>
         <div class="container text-center">
             <p>Copyright &copy; Team 9</p>
         </div>
     </footer>
+    <hr>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -126,6 +56,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
-    
+
 </body>
 </html>
