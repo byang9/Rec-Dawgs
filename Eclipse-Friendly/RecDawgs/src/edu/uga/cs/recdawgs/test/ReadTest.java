@@ -34,49 +34,49 @@ public class ReadTest{
             Iterator<League> leagueIter = objectLayer.findLeague(null);
             while(leagueIter.hasNext()){
                 League a = leagueIter.next();
-                System.out.println(a.getName());
+                System.out.print(a.getName()+ " ");
             }
-            System.out.println("Round objects: ");
+            System.out.println("\nRound objects: ");
             Iterator<Round> roundIter = objectLayer.findRound(null);
             while(roundIter.hasNext()){
                 Round a = roundIter.next();
-                System.out.println(a);
+                System.out.print(a+ " ");
             }
-            System.out.println("Team objects: ");
+            System.out.println("\nTeam objects: ");
             Iterator<Team> teamIter = objectLayer.findTeam(null);
             while(teamIter.hasNext()){
                 Team a = teamIter.next();
-                System.out.println(a);
+                System.out.print(a+ " ");
             }
-            System.out.println("Match objects: ");
+            System.out.println("\nMatch objects: ");
             Iterator<Match> matchIter = objectLayer.findMatch(null);
             while(matchIter.hasNext()){
                 Match a = matchIter.next();
-                System.out.println(a);
+                System.out.print(a + " ");
             }
-            System.out.println("SportsVenue objects: ");
+            System.out.println("\nSportsVenue objects: ");
             Iterator<SportsVenue> sportsVenueIter = objectLayer.findSportsVenue(null);
             while(sportsVenueIter.hasNext()){
                 SportsVenue a = sportsVenueIter.next();
-                System.out.println(a.getName());
+                System.out.print(a.getName() + " ");
             }
-            System.out.println("Student objects: ");
+            System.out.println("\nStudent objects: ");
             Iterator<Student> studentIter = objectLayer.findStudent(null);
             while(studentIter.hasNext()){
                 Student a = studentIter.next();
-                System.out.println(a.getFirstName() +" " + a.getLastName());
+                System.out.print(a.getFirstName() +" " + a.getLastName()+ " ");
             }
-            System.out.println("Administrator objects: ");
+            System.out.println("\nAdministrator objects: ");
             Iterator<Administrator> administratorIter = objectLayer.findAdministrator(null);
             while(administratorIter.hasNext()){
                 Administrator a = administratorIter.next();
-                System.out.println(a.getFirstName());
+                System.out.print(a.getFirstName()+ " ");
             }
-            System.out.println("ScoreReport objects: ");
+            System.out.println("\nScoreReport objects: ");
             Iterator<ScoreReport> scoreReportIter = objectLayer.findScoreReport(null);
             while(scoreReportIter.hasNext()){
                 ScoreReport a = scoreReportIter.next();
-                System.out.println(a);
+                System.out.print(a+ " ");
             }
         }
         catch( RDException ce )

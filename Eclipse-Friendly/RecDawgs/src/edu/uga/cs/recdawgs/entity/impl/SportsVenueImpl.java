@@ -71,17 +71,4 @@ public class SportsVenueImpl extends Persistent implements SportsVenue {
     }
 
 
-	public long getId() {
-		return id;
-	}
-
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
-	public boolean isPersistent() {
-		return false;
-	}
 }

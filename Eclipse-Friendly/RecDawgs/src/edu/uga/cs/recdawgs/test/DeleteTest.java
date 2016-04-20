@@ -64,6 +64,8 @@ public class DeleteTest{
             while (MatchIter.hasNext()){
                 tempMatch = MatchIter.next();
                 if(tempMatch != null){
+                	//tempMatch.setId(1);
+                	System.out.println(tempMatch.getId());
                     System.out.println("Deleted Match on date: "+ tempMatch.getDate());
                     objectLayer.deleteMatch(tempMatch);
                 }
@@ -104,6 +106,8 @@ public class DeleteTest{
             Iterator<SportsVenue> SportsVenueIter = objectLayer.findSportsVenue(null);
             while (SportsVenueIter.hasNext()){
                 tempSportsVenue = SportsVenueIter.next();
+                //System.out.println(tempSportsVenue.getId());
+                //System.out.println(tempSportsVenue.isPersistent());
                 if(tempSportsVenue != null){
                     System.out.println("Deleted SportsVenue: "+ tempSportsVenue.getName());
                     objectLayer.deleteSportsVenue(tempSportsVenue);

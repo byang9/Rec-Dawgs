@@ -199,4 +199,12 @@ public class LeagueImpl extends Persistent implements League {
     }
 
 
+	@Override
+	public void setIsIndoor(Boolean isIndoor) {
+		// TODO Auto-generated method stub
+		this.isIndoor = isIndoor;
+		
+	}
+
+
 }
