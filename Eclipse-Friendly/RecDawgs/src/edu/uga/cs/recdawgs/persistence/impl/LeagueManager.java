@@ -52,7 +52,7 @@ class LeagueManager
             if (league.getWinnerOfLeague() != null) {
                 stmt.setLong(2, league.getWinnerOfLeague().getId());
             } else {
-            	stmt.setLong(2, 0);
+            	stmt.setNull(2, java.sql.Types.NULL);            	
             }
 
             stmt.setBoolean(3, league.getIsIndoor());
