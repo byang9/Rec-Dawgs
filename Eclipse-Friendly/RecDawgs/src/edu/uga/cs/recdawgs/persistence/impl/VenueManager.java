@@ -91,7 +91,7 @@ class VenueManager
     }
 
     public Iterator<SportsVenue> restore(SportsVenue venue) throws RDException {
-        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor from venue v";
+        String       selectVenueSql = "select id, name, address, isIndoor from venue";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -103,13 +103,15 @@ class VenueManager
         
         if (venue != null) {
             if (venue.getId() >= 0) // id is unique, so it is sufficient to get a Venue
-                query.append( " and id = " + venue.getId());
+                query.append( " where id = " + venue.getId());
             else if (venue.getName() != null) // VenueName is unique, so it is sufficient to get a Venue
-                query.append(" and name = '" + venue.getName() + "'");
+                query.append(" where name = '" + venue.getName() + "'");
+            //query.append( " and name = '" + club.getName() + "'" );
             else {
 
                 if (venue.getAddress() != null)
                     condition.append( " and address = '" + venue.getAddress() + "'");   
+                //   condition.append( " and address = '" + club.getAddress() + "'" );  
 
                 if (condition.length() > 0)
                     condition.append(" and");

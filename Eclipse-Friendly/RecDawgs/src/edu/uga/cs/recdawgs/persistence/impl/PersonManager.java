@@ -311,11 +311,12 @@ public class PersonManager {
                         condition.append( " and" );
 
                     condition.append(" email = '" + modelPerson.getEmailAddress() + "'");
-
+               /*
                 if( condition.length() > 0 ) {
                     query.append(  " where " );
                     query.append( condition );
                 }
+                */
                 
             }
 

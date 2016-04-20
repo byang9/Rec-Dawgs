@@ -183,13 +183,13 @@ class LeagueManager
         
         if (league != null) {
             if (league.getId() >= 0) // id is unique, so it is sufficient to get a league
-                query.append( " and id = " + league.getId());
+                query.append( " where id = " + league.getId());
             else if (league.getName() != null) // leagueName is unique, so it is sufficient to get a league
                 query.append(" and name = '" + league.getName() + "'");
             else {
 
                 if (league.getWinnerOfLeague() != null)
-                    condition.append( " and winnerID = '" + league.getWinnerOfLeague().getId() + "'");   
+                    condition.append( " and winnerId = '" + league.getWinnerOfLeague().getId() + "'");   
 
                 if (condition.length() > 0)
                     condition.append(" and");

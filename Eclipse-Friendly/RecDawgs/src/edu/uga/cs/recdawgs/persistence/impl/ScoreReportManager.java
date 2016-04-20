@@ -117,7 +117,7 @@ public class ScoreReportManager {
 		// form the query based on the given ScoreReport object instance
 		query.append( selectScoreReportSql );
 
-		if( scoreReport != null ){
+		if( scoreReport != null && scoreReport.getMatch()!= null){
 			if( scoreReport.getMatch().getId() >= 0 )
 				query.append( " and s.id = " + scoreReport.getMatch().getId() );
 			else if( scoreReport.getMatch().getHomeTeam().getId() >= 0 )

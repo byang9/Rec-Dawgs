@@ -36,7 +36,7 @@ public class DeleteTest{
             //printing out all leagues
             League tennisLeague = null;
             League swimLeague = objectLayer.createLeague();
-            swimLeague.setName("Swimming");
+            swimLeague.setName("Golf");
             leagueIter = objectLayer.findLeague(swimLeague);
             while (leagueIter.hasNext()){
                 tennisLeague = leagueIter.next();
@@ -127,6 +127,7 @@ public class DeleteTest{
             //printing out all Administrators
             Administrator tempAdministrator = null;
             Administrator startAdministrator = objectLayer.createAdministrator();
+            startAdministrator.setFirstName("Jerry");
             Iterator<Administrator> administratorIter = objectLayer.findAdministrator(startAdministrator);
             while(administratorIter.hasNext()){
                 tempAdministrator = administratorIter.next();
