@@ -106,7 +106,7 @@ public class ScoreReportManager {
 		//setString
 		String			selectScoreReportSql = "select s.matchId, s.homeTeamId, s.awayTeamId, s.homePoints, s.awayPoints, s.matchDate, s.studentId,  "+
 												"m.id, m.homeTeamId, m.awayTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
-												"p.id, p.firstName, p.lastName, p.username, p.password, p.email, p.isStudent, p.studentId, p.address, p.phone "+
+												"p.id, p.firstName, p.lastName, p.username, p.password, p.email, p.isStudent, p.studentId, p.address "+
 												"from scorereport s, matchup m, person p";
 		Statement		stmt = null;
 		StringBuffer	query = new StringBuffer( 100 );
