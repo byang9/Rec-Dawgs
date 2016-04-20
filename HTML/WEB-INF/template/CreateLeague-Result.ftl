@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Create a Team</h1>
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/createleague">
+                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/CreateLeague">
                     <h4>League Name: </h4><INPUT NAME="name" TYPE=text size=50 required></INPUT>
                     <h4>Played Indoor (yes or no): </h4><INPUT NAME="indoor" TYPE=text size=50 required></INPUT>
                     <h4>Minimum Teams: </h4><INPUT NAME="minTeams" TYPE=number size=50 required></INPUT>

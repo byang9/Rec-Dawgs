@@ -67,9 +67,11 @@
     </nav>
     
     <section id="about" class="container content-section text-center">
+        <form method=get action="http://localhost:8080/clubs/ViewTeamsOfLeague">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Current Active Leagues</h1>
+                <p>Click a league name to see league teams</p>
             </div>
                 <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
                   <tr>
@@ -87,7 +89,7 @@
                  <#list leagues as league>
                   <tr>
                       <td>${league[0]}</td>
-                      <td>${league[1]}</td>
+                      <td><input type=submit name="league" value=${league[1]} style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
                       <td>${league[2]}</td>
                       <td>${league[3]}</td>
                       <td>${league[4]}</td>
@@ -99,6 +101,7 @@
                   </tr>
                  </#list></table>
             </div>
+        </form>
         <hr>
         <p>Back to the <a href="ShowMainWindow"> main window</a></p>
     </section>

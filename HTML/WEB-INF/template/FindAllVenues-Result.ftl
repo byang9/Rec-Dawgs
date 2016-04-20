@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>All Sports Venues</title>
+    <title>All Teams</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -68,25 +68,28 @@
     
     <section id="about" class="container content-section text-center">
         <div class="row">
+            <form method=get action="http://localhost:8080/clubs/ViewLeaguesOfSV">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Current Active Sports Venues</h1>
+                <h1>Current Sports Venues</h1>
+                <p>Click on a venue to see leagues that use the venue</p>
                 <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
                   <tr>
                       <td><b>Id</b></td>
                       <td><b>Name</b></td>
                       <td><b>Address</b></td>
-                      <td><b>Indoor</b></td>
+                      <td><b>Played Indoor</b></td>
                   </tr>
                  <#list venues as venue>
                   <tr>
                       <td>${venue[0]}</td>
-                      <td>${venue[1]}</td>
+                      <td><input type=submit name="venue" value=${venue[1]} style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
                       <td>${venue[2]}</td>
                       <td>${venue[3]}</td>
                   </tr>
                  </#list></table>
             </div>
-            </div>
+            </form>
+        </div>
         <hr>
         <p>Back to the <a href="ShowMainWindow"> main window</a></p>
     </section>

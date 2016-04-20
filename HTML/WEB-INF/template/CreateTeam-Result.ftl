@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Create a Team</h1>
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/createteam">
+                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/CreateTeam">
                     <h4>Team Name: </h4><INPUT NAME="name" TYPE=text size=50 required></INPUT>
                     <br>
                     <INPUT type=submit></INPUT>

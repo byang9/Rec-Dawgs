@@ -320,6 +320,7 @@ a:focus {
 }
 
 .intro .signedin {
+    padding-left: 40px;
     display: table-cell;
     color: black;
     background-color: rgba(66,220,163,1);

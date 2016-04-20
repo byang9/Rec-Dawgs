@@ -52,7 +52,7 @@
                         <a class="page-scroll" href="#about"><i class="fa fa-tasks"></i> Actions</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="signup.html"><i class="fa fa-sign-out"></i> Sign Out</a>
+                        <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
                     </li>
                 </ul>
             </div>
@@ -108,7 +108,7 @@
                 <hr>
 
                 <i class="fa fa-user"></i>
-                <h3>View all <a href="FindAllUsers">Users</a></h3>
+                <h3>Modify <a href="ModifyAccount">Account</a></h3>
                 
                 <hr>
             </div>
