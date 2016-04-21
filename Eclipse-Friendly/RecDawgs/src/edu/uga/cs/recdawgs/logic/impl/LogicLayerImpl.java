@@ -158,8 +158,21 @@ public class LogicLayerImpl implements LogicLayer {
 		}
     	return true;
     }
+    
+    /*public boolean isTeamCaptain(User user){
+    	try {
+    		objectLayer.findTeamCaptain((TeamCaptain)user);
+    	} catch (RDException e){
+    		return false;
+    	}
+    	return true;
+    }*/
 
 
+    //!!!!!!!!!!!!!!
+    //!!!Find All!!!
+    //!!!!!!!!!!!!!!
+    
 	public List<User> findAllUsers() throws RDException {
 		FindUsersCtrl ctrlFindAllUsers = new FindUsersCtrl( objectLayer );
 		return ctrlFindAllUsers.findAllUsers();
@@ -184,6 +197,10 @@ public class LogicLayerImpl implements LogicLayer {
 	}
 
 
+	//!!!!!!!!!!!!
+	//!!Find My!!!
+	//!!!!!!!!!!!!
+	
 	public List<Match> findMyMatches(Student user) {
 		FindMatchesCtrl ctrlFindMyMatches = new FindMatchesCtrl( objectLayer );
 		return ctrlFindMyMatches.findMyMatches(user);
@@ -196,6 +213,10 @@ public class LogicLayerImpl implements LogicLayer {
 	}
 
 
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//!!!Find Object-to-Object!!!
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
 	public List<Team> findTeamsOfLeague(String leagueName) throws RDException {
 		FindTeamsOfLeagueCtrl ctrlFindTeamsOfLeague = new FindTeamsOfLeagueCtrl( objectLayer );
 		return ctrlFindTeamsOfLeague.findTeamsOfLeague(leagueName);
