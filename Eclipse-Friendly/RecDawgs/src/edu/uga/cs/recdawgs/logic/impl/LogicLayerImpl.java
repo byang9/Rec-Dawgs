@@ -159,14 +159,14 @@ public class LogicLayerImpl implements LogicLayer {
     	return true;
     }
     
-    /*public boolean isTeamCaptain(User user){
+    public boolean isTeamCaptain(User user){
     	try {
-    		objectLayer.findTeamCaptain((TeamCaptain)user);
+    		objectLayer.findStudentCaptainOfTeam((TeamCaptain)user);
     	} catch (RDException e){
     		return false;
     	}
     	return true;
-    }*/
+    }
 
 
     //!!!!!!!!!!!!!!

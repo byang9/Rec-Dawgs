@@ -306,6 +306,10 @@ public class ObjectLayerImpl implements ObjectLayer {
     }
     
     
+    public Iterator<Student> findStudentCaptainOfTeam(Student modelStudent, Team team) throws RDException {
+        return persistence.restoreStudent(modelStudent);
+    }
+    
     
     public Student restoreStudentCaptainOfTeam(Team team) throws RDException {
         return persistence.restoreStudentCaptainOfTeam(team);

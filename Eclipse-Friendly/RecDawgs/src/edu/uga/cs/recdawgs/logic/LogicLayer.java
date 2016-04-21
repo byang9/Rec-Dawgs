@@ -50,5 +50,5 @@ public interface LogicLayer
     public void               	logout(String ssid) throws RDException;
     public String             	login(Session session, String userName, String password) throws RDException;
 	public boolean 			  	isAdmin(User user);
-	//public boolean				isTeamCaptain(User user);
+	public boolean				isTeamCaptain(User user);
 }
