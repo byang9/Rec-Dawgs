@@ -161,42 +161,43 @@ public class LogicLayerImpl implements LogicLayer {
 
 
 	public List<User> findAllUsers() throws RDException {
-		return null;
+		FindUsersCtrl ctrlFindAllUsers = new FindUsersCtrl( objectLayer );
+		return ctrlFindAllUsers.findAllUsers();
 	}
 
 
 	public List<League> findAllLeagues() throws RDException {
-		// TODO Auto-generated method stub
-		return null;
+		FindLeaguesCtrl ctrlFindAllLeagues = new FindLeaguesCtrl( objectLayer );
+		return ctrlFindAllLeagues.findAllLeagues();
 	}
 
 
 	public List<Match> findAllMatches() throws RDException {
-		// TODO Auto-generated method stub
-		return null;
+		FindMatchesCtrl ctrlFindAllMatches = new FindMatchesCtrl( objectLayer );
+		return ctrlFindAllMatches.findAllMatches();
 	}
 
 
 	public List<ScoreReport> findAllScoreReports() throws RDException {
-		// TODO Auto-generated method stub
-		return null;
+		FindScoreReportsCtrl ctrlFindAllScoreReports = new FindScoreReportsCtrl( objectLayer );
+		return ctrlFindAllScoreReports.findMyScoreReports();
 	}
 
 
 	public List<Match> findMyMatches(Student user) {
-		// TODO Auto-generated method stub
-		return null;
+		FindMatchesCtrl ctrlFindMyMatches = new FindMatchesCtrl( objectLayer );
+		return ctrlFindMyMatches.findMyMatches(user);
 	}
 
 
 	public List<ScoreReport> findMyScoreReports(Student user) {
-		// TODO Auto-generated method stub
-		return null;
+		FindScoreReportsCtrl ctrlFindMyScoreReports = new FindScoreReportsCtrl( objectLayer );
+		return ctrlFindMyScoreReports.findMyScoreReports(user);
 	}
 
 
 	public List<Team> findTeamsOfLeague(String leagueName) throws RDException {
-		// TODO Auto-generated method stub
-		return null;
+		FindTeamsOfLeagueCtrl ctrlFindTeamsOfLeague = new FindTeamsOfLeagueCtrl( objectLayer );
+		return ctrlFindTeamsOfLeague.findTeamsOfLeague(leagueName);
 	}
 }
