@@ -31,14 +31,14 @@ class LeagueSportsVenueManager {
     
     public void save(League l, SportsVenue sv) throws RDException {
         String insertRelationSql = "insert into hasVenue ( leagueid, venueid ) values ( ?, ? )";
-        String updateRelationSql = "update hasVenue set leagueid = ?, venueid = ? where id = ?";
+        //String updateRelationSql = "update hasVenue set leagueid = ?, venueid = ? where id = ?";
         PreparedStatement stmt = null;
                  
         try {
-            if (!l.isPersistent() || !sv.isPersistent())
+            //if (!l.isPersistent() || !sv.isPersistent())  <-- storing a relationship means that both entities are persistent
                 stmt = (PreparedStatement) conn.prepareStatement(insertRelationSql);
-            else
-                stmt = (PreparedStatement) conn.prepareStatement(updateRelationSql);
+            //else
+            //    stmt = (PreparedStatement) conn.prepareStatement(updateRelationSql);
 
             if (l.getId() >= 0)
                 stmt.setLong(1, l.getId());
