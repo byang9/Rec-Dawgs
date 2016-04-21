@@ -18,6 +18,8 @@ import java.util.Date;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.User;
+import edu.uga.cs.recdawgs.logic.LogicLayer;
+import edu.uga.cs.recdawgs.logic.impl.LogicLayerImpl;
 //import edu.uga.cs.recdawgs.logic.*;
 //import edu.uga.cs.recdawgs.logic.impl.*;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
@@ -35,7 +37,7 @@ public class Session
 {
     private Connection conn;
     private ObjectLayer objectLayer;
-    //private LogicLayer logicLayer;
+    private LogicLayer logicLayer;
     private User person;
     private String id;
     private Date expiration;
@@ -51,7 +53,7 @@ public class Session
         objectLayer = new ObjectLayerImpl();
         PersistenceLayer persistence = new PersistenceLayerImpl( conn, objectLayer ); 
         objectLayer.setPersistence( persistence ); 
-        //logicLayer = new LogicLayerImpl( objectLayer );
+        logicLayer = new LogicLayerImpl( objectLayer );
         extendExpiration();
     }
     
@@ -170,20 +172,20 @@ public class Session
         }
     }
 
-//    /**
-//     * @return the logicLayer
-//     */
-//    public LogicLayer getLogicLayer()
-//    {
-//        return logicLayer;
-//    }
-//
-//    /**
-//     * @param logicLayer the logicLayer to set
-//     */
-//    public void setLogicLayer(LogicLayer logicLayer)
-//    {
-//        this.logicLayer = logicLayer;
-//    }
+    /**
+     * @return the logicLayer
+     */
+    public LogicLayer getLogicLayer()
+    {
+        return logicLayer;
+    }
+
+    /**
+     * @param logicLayer the logicLayer to set
+     */
+    public void setLogicLayer(LogicLayer logicLayer)
+    {
+        this.logicLayer = logicLayer;
+    }
     
 }

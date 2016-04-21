@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
-import edu.uga.cs.recdawgs.entity.User;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -46,12 +46,12 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class FindAllTeams extends HttpServlet {
+public class FindMyLeagues extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllTeams-Result.ftl";
+    static  String            resultTemplateName = "FindAllLeagues-Result.ftl";
 
     private Configuration     cfg;
 
@@ -70,10 +70,10 @@ public class FindAllTeams extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Team>        rv = null;
-        List<List<Object>>  teams = null;
-        List<Object>        team = null;
-        Team	   	        t  = null;
+        List<League>        rv = null;
+        List<List<Object>>  leagues = null;
+        List<Object>        league = null;
+        League   	        l  = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
@@ -132,23 +132,29 @@ public class FindAllTeams extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            rv = logicLayer.findAllTeams();
+            rv = logicLayer.findMyLeagues((Student)session.getUser());
 
             // Build the data-model
             //
-            teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
+            leagues = new LinkedList<List<Object>>();
+            root.put( "leagues", leagues );
 
             for( int i = 0; i < rv.size(); i++ ) {
-                t = (Team) rv.get( i );
-                League league = t.getParticipatesInLeague();
-                User user = t.getCaptain();
-                team = new LinkedList<Object>();
-                team.add( t.getId() );
-                team.add( t.getName() );
-                team.add( league.getName() );
-                team.add( user.getFirstName() + " " + user.getLastName() );
-                teams.add( team );
+                l = (League) rv.get( i );
+                //Person founder = objectModel.findEstablishedBy( c );
+                Team team = l.getWinnerOfLeague();
+                league = new LinkedList<Object>();
+                league.add( l.getId() );
+                league.add( l.getName() );
+                league.add( team.getName() );
+                league.add( l.getIsIndoor() );
+                league.add( l.getMinTeams() );
+                league.add( l.getMaxTeams() );
+                league.add( l.getMinMembers() );
+                league.add( l.getMaxMembers() );
+                league.add( l.getMatchRules() );
+                league.add( l.getLeagueRules() );
+                leagues.add( league );
             }
         } 
         catch( Exception e) {

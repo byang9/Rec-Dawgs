@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.entity.User;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
@@ -46,7 +47,7 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class FindAllTeams extends HttpServlet {
+public class FindMyTeams extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
@@ -70,7 +71,7 @@ public class FindAllTeams extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Team>        rv = null;
+        List<Team>          rv = null;
         List<List<Object>>  teams = null;
         List<Object>        team = null;
         Team	   	        t  = null;
@@ -132,7 +133,7 @@ public class FindAllTeams extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            rv = logicLayer.findAllTeams();
+            rv = logicLayer.findMyTeams((Student)session.getUser());
 
             // Build the data-model
             //
