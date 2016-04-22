@@ -27,7 +27,7 @@ public class TeamMatchManager {
 	
 	public void saveHomeTeam( Team team, Match match ) throws RDException{
 		String insertMatchupSql = "insert into matchup ( homeTeamId, awayTeamId, homePoints, awayPoints, matchDate, isCompleted ) values ( ?, ?, ?, ?, ?, ? )";
-		String updateMatchupSql = "update matchup set homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, isCompleted = ?";
+		String updateMatchupSql = "update matchup set homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, isCompleted = ? where id = ?";
 		PreparedStatement stmt = null;
 		int inscnt;
 		long matchupId;
@@ -38,21 +38,23 @@ public class TeamMatchManager {
 			else
 				stmt = (PreparedStatement) conn.prepareStatement(updateMatchupSql);
 			
-			stmt.setLong(1, match.getId());
+			if (match.isPersistent())
+				stmt.setLong(7, match.getId());
 
 			if( team != null )
-				stmt.setLong(2, team.getId());
+				stmt.setLong(1, team.getId());
 			else
 				throw new RDException( "MatchupManager.save: can't save a Matchup: home team undefined" );
 			
 			if( match.getAwayTeam() != null )
-				stmt.setLong(3, match.getAwayTeam().getId());
+				stmt.setLong(2, match.getAwayTeam().getId());
 			else
 				throw new RDException( "MatchupManager.save: can't save a Matchup: away team undefined" );
 
-			stmt.setLong(4, match.getHomePoints());
-			stmt.setLong(5, match.getAwayPoints());
-			stmt.setBoolean(7, match.getIsCompleted());
+			stmt.setLong(3, match.getHomePoints());
+			stmt.setLong(4, match.getAwayPoints());
+			stmt.setDate(5, new java.sql.Date(match.getDate().getTime()));
+			stmt.setBoolean(6, match.getIsCompleted());
 
 			inscnt = stmt.executeUpdate();
 

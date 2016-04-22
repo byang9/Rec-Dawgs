@@ -30,129 +30,118 @@ public class DeleteTest{
         // connect the ObjectModel module to the Persistence module
         objectLayer.setPersistence( persistence ); 
         
-        Iterator<League> leagueIter = null;
         
         try{
             //printing out all leagues
-            League tennisLeague = null;
-            League swimLeague = objectLayer.createLeague();
-            swimLeague.setName("Swimming");
-            leagueIter = objectLayer.findLeague(swimLeague);
+            League tempLeague = null;
+            Iterator<League> leagueIter = objectLayer.findLeague(null);
             while (leagueIter.hasNext()){
-                tennisLeague = leagueIter.next();
-                System.out.println("League: " +tennisLeague);
-            }
-            if(tennisLeague != null){
-                objectLayer.deleteLeague(tennisLeague);
-                System.out.println("Deleted Leagues");
-            }else{
+                tempLeague = leagueIter.next();
+                if(tempLeague != null){
+                    System.out.println("Deleted League: "+ tempLeague.getName());
+                    objectLayer.deleteLeague(tempLeague);
+                }
+            }if(tempLeague == null){
                 System.out.println("Error finding Leagues");
             }
             
             //printing out all Rounds
             Round tempRound = null;
-            Round startRound = objectLayer.createRound();
-            Iterator<Round> roundIter = objectLayer.findRound(startRound);
-            while(roundIter.hasNext()){
-                tempRound = roundIter.next();
-                System.out.println("Round: " + tempRound);
-            }
-            if(tempRound != null){
-                objectLayer.deleteRound(tempRound);
-                System.out.println("Deleted Round");
-            }else{
+            Iterator<Round> RoundIter = objectLayer.findRound(null);
+            while (RoundIter.hasNext()){
+                tempRound = RoundIter.next();
+                if(tempRound != null){
+                    System.out.println("Deleted Round: #"+ tempRound.getNumber());
+                    objectLayer.deleteRound(tempRound);
+                }
+            }if(tempRound == null){
                 System.out.println("Error finding Rounds");
             }
             
-            //printing out all Match
+            //printing out all Matchs
             Match tempMatch = null;
-            Match startMatch = objectLayer.createMatch();
-            Iterator<Match> matchIter = objectLayer.findMatch(startMatch);
-            while(matchIter.hasNext()){
-                tempMatch = matchIter.next();
-                System.out.println("Match: " + tempMatch);
+            Iterator<Match> MatchIter = objectLayer.findMatch(null);
+            while (MatchIter.hasNext()){
+                tempMatch = MatchIter.next();
+                if(tempMatch != null){
+                	//tempMatch.setId(1);
+                	System.out.println(tempMatch.getId());
+                    System.out.println("Deleted Match on date: "+ tempMatch.getDate());
+                    objectLayer.deleteMatch(tempMatch);
+                }
+            }if(tempMatch == null){
+                System.out.println("Error finding Matchs");
             }
-            if(tempMatch != null){
-                objectLayer.deleteMatch(tempMatch);
-                System.out.println("Deleted Match");
-            }else{
-                System.out.println("Error finding Matches");
-            }
+            
             
             //printing out all Teams
             Team tempTeam = null;
-            Team startTeam = objectLayer.createTeam();
-            Iterator<Team> teamIter = objectLayer.findTeam(startTeam);
-            while(teamIter.hasNext()){
-                tempTeam = teamIter.next();
-                System.out.println("Team: " + tempTeam);
-            }
-            if(tempTeam != null){
-                objectLayer.deleteTeam(tempTeam);
-                System.out.println("Deleted Team");
-            }else{
+            Iterator<Team> TeamIter = objectLayer.findTeam(null);
+            while (TeamIter.hasNext()){
+                tempTeam = TeamIter.next();
+                if(tempTeam != null){
+                    System.out.println("Deleted Team: "+ tempTeam.getName());
+                    objectLayer.deleteTeam(tempTeam);
+                }
+            }if(tempTeam == null){
                 System.out.println("Error finding Teams");
             }
             
+            
             //printing out all Students
             Student tempStudent = null;
-            Student startStudent = objectLayer.createStudent();
-            Iterator<Student> studentIter = objectLayer.findStudent(startStudent);
-            while(studentIter.hasNext()){
-                tempStudent = studentIter.next();
-                System.out.println("Student: " + tempStudent);
-            }
-            if(tempStudent != null){
-                objectLayer.deleteStudent(tempStudent);
-                System.out.println("Deleted Student");
-            }else{
+            Iterator<Student> StudentIter = objectLayer.findStudent(null);
+            while (StudentIter.hasNext()){
+                tempStudent = StudentIter.next();
+                if(tempStudent != null){
+                    System.out.println("Deleted Student: "+ tempStudent.getFirstName());
+                    objectLayer.deleteStudent(tempStudent);
+                }
+            }if(tempStudent == null){
                 System.out.println("Error finding Students");
             }
             
             //printing out all SportsVenues
             SportsVenue tempSportsVenue = null;
-            SportsVenue startSportsVenue = objectLayer.createSportsVenue("grass","yolo street",false);
-            Iterator<SportsVenue> sportsVenueIter = objectLayer.findSportsVenue(startSportsVenue);
-            while(sportsVenueIter.hasNext()){
-                tempSportsVenue = sportsVenueIter.next();
-                System.out.println("SportsVenue: " + tempSportsVenue);
-            }
-            if(tempSportsVenue != null){
-                objectLayer.deleteSportsVenue(tempSportsVenue);
-                System.out.println("Deleted SportsVenue");
-            }else{
+            Iterator<SportsVenue> SportsVenueIter = objectLayer.findSportsVenue(null);
+            while (SportsVenueIter.hasNext()){
+                tempSportsVenue = SportsVenueIter.next();
+                //System.out.println(tempSportsVenue.getId());
+                //System.out.println(tempSportsVenue.isPersistent());
+                if(tempSportsVenue != null){
+                    System.out.println("Deleted SportsVenue: "+ tempSportsVenue.getName());
+                    objectLayer.deleteSportsVenue(tempSportsVenue);
+                }
+            }if(tempSportsVenue == null){
                 System.out.println("Error finding SportsVenues");
             }
             
             //printing out all Administrators
             Administrator tempAdministrator = null;
-            Administrator startAdministrator = objectLayer.createAdministrator();
-            Iterator<Administrator> administratorIter = objectLayer.findAdministrator(startAdministrator);
-            while(administratorIter.hasNext()){
-                tempAdministrator = administratorIter.next();
-                System.out.println("Administrator: " + tempAdministrator);
-            }
-            if(tempAdministrator != null){
-                objectLayer.deleteAdministrator(tempAdministrator);
-                System.out.println("Deleted Administrator");
-            }else{
+            Iterator<Administrator> AdministratorIter = objectLayer.findAdministrator(null);
+            while (AdministratorIter.hasNext()){
+                tempAdministrator = AdministratorIter.next();
+                if(tempAdministrator != null){
+                    System.out.println("Deleted Administrator: "+ tempAdministrator.getFirstName());
+                    objectLayer.deleteAdministrator(tempAdministrator);
+                }
+            }if(tempAdministrator == null){
                 System.out.println("Error finding Administrators");
             }
             
             //printing out all ScoreReports
             ScoreReport tempScoreReport = null;
-            ScoreReport startScoreReport = objectLayer.createScoreReport();
-            Iterator<ScoreReport> scoreReportIter = objectLayer.findScoreReport(startScoreReport);
-            while(scoreReportIter.hasNext()){
-                tempScoreReport = scoreReportIter.next();
-                System.out.println("ScoreReport: " + tempScoreReport);
-            }
-            if(tempScoreReport != null){
-                objectLayer.deleteScoreReport(tempScoreReport);
-                System.out.println("Deleted ScoreReport");
-            }else{
+            Iterator<ScoreReport> ScoreReportIter = objectLayer.findScoreReport(null);
+            while (ScoreReportIter.hasNext()){
+                tempScoreReport = ScoreReportIter.next();
+                if(tempScoreReport != null){
+                    System.out.println("Deleted ScoreReport on date: "+ tempScoreReport.getDate());
+                    objectLayer.deleteScoreReport(tempScoreReport);
+                }
+            }if(tempScoreReport == null){
                 System.out.println("Error finding ScoreReports");
             }
+            
             
         }
         catch( RDException ce )

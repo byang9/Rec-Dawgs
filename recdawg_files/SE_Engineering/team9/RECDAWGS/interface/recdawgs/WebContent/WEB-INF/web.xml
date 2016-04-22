@@ -1,0 +1,107 @@
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <servlet>
+  <servlet-name>Login</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.Login</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>Logout</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.Logout</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>FindAllTeams</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllTeams</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>FindAllLeagues</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllLeagues</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>FindAllVenues</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllVenues</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>FindAllReports</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllReports</servlet-class>
+ </servlet>
+ <!--
+ <servlet>
+  <servlet-name>ShowMainWindow</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.ShowMainWindow</servlet-class>
+ </servlet>
+-->
+ <servlet>
+  <servlet-name>FindMyTeams</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindMyTeams</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>ModifyAccount</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.ModifyAccount</servlet-class>
+ </servlet>
+<!--
+ <servlet>
+  <servlet-name>RDError</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.RDError</servlet-class>
+ </servlet>
+-->
+ <servlet>
+  <servlet-name>ViewLeaguesOfSV</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.ViewLeaguesOfSV</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>ViewSVsOfLeague</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.ViewSVsOfLeague</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Login</servlet-name>
+  <url-pattern>/Login</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>Logout</servlet-name>
+  <url-pattern>/Logout</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FindAllTeams</servlet-name>
+  <url-pattern>/FindAllTeams</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FindAllLeagues</servlet-name>
+  <url-pattern>/FindAllLeagues</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FindAllVenues</servlet-name>
+  <url-pattern>/FindAllVenues</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FindAllReports</servlet-name>
+  <url-pattern>/FindAllReports</url-pattern>
+ </servlet-mapping>
+ <!--
+ <servlet-mapping>
+  <servlet-name>ShowMainWindow</servlet-name>
+  <url-pattern>/ShowMainWindow</url-pattern>
+ </servlet-mapping>
+-->
+ <servlet-mapping>
+  <servlet-name>FindMyTeams</servlet-name>
+  <url-pattern>/FindMyTeams</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>ModifyAccount</servlet-name>
+  <url-pattern>/ModifyAccount</url-pattern>
+ </servlet-mapping>
+<!--
+ <servlet-mapping>
+  <servlet-name>RDError</servlet-name>
+  <url-pattern>/RDError</url-pattern>
+ </servlet-mapping>
+-->
+ <servlet-mapping>
+  <servlet-name>ViewLeaguesOfSV</servlet-name>
+  <url-pattern>/ViewLeaguesOfSV</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>ViewSVsOfLeague</servlet-name>
+  <url-pattern>/ViewSVsOfLeague</url-pattern>
+ </servlet-mapping>
+</web-app>

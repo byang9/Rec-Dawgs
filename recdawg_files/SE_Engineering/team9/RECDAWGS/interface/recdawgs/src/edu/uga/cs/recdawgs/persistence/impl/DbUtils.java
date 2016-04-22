@@ -11,16 +11,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import edu.uga.cs.recdawgs.RDException;
-<<<<<<< HEAD
-=======
-import edu.uga.cs.recdawgs.session.*;
->>>>>>> origin/master
 
 //import org.apache.log4j.Logger;
 
 /**
  * This class performs database operations.
- * @author durandal, Haseeb Yousaf
  */
 public class DbUtils {
 

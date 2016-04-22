@@ -27,8 +27,8 @@ public class PersonManager {
 
  
     public void save(Student user) throws RDException{
-        String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, address ) values ( ?, ?, ?, ?, ?, ?, ?, ? )";              
-        String updatePersonSql = "update person set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, address = ?";              
+        String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, major, address ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";              
+        String updatePersonSql = "update person set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, major = ?, address = ? where id = ?";              
         PreparedStatement stmt;
         int inscnt;
         long personId;
@@ -81,14 +81,19 @@ public class PersonManager {
             else
                 throw new RDException("PersonManager.save: can't save a Person: studentId undefined");
             
+            if (user.getMajor() != null)
+            	stmt.setString(8, user.getMajor());
+            else
+            	throw new RDException("PersonManager.save: can't save a Person: major undefined");
+            	
             //get address
             if (user.getAddress() != null)
-                stmt.setString(8, user.getAddress());
+                stmt.setString(9, user.getAddress());
             else
                 throw new RDException("PersonManager.save: can't save a Person: address undefined");
 
             if (user.isPersistent())
-                stmt.setLong(1, user.getId());
+                stmt.setLong(10, user.getId());
 
             inscnt = stmt.executeUpdate();
 
@@ -205,7 +210,7 @@ public class PersonManager {
     }//save
 
     public Iterator<Student> restore(Student modelPerson) throws RDException {
-        String selectPersonSql = "select p.id, p.firstname, p.lastname, p.username, p.password, p.email, p.isStudent, p.studentID, p.address from person p";
+        String selectPersonSql = "select p.id, p.firstname, p.lastname, p.username, p.password, p.email, p.isStudent, p.studentID, p.major, p.address from person p";
         Statement stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -306,11 +311,12 @@ public class PersonManager {
                         condition.append( " and" );
 
                     condition.append(" email = '" + modelPerson.getEmailAddress() + "'");
-
+               /*
                 if( condition.length() > 0 ) {
                     query.append(  " where " );
                     query.append( condition );
                 }
+                */
                 
             }
 

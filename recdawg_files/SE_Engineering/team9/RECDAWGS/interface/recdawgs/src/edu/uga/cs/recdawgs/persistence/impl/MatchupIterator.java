@@ -53,7 +53,8 @@ public class MatchupIterator implements Iterator<Match>{
 				//awayTeamId = rs.getLong( 3 );
 				homePoints = rs.getLong( 4 );
 				awayPoints = rs.getLong( 5 );
-				matchDate = rs.getDate( 6 );
+				//matchDate = rs.getDate( 6 );
+				matchDate = rs.getTimestamp("matchDate");
 				isCompleted = rs.getBoolean( 7 );
 
 				more = rs.next();

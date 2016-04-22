@@ -200,30 +200,11 @@ public class LeagueImpl extends Persistent implements League {
 
 
 	@Override
-	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public void setId(long id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public boolean isPersistent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
 	public void setIsIndoor(Boolean isIndoor) {
 		// TODO Auto-generated method stub
+		this.isIndoor = isIndoor;
 		
 	}
+
 
 }

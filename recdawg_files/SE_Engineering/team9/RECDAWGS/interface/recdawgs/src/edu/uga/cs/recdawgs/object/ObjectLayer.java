@@ -416,11 +416,18 @@ public interface ObjectLayer
      */
     public void createStudentCaptainOfTeam( Student student, Team team ) throws RDException;
     
+//    /**
+//     * Return the student who is the captain of the team (traverse the link isCaptainOf from Team to Student).
+//     * @param team the team
+//     * @return the student who is the team's captain
+//     * @throws RDException in case either the team is null or another error occurs
+//     */
+//    public void findStudentCaptainOfTeam( Student modelStudent, Team team) throws RDException;
     /**
-     * Return the student who is the captain of the team (traverse the link isCaptainOf from Team to Student).
-     * @param team the team
+     * Return the student who is the captain of the team (who already exists, traverses the link isCaptainOf from Team to Student).
+     * @param team
      * @return the student who is the team's captain
-     * @throws RDException in case either the team is null or another error occurs
+     * @throws RDException
      */
     public Student restoreStudentCaptainOfTeam( Team team ) throws RDException;
     

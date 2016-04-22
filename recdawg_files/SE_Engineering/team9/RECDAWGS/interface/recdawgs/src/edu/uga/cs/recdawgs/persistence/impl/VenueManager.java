@@ -28,7 +28,7 @@ class VenueManager
     }
     
     public void save(SportsVenue venue) throws RDException {
-        String insertVenueSql = "insert into venue ( name, address, isIndoor, id ) values ( ?, ?, ?, ? )";
+        String insertVenueSql = "insert into venue ( name, address, isIndoor ) values ( ?, ?, ? )";
         String updateVenueSql = "update venue set name = ?, address = ?, isIndoor = ?, id = ?";
         PreparedStatement stmt = null;
         int inscnt;
@@ -40,7 +40,7 @@ class VenueManager
             else
                 stmt = (PreparedStatement) conn.prepareStatement(updateVenueSql);
 
-            //if (venue.isPersistent())
+            if (venue.isPersistent())
                 stmt.setLong(4, venue.getId());
             
             if (venue.getName() != null) // name is unique unique and non null
@@ -57,7 +57,7 @@ class VenueManager
 
             inscnt = stmt.executeUpdate();
 
-            if (venue.isPersistent()) {
+            if (!venue.isPersistent()) {
                 if (inscnt >= 1) {
                     String sql = "select last_insert_id()";
                     if (stmt.execute(sql)) { // statement returned a result
@@ -70,9 +70,9 @@ class VenueManager
                         while (r.next()) {
 
                             // retrieve the last insert auto_increment value
-                            venueID = r.getLong(1);
+                        	venueID = r.getLong(1);
                             if (venueID > 0)
-                                venue.setId(venueID); // set this person's db id (proxy object)
+                            	venue.setId(venueID); // set this person's db id (proxy object)
                         }
                     }
                 }
@@ -91,7 +91,7 @@ class VenueManager
     }
 
     public Iterator<SportsVenue> restore(SportsVenue venue) throws RDException {
-        String       selectVenueSql = "select v.id, v.name, v.address, v.isIndoor from venue v";
+        String       selectVenueSql = "select id, name, address, isIndoor from venue";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer(100);
         StringBuffer condition = new StringBuffer(100);
@@ -103,13 +103,15 @@ class VenueManager
         
         if (venue != null) {
             if (venue.getId() >= 0) // id is unique, so it is sufficient to get a Venue
-                query.append( " and id = " + venue.getId());
+                query.append( " where id = " + venue.getId());
             else if (venue.getName() != null) // VenueName is unique, so it is sufficient to get a Venue
-                query.append(" and name = '" + venue.getName() + "'");
+                query.append(" where name = '" + venue.getName() + "'");
+            //query.append( " and name = '" + club.getName() + "'" );
             else {
 
                 if (venue.getAddress() != null)
                     condition.append( " and address = '" + venue.getAddress() + "'");   
+                //   condition.append( " and address = '" + club.getAddress() + "'" );  
 
                 if (condition.length() > 0)
                     condition.append(" and");

@@ -1,0 +1,54 @@
+<project name="RecDawgsBuilder" default="build">
+
+  <property name="src.dir"       value="src" />
+  <property name="project.name"  value="recdawgs_team9" />
+  <property name="build.dir"     value="WebContent" />
+  <property name="class.dir"     value="${build.dir}/WEB-INF/classes" />
+  <property name="deploy.dir"    value="/jboss/standalone/deployments" />
+
+
+  <!--
+     Available targets:
+     1. clean     - to clean all of the automatically generated files
+     2. compile   - to compile the Java sources into the "class.dir"
+     3. build     - to create the project WAR file
+     4. deploy    - to deploy the project WAR file into "deploy.dir"
+  -->
+
+  <path id="classpath">
+      <fileset dir="/Users/loganjahnke/SEProject/Rec-Dawgs-Git/recdawg_files/SE_Engineering/team9/RECDAWGS/interface/recdawgs">
+          <include name="lib/*.jar"/>
+	  <include name="WebContent/WEB-INF/classes/**/*.class"/>
+      </fileset>
+  </path>
+
+  <target name="clean">
+      <echo>Cleaning the ${build.dir} directory</echo>
+      <delete verbose="true">
+          <fileset dir="${build.dir}/WEB-INF/classes" includes="**/*.class"/>
+      </delete>
+      <delete file="${project.name}.war" />
+  </target>
+
+  <target name="compile">
+      <pathconvert property="classpathProp" refid="classpath"/>
+      <echo>Compile the source files: classpath is ${classpathProp}</echo>
+      <javac srcdir="${src.dir}" destdir="${class.dir}">
+           <classpath refid="classpath"/> 
+      </javac>
+  </target>	
+	
+  <target name="build" depends="compile">
+      <echo>Building the war application archive</echo>
+      <war destfile="${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
+          <fileset dir="${build.dir}" excludes="*.svn,**/web.xml,README"/>
+      </war>
+  </target>
+
+  <target name="deploy" depends="build">
+      <echo>Deploying the war application archive</echo>
+      <copy overwrite="yes" file="${project.name}.war" todir="${deploy.dir}"/>
+      <chmod file="${deploy.dir}/${project.name}.war" perm="a+r"/>
+  </target>
+
+</project>

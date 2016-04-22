@@ -122,4 +122,26 @@ public class ObjectFromID {
         return null;
     }
     
+    public long getIDFromLeague(League league) {
+    	String selectTeamSql = "select id from league where name = " + league.getName();
+        Statement stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+
+        query.append ( selectTeamSql );
+
+        try {
+            stmt = conn.createStatement();
+
+            if (stmt.execute(query.toString())){
+                ResultSet r = stmt.getResultSet();
+                return r.getLong(1);
+            }
+
+        }
+        catch(Exception e){
+        	
+        }
+        return 0;
+    }
+    
 }
