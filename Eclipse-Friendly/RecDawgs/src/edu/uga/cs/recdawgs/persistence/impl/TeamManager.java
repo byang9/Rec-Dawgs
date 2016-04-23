@@ -48,7 +48,7 @@ public class TeamManager {
             if(team.getParticipatesInLeague() != null)
                 stmt.setLong(2, team.getParticipatesInLeague().getId());
             else
-                throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
+                throw new RDException("TeamManager.save: can't save a Team: league undefined");
 
             if(team.getCaptain() != null)
                 stmt.setLong(3, team.getCaptain().getId());
@@ -150,7 +150,7 @@ public class TeamManager {
             if(team.getParticipatesInLeague() != null)
                 stmt.setLong(3, team.getParticipatesInLeague().getId());
             else
-                throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
+                throw new RDException("TeamManager.save: can't save a Team: League undefined");
 
             if(team.getCaptain() != null)
                 stmt.setLong(4, student.getId());
@@ -196,12 +196,13 @@ public class TeamManager {
     }//save
 
     public Iterator<Team> restore(Team team) throws RDException{
-        String selectTeamSql = "select t.id, t.name, t.leagueId, t.captainId, " +
-        						"l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
-                                "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules," +
-                                "l.leagueRules, p.id, p.firstname, p.lastname, p.username, p.password,"
-                                + "p.email, p.isStudent, p.studentID, p.address from team t, league l, person p"
-                                + " where l.id=t.leagueId and t.captainId=p.id";
+        String selectTeamSql = "select t.id, t.name, t.leagueId, t.captainId " +
+        						//"l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
+                                //"l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules," +
+                                //"l.leagueRules, p.id, p.firstname, p.lastname, p.username, p.password,"
+                                //+ "p.email, p.isStudent, p.studentID, p.address from team t, league l, person p"
+                                "from team t ";
+                               // + " where l.id=t.leagueId and t.captainId=p.id";
         Statement stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
