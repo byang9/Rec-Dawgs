@@ -30,7 +30,7 @@ public class StudentIterator implements Iterator<Student>{
     }//hasNext
 
     public Student next(){
-         //firstname, lastname, username, password, email, isStudent, studentID, address, phone
+         //firstname, lastname, username, password, email, isStudent, studentID, major, address
         long id;
         String firstName;
         String lastName;
@@ -39,7 +39,7 @@ public class StudentIterator implements Iterator<Student>{
         String email;
         String isStudent;
         String studentId;
-        //String major;
+        String major;
         String address;
 
         if ( more ){
@@ -54,7 +54,10 @@ public class StudentIterator implements Iterator<Student>{
                 email = rs.getString(6);
                 isStudent = rs.getString(7);
                 studentId = rs.getString(8);
-                address = rs.getString(9);
+                major = rs.getString(9);
+                address = rs.getString(10);
+
+                System.out.println("Current Data: (" + id + ", " + firstName + ", " + lastName + ", " + password + ", " + email + ", " + isStudent + ", " + studentId + ", " + major + ", " + address + ")");
 
                 more = rs.next();
 
@@ -65,12 +68,13 @@ public class StudentIterator implements Iterator<Student>{
 
             Student user;
 			try {
-				user = objectLayer.createStudent( firstName, lastName, userName, password, email,isStudent, studentId, address);
+				user = objectLayer.createStudent( firstName, lastName, userName, password, email, studentId, major, address);
 				user.setId( id );
 
 				return user;
 			} catch (RDException e) {
 				// TODO Auto-generated catch block
+                System.out.println("Something is causing the student to not be created: (" + id + ", " + firstName + ", " + lastName + ", " + password + ", " + email + ", " + isStudent + ", " + studentId + ", " + major + ", " + address + ")");
 				e.printStackTrace();
 			}
 			

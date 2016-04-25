@@ -76,6 +76,7 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Create a student with given attributes
     public Student createStudent(String firstName, String lastName, String userName, String password, String emailAddress, String studentId, String major, String address) throws RDException {
+        System.out.println("Creating student!");
         return new StudentImpl(firstName, lastName, userName, password, emailAddress, studentId, major, address);
     }
 
@@ -306,9 +307,9 @@ public class ObjectLayerImpl implements ObjectLayer {
     }
     
     
-    public Iterator<Student> findStudentCaptainOfTeam(Student modelStudent, Team team) throws RDException {
-        return persistence.restoreStudent(modelStudent);
-    }
+//    public Iterator<Student> findStudentCaptainOfTeam(Student modelStudent, Team team) throws RDException {
+//        return persistence.restoreStudent(modelStudent);
+//    }
     
     
     public Student restoreStudentCaptainOfTeam(Team team) throws RDException {
@@ -408,13 +409,13 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     
     public League restoreTeamParticipatesInLeague(Team team) throws RDException {
-        return restoreTeamParticipatesInLeague(team);
+        return persistence.restoreTeamParticipatesInLeague(team);
     }
     
     
     
     public Iterator<Team> restoreTeamParticipatesInLeague(League league) throws RDException {
-        return restoreTeamParticipatesInLeague(league);
+        return persistence.restoreTeamParticipatesInLeague(league);
     }
     
     

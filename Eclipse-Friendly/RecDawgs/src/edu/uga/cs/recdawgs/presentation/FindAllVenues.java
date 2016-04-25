@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.SportsVenue;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
@@ -69,7 +68,7 @@ public class FindAllVenues extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<League>        rv = null;
+        List<SportsVenue>   rv = null;
         List<List<Object>>  venues = null;
         List<Object>        venue = null;
         SportsVenue	   	    sv  = null;
@@ -144,7 +143,10 @@ public class FindAllVenues extends HttpServlet {
                 venue.add( sv.getId() );
                 venue.add( sv.getName() );
                 venue.add( sv.getAddress() );
-                venue.add( sv.getIsIndoor() );
+                if (sv.getIsIndoor()) 
+                    venue.add( "Yes" );
+                else 
+                    venue.add("No");
                 venues.add( venue );
             }
         } 

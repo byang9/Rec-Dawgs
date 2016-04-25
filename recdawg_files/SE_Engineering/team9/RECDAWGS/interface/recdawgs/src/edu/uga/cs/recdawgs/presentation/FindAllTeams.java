@@ -143,9 +143,18 @@ public class FindAllTeams extends HttpServlet {
                 t = (Team) rv.get( i );
                 League league = t.getParticipatesInLeague();
                 User user = t.getCaptain();
+                String teamName = t.getName();
+                String[] splitName = teamName.split(" ");
                 team = new LinkedList<Object>();
                 team.add( t.getId() );
-                team.add( t.getName() );
+                if (splitName.length == 1)
+                    team.add( splitName[0] );
+                if (splitName.length == 2)
+                    team.add( splitName[0] + "_" + splitName[1]);
+                if (splitName.length == 3)
+                    team.add( splitName[0] + "_" + splitName[1] + "_" + splitName[2]);
+                if (splitName.length == 4)
+                    team.add( splitName[0] + "_" + splitName[1] + "_" + splitName[2] + "_" + splitName[3]);
                 team.add( league.getName() );
                 team.add( user.getFirstName() + " " + user.getLastName() );
                 teams.add( team );

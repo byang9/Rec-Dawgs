@@ -61,5 +61,15 @@ public interface User
      * @param emailAddress the new email address
      */
     public void setEmailAddress( String emailAddress );
+    
+    /** Return the isStudent
+     * @return the user's identity
+     */
+    public boolean getIsStudent();
+    
+    /** Set if the user is a student
+     * @param isStudent
+     */
+    public void setIsStudent( boolean isStudent );
 
 }

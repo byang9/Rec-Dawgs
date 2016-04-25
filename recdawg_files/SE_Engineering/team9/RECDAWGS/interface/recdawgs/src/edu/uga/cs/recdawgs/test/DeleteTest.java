@@ -77,6 +77,7 @@ public class DeleteTest{
             //printing out all Teams
             Team tempTeam = null;
             Iterator<Team> TeamIter = objectLayer.findTeam(null);
+            //System.out.println();
             while (TeamIter.hasNext()){
                 tempTeam = TeamIter.next();
                 if(tempTeam != null){

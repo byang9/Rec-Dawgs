@@ -49,8 +49,24 @@
   <servlet-class>edu.uga.cs.recdawgs.presentation.ViewLeaguesOfSV</servlet-class>
  </servlet>
  <servlet>
-  <servlet-name>ViewSVsOfLeague</servlet-name>
-  <servlet-class>edu.uga.cs.recdawgs.presentation.ViewSVsOfLeague</servlet-class>
+  <servlet-name>ViewTeamsOfLeague</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.ViewTeamsOfLeague</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>Register</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.Register</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>ViewStudentsOfTeam</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.ViewStudentsOfTeam</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>FindAllStudents</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllStudents</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>JoinTeam</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.JoinTeam</servlet-class>
  </servlet>
  <servlet-mapping>
   <servlet-name>Login</servlet-name>
@@ -101,7 +117,23 @@
   <url-pattern>/ViewLeaguesOfSV</url-pattern>
  </servlet-mapping>
  <servlet-mapping>
-  <servlet-name>ViewSVsOfLeague</servlet-name>
-  <url-pattern>/ViewSVsOfLeague</url-pattern>
+  <servlet-name>ViewTeamsOfLeague</servlet-name>
+  <url-pattern>/ViewTeamsOfLeague</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>Register</servlet-name>
+  <url-pattern>/Register</url-pattern>
+ </servlet-mapping>
+    <servlet-mapping>
+  <servlet-name>ViewStudentsOfTeam</servlet-name>
+  <url-pattern>/ViewStudentsOfTeam</url-pattern>
+ </servlet-mapping>
+    <servlet-mapping>
+  <servlet-name>FindAllStudents</servlet-name>
+  <url-pattern>/FindAllStudents</url-pattern>
+ </servlet-mapping>
+    <servlet-mapping>
+  <servlet-name>JoinTeam</servlet-name>
+  <url-pattern>/JoinTeam</url-pattern>
  </servlet-mapping>
 </web-app>

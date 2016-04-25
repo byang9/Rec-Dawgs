@@ -11,6 +11,7 @@ public class StudentImpl extends Persistent implements Student {
 	private String userName;
 	private String password;
 	private String emailAddress;
+    private boolean isStudent;
 	private String studentId;
 	private String major;
 	private String address;
@@ -22,6 +23,7 @@ public class StudentImpl extends Persistent implements Student {
         this.userName = userName;
         this.password = password;
         this.emailAddress = emailAddress;
+        this.isStudent = true;
         this.studentId = studentId;
         this.major = major;
         this.address = address;
@@ -34,6 +36,7 @@ public class StudentImpl extends Persistent implements Student {
         this.userName = null;
         this.password = null;
         this.emailAddress = null;
+        this.isStudent = true;
         this.studentId = null;
         this.major = null;
         this.address = null;
@@ -143,6 +146,16 @@ public class StudentImpl extends Persistent implements Student {
 	@Override
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+    
+    @Override
+	public boolean getIsStudent() {
+		return isStudent;
+	}
+	
+	@Override
+	public void setIsStudent(boolean isStudent) {
+		this.isStudent = isStudent;
 	}
 
 }

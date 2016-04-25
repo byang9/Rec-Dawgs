@@ -19,24 +19,24 @@ public class MembershipManager {
     private Connection  conn = null;
 
     public MembershipManager(Connection conn, ObjectLayer objectLayer){
-    	this.conn = conn;
-    	this.objectLayer = objectLayer;
+      this.conn = conn;
+      this.objectLayer = objectLayer;
     }
                                                                                                                          
     public void save(Student student, Team team) throws RDException{
-        String insertMembershipSql = "insert into membership (studentid, teamid) values (?,?)";
+        String insertMembershipSql = "insert into membership ( personid, teamid ) values ( ?, ? )";
         PreparedStatement  stmt = null;
         int inscnt;
 
 
-        if( student.isPersistent() && team.isPersistent() )
+        if( !student.isPersistent() && !team.isPersistent() )
             throw new RDException( "MembershipManager.save: Attempting to save a Membership with no Student or team defined" );
         
         try {
             stmt = (PreparedStatement) conn.prepareStatement( insertMembershipSql );
             
-            stmt.setLong( 2, student.getId() );
-            stmt.setLong( 3, team.getId() );
+            stmt.setLong( 1, student.getId() );
+            stmt.setLong( 2, team.getId() );
 
             inscnt = stmt.executeUpdate();
             
@@ -54,16 +54,17 @@ public class MembershipManager {
             throw new RDException( "MembershipManager.save: failed to save a Membership: " + e );
         }
 
-	
+  
     }
 
     public Iterator<Student> restore(Team team) throws RDException {
-         String selectSql = "select t.id, s.id from membership where t.id = ";            
+         String selectSql = "select p.id, p.firstname, p.lastname, p.username, p.password, p.email, p.isStudent, p.studentID, p.major, p.address, "
+                          + "m.teamid, m.personid, t.name, t.id from membership m, team t, person p where m.teamid=t.id and p.id=m.personid and t.name=\'" + team.getName() + "\'";            
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
 
-        if( team.isPersistent() )
+        if( !team.isPersistent() )
             throw new RDException( "MembershipManager.restore: the argument membership includes a non-persistent Student object" );
         
         condition.setLength( 0 );
@@ -71,10 +72,12 @@ public class MembershipManager {
         // form the query based on the given Club object instance
         query.append( selectSql );
         
-        if( team != null ) {
-            if( team.isPersistent() ) // id is unique, so it is sufficient to get a membership
-                query.append( team.getId() );
-        }
+        // if( team != null ) {
+        //     if( team.isPersistent() ) // id is unique, so it is sufficient to get a membership
+        //         query.append( " t.id = " + team.getId() );
+        //     else if( team.getName() != null ) // id is unique, so it is sufficient to get a membership
+        //         query.append( " t.name = " + team.getName() );
+        // }
         
         try {
             stmt = conn.createStatement();
@@ -82,11 +85,8 @@ public class MembershipManager {
             // retrieve the persistent Person object
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
-            	ResultSet r = stmt.getResultSet();
-                if (stmt.execute("select s.id, s.name, s.address, s.isIndoor from student s where s.id = " + r.getLong(1))) {
-                	ResultSet r2 = stmt.getResultSet();
-                	return new StudentIterator(r2, objectLayer);
-                }
+              ResultSet r = stmt.getResultSet();
+              return new StudentIterator(r, objectLayer);
             }
         }
         catch( Exception e ) {      // just in case...
@@ -122,10 +122,10 @@ public class MembershipManager {
            // retrieve the persistent Person object
            //
            if( stmt.execute( query.toString() ) ) { // statement returned a result
-           	ResultSet r = stmt.getResultSet();
+            ResultSet r = stmt.getResultSet();
                if (stmt.execute("select s.id, s.name, s.address, s.isIndoor from student s where s.id = " + r.getLong(1))) {
-               	ResultSet r2 = stmt.getResultSet();
-               	return new TeamIterator(r2, objectLayer);
+                ResultSet r2 = stmt.getResultSet();
+                return new TeamIterator(r2, objectLayer);
                }
            }
        }

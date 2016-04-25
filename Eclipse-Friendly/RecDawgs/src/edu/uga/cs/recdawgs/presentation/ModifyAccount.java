@@ -17,8 +17,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -27,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -44,12 +42,12 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class ViewLeaguesOfSV extends HttpServlet {
+public class ModifyAccount extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllLeagues-Result.ftl";
+    static  String            resultTemplateName = "ModifyAccount-Result.ftl";
 
     private Configuration     cfg;
 
@@ -68,11 +66,7 @@ public class ViewLeaguesOfSV extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<League>        rv = null;
-        List<List<Object>>  leagues = null;
-        List<Object>        league = null;
-        League				l = null;
-        String				nameOfSV = req.getParameter("venue");
+        Student				student = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
@@ -131,28 +125,15 @@ public class ViewLeaguesOfSV extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            rv = logicLayer.findLeaguesOfSV(nameOfSV);
-
-            // Build the data-model
-            //
-            leagues = new LinkedList<List<Object>>();
-            root.put( "leagues", leagues );
-
-            for( int i = 0; i < rv.size(); i++ ) {
-                l = (League) rv.get( i );
-                league = new LinkedList<Object>();
-                league.add( l.getId() );
-                league.add( l.getName() );
-                league.add( l.getWinnerOfLeague().getName() );
-                league.add( l.getIsIndoor() );
-                league.add( l.getMinTeams() );
-                league.add( l.getMaxTeams() );
-                league.add( l.getMinMembers() );
-                league.add( l.getMaxMembers() );
-                league.add( l.getMatchRules() );
-                league.add( l.getLeagueRules() );
-                leagues.add( league );
-            }
+            student = logicLayer.retrieveStudent(session);
+            root.put( "firstname", student.getFirstName() );
+            root.put( "lastname", student.getLastName() );
+            root.put( "username", student.getUserName() );
+            root.put( "password", student.getPassword() );
+            root.put( "email", student.getEmailAddress() );
+            root.put( "studentId", student.getStudentId() );
+            root.put( "major", student.getMajor() );
+            root.put( "address", student.getAddress() );
         } 
         catch( Exception e) {
             RDError.error( cfg, toClient, e );

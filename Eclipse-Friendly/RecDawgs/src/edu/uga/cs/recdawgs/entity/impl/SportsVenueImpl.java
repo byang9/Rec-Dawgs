@@ -8,7 +8,6 @@ public class SportsVenueImpl extends Persistent implements SportsVenue {
     private String name;
     private boolean isIndoor;
     private String address;
-    private long id;
     
     public SportsVenueImpl(String name, String address, boolean isIndoor) {
 		this.name = name;

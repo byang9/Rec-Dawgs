@@ -143,7 +143,10 @@ public class FindAllVenues extends HttpServlet {
                 venue.add( sv.getId() );
                 venue.add( sv.getName() );
                 venue.add( sv.getAddress() );
-                venue.add( sv.getIsIndoor() );
+                if (sv.getIsIndoor()) 
+                    venue.add( "Yes" );
+                else 
+                    venue.add("No");
                 venues.add( venue );
             }
         } 

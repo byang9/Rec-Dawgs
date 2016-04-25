@@ -48,7 +48,7 @@ public class TeamManager {
             if(team.getParticipatesInLeague() != null)
                 stmt.setLong(2, team.getParticipatesInLeague().getId());
             else
-                throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
+                throw new RDException("TeamManager.save: can't save a Team: league undefined");
 
             if(team.getCaptain() != null)
                 stmt.setLong(3, team.getCaptain().getId());
@@ -94,7 +94,7 @@ public class TeamManager {
     }//save
     
     public void save(Team team, League league) throws RDException{             
-        String updateTeamSql = "update team  set leagueId = ? where id = ?";          
+        String updateTeamSql = "update team  set leagueId = ? where id = ?";
         PreparedStatement stmt;
         ObjectFromID objID = new ObjectFromID(conn, objectLayer);
         long leagueId = objID.getIDFromLeague(league);
@@ -150,7 +150,7 @@ public class TeamManager {
             if(team.getParticipatesInLeague() != null)
                 stmt.setLong(3, team.getParticipatesInLeague().getId());
             else
-                throw new RDException("TeamManager.save: can't save a Team: teamName undefined");
+                throw new RDException("TeamManager.save: can't save a Team: League undefined");
 
             if(team.getCaptain() != null)
                 stmt.setLong(4, student.getId());
@@ -197,11 +197,11 @@ public class TeamManager {
 
     public Iterator<Team> restore(Team team) throws RDException{
         String selectTeamSql = "select t.id, t.name, t.leagueId, t.captainId, " +
-        						"l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
-                                "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules," +
-                                "l.leagueRules, p.id, p.firstname, p.lastname, p.username, p.password,"
-                                + "p.email, p.isStudent, p.studentID, p.address from team t, league l, person p"
-                                + " where l.id=t.leagueId and t.captainId=p.id";
+    			"l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
+    			"l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules, " +
+    			"l.leagueRules, p.id, p.firstname, p.lastname, p.username, p.password, "
+    			+ "p.email, p.studentID, p.major, p.address from team t, league l, person p"
+    			+ " where l.id=t.leagueId and p.id=t.captainId";
         Statement stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
@@ -212,21 +212,20 @@ public class TeamManager {
 
         if (team != null){
             if (team.getId() >= 0)
-                query.append( " where id = " + team.getId()); //team id is unique, so it is sufficient to get team
+                query.append( " and t.id = " + team.getId()); //team id is unique, so it is sufficient to get team
            
             else if (team.getName() != null) //team name is unique, so it is sufficient to get team
-                query.append( " where team name = '" + team.getName() + "'");
+                query.append( " and t.name = \'" + team.getName() + "\'");
            
             else{
                 if (team.getParticipatesInLeague() != null)
-                    condition.append( " leagueId = '" + team.getParticipatesInLeague().getId() + "'");
+                    condition.append( " and t.leagueId = " + team.getParticipatesInLeague().getId());
 
                 if (team.getCaptain() != null)
-                    condition.append( " captainId = '" + team.getCaptain().getId() + "'");
+                    condition.append( " and t.captainId = " + team.getCaptain().getId());
 
 
                 if( condition.length() > 0 ) {
-                    query.append(  " where " );
                     query.append( condition );
                 }
 
@@ -289,7 +288,17 @@ public class TeamManager {
 
     //restoreTeamParticipatesInLeague
     public Iterator<Team> restore(League league) throws RDException{
-        String selectTeamSql = "select * team";
+    	String selectTeamSql = "select t.id, t.name, t.leagueId, t.captainId, " +
+    			"l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
+    			"l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules, " +
+    			"l.leagueRules, p.id, p.firstname, p.lastname, p.username, p.password, "
+    			+ "p.email, p.studentID, p.major, p.address from team t, league l, person p"
+    			+ " where t.leagueId = " + league.getId() + " and l.id=t.leagueId and p.id=t.captainId";
+    	
+       // String selectTeamSql = "select t.id, t.name, t.leagueid, t.captainid, l.id, l.name, c.id, c.firstname, c.lastname "
+        //		+ "from team t, league l, person c where t.leagueid = " + league.getId()
+        	//	+ " and l.id = t.leagueid and c.id = t.captainid";
+    	
         Statement stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
@@ -298,20 +307,12 @@ public class TeamManager {
 
         query.append ( selectTeamSql );
 
-        if (league != null){
-            if (league.getId() >= 0)
-                query.append(" where leagueid = " + league.getId()); //team id is unique, so it is sufficient to get student
-        }
-
         try {
             stmt = conn.createStatement();
 
             if (stmt.execute(query.toString())){
                 ResultSet r = stmt.getResultSet();
-                if (stmt.execute("select name, leagueid, captainid from team where leagueid = " + r.getLong(1))) {
-                    ResultSet r2 = stmt.getResultSet();
-                    return new TeamIterator(r2, objectLayer);
-                }
+                return new TeamIterator(r, objectLayer);
             }
 
         }
@@ -339,14 +340,14 @@ public class TeamManager {
                 query.append( " where id = " + team.getId()); //team id is unique, so it is sufficient to get team
            
             else if (team.getName() != null) //team name is unique, so it is sufficient to get team
-                query.append( " where team name = '" + team.getName() + "'");
+                query.append( " where team name = " + team.getName());
            
             else{
                 if (team.getParticipatesInLeague() != null)
-                    condition.append( " leagueId = '" + team.getParticipatesInLeague().getId() + "'");
+                    condition.append( " leagueId = " + team.getParticipatesInLeague().getId());
 
                 if (team.getCaptain() != null)
-                    condition.append( " captainId = '" + team.getCaptain().getId() + "'");
+                    condition.append( " captainId = " + team.getCaptain().getId());
 
                 if( condition.length() > 0 ) {
                     query.append(  " where " );

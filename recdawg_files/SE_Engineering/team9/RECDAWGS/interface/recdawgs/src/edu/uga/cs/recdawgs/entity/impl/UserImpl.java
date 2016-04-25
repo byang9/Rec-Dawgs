@@ -9,13 +9,15 @@ public class UserImpl extends Persistent implements User{
 	private String userName;
 	private String password;
 	private String emailAddress;
+    private boolean isStudent;
 
 		
 	public UserImpl( String firstName,
 					 String lastName,
 					 String userName,
 					 String password,
-					 String emailAddress
+					 String emailAddress,
+                     boolean isStudent
 					)
 	{
 		super(-1);
@@ -24,6 +26,7 @@ public class UserImpl extends Persistent implements User{
 		this.userName = userName;
 		this.password = password;
 		this.emailAddress = emailAddress;
+        this.isStudent = isStudent;
 	}
 
   	public String getFirstName(){
@@ -91,6 +94,20 @@ public class UserImpl extends Persistent implements User{
      */
     public void setEmailAddress( String emailAddress ){
     	this.emailAddress = emailAddress;
+    };
+    
+    /** Return the user's email address.
+     * @return the user's email address
+     */
+    public boolean getIsStudent(){
+    	return this.isStudent;
+    };
+    
+    /** Set the user's email address.
+     * @param emailAddress the new email address
+     */
+    public void setIsStudent( boolean isStudent ){
+    	this.isStudent = isStudent;
     };
 
      public String toString()

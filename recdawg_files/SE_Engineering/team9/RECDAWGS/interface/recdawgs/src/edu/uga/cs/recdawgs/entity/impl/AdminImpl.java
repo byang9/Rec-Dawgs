@@ -10,6 +10,7 @@ public class AdminImpl extends Persistent implements Administrator {
 	private String userName;
 	private String password;
 	private String emailAddress;
+    private boolean isStudent;
 	
 	public AdminImpl(String firstName, String lastName, String userName, String password, String emailAddress) {
 		super(-1);
@@ -18,6 +19,7 @@ public class AdminImpl extends Persistent implements Administrator {
 		this.userName = userName;
 		this.password = password;
 		this.emailAddress = emailAddress;
+        this.isStudent = false;
 	}
 	
 	public AdminImpl() {
@@ -27,6 +29,7 @@ public class AdminImpl extends Persistent implements Administrator {
 		this.userName = null;
 		this.password = null;
 		this.emailAddress = null;
+        this.isStudent = false;
 	}
 
 	@Override
@@ -77,6 +80,16 @@ public class AdminImpl extends Persistent implements Administrator {
 	@Override
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+    
+    @Override
+	public boolean getIsStudent() {
+		return isStudent;
+	}
+	
+	@Override
+	public void setIsStudent(boolean isStudent) {
+		this.isStudent = isStudent;
 	}
 	
 	

@@ -27,7 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Match;
+import edu.uga.cs.recdawgs.entity.ScoreReport;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -44,12 +46,12 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class ViewLeaguesOfSV extends HttpServlet {
+public class FindAllReports extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllLeagues-Result.ftl";
+    static  String            resultTemplateName = "FindAllScoreReports-Result.ftl";
 
     private Configuration     cfg;
 
@@ -68,11 +70,10 @@ public class ViewLeaguesOfSV extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<League>        rv = null;
-        List<List<Object>>  leagues = null;
-        List<Object>        league = null;
-        League				l = null;
-        String				nameOfSV = req.getParameter("venue");
+        List<ScoreReport>   rv = null;
+        List<List<Object>>  reports = null;
+        List<Object>        report = null;
+        ScoreReport   	    r  = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
@@ -131,27 +132,26 @@ public class ViewLeaguesOfSV extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            rv = logicLayer.findLeaguesOfSV(nameOfSV);
+            rv = logicLayer.findAllScoreReports();
 
             // Build the data-model
             //
-            leagues = new LinkedList<List<Object>>();
-            root.put( "leagues", leagues );
+            reports = new LinkedList<List<Object>>();
+            root.put( "reports", reports );
 
             for( int i = 0; i < rv.size(); i++ ) {
-                l = (League) rv.get( i );
-                league = new LinkedList<Object>();
-                league.add( l.getId() );
-                league.add( l.getName() );
-                league.add( l.getWinnerOfLeague().getName() );
-                league.add( l.getIsIndoor() );
-                league.add( l.getMinTeams() );
-                league.add( l.getMaxTeams() );
-                league.add( l.getMinMembers() );
-                league.add( l.getMaxMembers() );
-                league.add( l.getMatchRules() );
-                league.add( l.getLeagueRules() );
-                leagues.add( league );
+                r = (ScoreReport) rv.get( i );
+                Match match = r.getMatch();
+                Student student = r.getStudent();
+                report = new LinkedList<Object>();
+                report.add( r.getId() );
+                report.add( match.getHomeTeam().getName() );
+                report.add( r.getHomePoint() );
+                report.add( r.getAwayPoints() );
+                report.add( match.getAwayTeam().getName() );
+                report.add( r.getDate() );
+                report.add( student.getFirstName() + " " + student.getLastName() );
+                reports.add( report );
             }
         } 
         catch( Exception e) {

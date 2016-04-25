@@ -32,7 +32,7 @@
     <div class="container text-center">
         <h1>Goodbye</h1>
 
-        <h4>${username}</h4>
+        <h4>${firstname} ${lastname}</h4>
 
         <p><br><br>Back to the <a href="index.html"> about page</a></p>
     </div>

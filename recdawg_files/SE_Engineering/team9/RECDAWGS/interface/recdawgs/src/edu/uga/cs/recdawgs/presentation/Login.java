@@ -90,7 +90,7 @@ public class Login extends HttpServlet {
 
             try {          
                 ssid = logicLayer.login( session, username, password );
-                //if (logicLayer.isAdmin(session.getUser())) resultTemplateName = "AdminMainWindow.ftl";
+                if (!session.getUser().getIsStudent()) resultTemplateName = "AdminMainWindow.ftl";
                 System.out.println( "Obtained ssid: " + ssid );
                 httpSession.setAttribute( "ssid", ssid );
                 System.out.println( "Connection: " + session.getConnection() );

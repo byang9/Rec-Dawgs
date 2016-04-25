@@ -5,6 +5,10 @@
  */
 
 
+tr {
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .signedin {
     background-color: rgba(66,220,163,1);
     color: black;

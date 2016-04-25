@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>${team}</title>
+    <title>All Users</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +54,7 @@
                         <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about"><i class="fa fa-group"></i> ${team}</a>
+                        <a class="page-scroll" href="#about"><i class="fa fa-user"></i> Users</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
@@ -69,7 +69,7 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>${team}</h1>
+                <h1>Current Active Users</h1>
                 </div>
                 <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
                   <tr>
@@ -93,11 +93,6 @@
                   </tr>
                  </#list></table>
             </div>
-        
-        <hr>
-        <form method=get action="http://localhost:8080/recdawgs_team9/JoinTeam">
-        <input type=submit value="Join ${team}" name="team" style="text-transform: none;color:rgba(5,5,5,1);">
-        </form>
             
         <hr>
         <p>Back to the <a href="ShowMainWindow"> main window</a></p>

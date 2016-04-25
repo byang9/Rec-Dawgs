@@ -45,18 +45,21 @@ public class TeamIterator implements Iterator<Team>{
 //		"l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
 //        "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules," +
 //        "l.leagueRules, p.id, p.firstname, p.lastname, p.username, p.password,"
-//        + "p.email, p.isStudent, p.studentID, p.address from team t, league l, person p"
+//        + "p.email, p.studentID, p.major, p.address from team t, league l, person p"
 //        + " where l.id=t.leagueId and t.captainId=p.id";
+        
+//        "select t.id, t.name, t.leagueid, t.captainid, l.id, l.name, c.id, c.firstname, c.lastname "
+//		+ "from team t, league l, person c where t.leagueid = " + league.getId()
+//		+ " and l.id = t.leagueid and c.id = t.captainid";
 
         if (more){
             try {
                     id = rs.getLong(1);
                     teamName = rs.getString(2);
-                    /*league = objectLayer.createLeague(rs.getString(5), rs.getString(13), rs.getString(12), 
-                    		rs.getBoolean(7), (int)rs.getLong(8), (int)rs.getLong(9), (int)rs.getLong(10), (int)rs.getLong(11));
-                    captain = objectLayer.createStudent(rs.getString(15), rs.getString(16), rs.getString(17), rs.getString(18),
-                    		rs.getString(19), rs.getString(20), rs.getString(21), rs.getString(22));
-                    */
+                    league = objectLayer.createLeague(rs.getString(6), rs.getString(14), rs.getString(13), 
+                    		rs.getBoolean(8), (int)rs.getLong(9), (int)rs.getLong(10), (int)rs.getLong(11), (int)rs.getLong(12));
+                    captain = objectLayer.createStudent(rs.getString(16), rs.getString(17), rs.getString(18), rs.getString(19),
+                    		rs.getString(20), rs.getString(21), rs.getString(22), rs.getString(23));
                     more = rs.next();
             }
             catch( Exception e){
@@ -66,10 +69,11 @@ public class TeamIterator implements Iterator<Team>{
             Team team;
 			try {
 				//System.out.println("In the loop");
-				team = objectLayer.createTeam(teamName);
+				team = objectLayer.createTeam();
 				team.setId( id );
-				//team.setParticipatesInLeague(league);
-				//team.setCaptain(captain);
+				team.setName(teamName);
+				team.setParticipatesInLeague(league);
+				team.setCaptain(captain);
 
 	            return team;
 			} catch (RDException e) {

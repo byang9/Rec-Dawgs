@@ -16,7 +16,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class Login extends HttpServlet {
+public class Register extends HttpServlet {
         
     	private static final long serialVersionUID = 1L;
         
@@ -44,6 +44,12 @@ public class Login extends HttpServlet {
             HttpSession    httpSession = null;
             BufferedWriter toClient = null;
             String         username = null;
+            String		   firstname = null;
+            String		   lastname = null;
+            String		   address = null;
+            String		   major = null;
+            String		   email = null;
+            String		   studentid = null;
             String         password = null;
             String         ssid = null;
             Session        session = null;
@@ -80,17 +86,23 @@ public class Login extends HttpServlet {
 
             // Get the parameters
             //
+            firstname = req.getParameter( "firstname" );
+            lastname = req.getParameter( "lastname" );
             username = req.getParameter( "username" );
             password = req.getParameter( "password" );
+            email = req.getParameter( "email" );
+            studentid = req.getParameter( "studentId" );
+            major = req.getParameter( "major" );
+            address = req.getParameter( "address" );
 
-            if( username == null || password == null ) {
-                RDError.error( cfg, toClient, "Username or password is blank!" );
+            if( username == null || password == null || firstname == null || lastname == null || email == null || major == null || address == null) {
+                RDError.error( cfg, toClient, "Nothing should be blank!" );
                 return;
             }
 
-            try {          
+            try {
+            	logicLayer.createStudent(username, password, email, firstname, lastname, studentid, major, address);
                 ssid = logicLayer.login( session, username, password );
-                if (!session.getUser().getIsStudent()) resultTemplateName = "AdminMainWindow.ftl";
                 System.out.println( "Obtained ssid: " + ssid );
                 httpSession.setAttribute( "ssid", ssid );
                 System.out.println( "Connection: " + session.getConnection() );
@@ -106,7 +118,7 @@ public class Login extends HttpServlet {
                 resultTemplate = cfg.getTemplate( resultTemplateName );
             } 
             catch (IOException e) {
-                throw new ServletException( "Login.doPost: Can't load template in: " + templateDir + ": " + e.toString());
+                throw new ServletException( "Register.doPost: Can't load template in: " + templateDir + ": " + e.toString());
             }
 
             // Setup the data-model
@@ -115,8 +127,8 @@ public class Login extends HttpServlet {
 
             // Build the data-model
             //
-            root.put( "firstname", session.getUser().getFirstName() );
-            root.put( "username", session.getUser().getUserName() );
+            root.put( "firstname", firstname );
+            root.put( "username", username );
 
             // Merge the data-model and the template
             //
