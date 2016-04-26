@@ -59,7 +59,7 @@ public class LogicLayerImpl implements LogicLayer {
     }
 
     public List<Student> findAllStudents() throws RDException {
-        FindAllStudentsCtrl ctrlFindAllUsers = new FindAllStudentsCtrl( objectLayer );
+        FindStudentsCtrl ctrlFindAllUsers = new FindStudentsCtrl( objectLayer );
         return ctrlFindAllUsers.findAllStudents();
     }
     
@@ -100,6 +100,11 @@ public class LogicLayerImpl implements LogicLayer {
     public List<Team> findMyTeams(Student modelStudent) throws RDException {
     	FindTeamsCtrl ctrlFindMyTeams = new FindTeamsCtrl( objectLayer );
         return ctrlFindMyTeams.findMyTeams(modelStudent);
+    }
+
+    public List<Team> findMyAccount(Student modelStudent) throws RDException {
+        FindStudentsCtrl ctrlFindMyTeams = new FindStudentsCtrl( objectLayer );
+        return ctrlFindMyTeams.findMyAccount(modelStudent);
     }
     
     // !!!!!!!!!!!!!!!!!!!!
@@ -143,6 +148,12 @@ public class LogicLayerImpl implements LogicLayer {
     	CreateCtrl ctrlCreateTeam = new CreateCtrl( objectLayer );
         return ctrlCreateTeam.createTeam( teamName );
 	}
+
+
+    public long createTeam(String teamName, String leagueName, long userID) throws RDException {
+        CreateCtrl ctrlCreateTeam = new CreateCtrl( objectLayer );
+        return ctrlCreateTeam.createTeam( teamName, leagueName, userID );
+    }
 
 
 	public long createStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address) throws RDException {

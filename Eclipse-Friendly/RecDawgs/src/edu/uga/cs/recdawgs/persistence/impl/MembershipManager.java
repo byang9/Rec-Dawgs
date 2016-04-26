@@ -24,8 +24,24 @@ public class MembershipManager {
     }
                                                                                                                          
     public void save(Student student, Team team) throws RDException{
-        String insertMembershipSql = "insert into membership ( personid, teamid ) values ( ?, ? )";
+        Statement  stmt1 = null;
+        String select = "select personid, teamid from membership where personid=" + student.getId() + " and teamid=" + team.getId();
+        try {
+            stmt1 = conn.createStatement();
+
+            // retrieve the persistent Person object
+            //
+            if( stmt1.execute( select ) ) { // statement returned a result
+              ResultSet r = stmt1.getResultSet();
+              if (r.next()) throw new RDException( "You are already a member of this team!" );
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RDException( "MembershipManager.restore: Could not restore persistent Membership object; Root cause: " + e );
+        }
+
         PreparedStatement  stmt = null;
+        String insertMembershipSql = "insert into membership ( personid, teamid ) values ( ?, ? )";
         int inscnt;
 
 

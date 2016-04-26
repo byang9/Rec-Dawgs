@@ -32,7 +32,7 @@ public class CreateCtrl {
     public long createTeam( String team_name )
             throws RDException
     { 
-        Team 		    team  = null;
+        Team            team  = null;
         Team                modelTeam = null;
         Iterator<Team>      teamIter = null;
 
@@ -44,6 +44,82 @@ public class CreateCtrl {
             throw new RDException( "A team with this name already exists: " + team_name );
 
         team = objectLayer.createTeam(team_name);
+        objectLayer.storeTeam( team );
+
+        return team.getId();
+    }
+    
+    public long createTeam( String team_name, String leagueName )
+            throws RDException
+    { 
+        Team            team  = null;
+        Team                modelTeam = null;
+        League                modelLeague = null;
+        Iterator<Team>      teamIter = null;
+        Iterator<League>      leagueIter = null;
+        League          league = null;
+
+        // check if a team with this name already exists (name is unique)
+        modelTeam = objectLayer.createTeam();
+        modelTeam.setName( team_name );
+        teamIter = objectLayer.findTeam( modelTeam );
+        if( teamIter.hasNext() )
+            throw new RDException( "A team with this name already exists: " + team_name );
+        // check if a league with this name already exists (name is unique)
+        modelLeague = objectLayer.createLeague();
+        modelLeague.setName( leagueName );
+        leagueIter = objectLayer.findLeague( modelLeague );
+        if( leagueIter.hasNext() )
+            league = leagueIter.next();
+        else 
+            throw new RDException( "This league does not exist with this name: " + leagueName );
+
+        team = objectLayer.createTeam(team_name);
+        team.setParticipatesInLeague(league);
+        objectLayer.storeTeam( team );
+
+        return team.getId();
+    }
+    
+    public long createTeam( String team_name, String leagueName, long userID )
+            throws RDException
+    { 
+        Team            team  = null;
+        Team                modelTeam = null;
+        League                modelLeague = null;
+        Iterator<Team>      teamIter = null;
+        Iterator<League>      leagueIter = null;
+        League          league = null;
+        Student                modelStudent = null;
+        Iterator<Student>      studentIter = null;
+        Student         student = null;
+
+        // check if a team with this name already exists (name is unique)
+        modelTeam = objectLayer.createTeam();
+        modelTeam.setName( team_name );
+        teamIter = objectLayer.findTeam( modelTeam );
+        if( teamIter.hasNext() )
+            throw new RDException( "A team with this name already exists: " + team_name );
+        // check if a league with this name already exists (name is unique)
+        modelLeague = objectLayer.createLeague();
+        modelLeague.setName( leagueName );
+        leagueIter = objectLayer.findLeague( modelLeague );
+        if( leagueIter.hasNext() )
+            league = leagueIter.next();
+        else 
+            throw new RDException( "This league does not exist with this name: " + leagueName );
+     // check if a student with this name already exists (name is unique)
+        modelStudent = objectLayer.createStudent();
+        modelStudent.setId(userID);
+        studentIter = objectLayer.findStudent( modelStudent );
+        if( studentIter.hasNext() )
+            student = studentIter.next();
+        else 
+            throw new RDException( "This student does not exist with this id: " + userID );
+
+        team = objectLayer.createTeam(team_name);
+        team.setParticipatesInLeague(league);
+        team.setCaptain(student);
         objectLayer.storeTeam( team );
 
         return team.getId();
@@ -82,7 +158,7 @@ public class CreateCtrl {
         modelLeague.setName( name );
         leagueIter = objectLayer.findLeague( modelLeague );
         while( leagueIter.hasNext() ) {
-        	league = leagueIter.next();
+            league = leagueIter.next();
         }
         
         // check if the league actually exists, and if so, throw an exception
@@ -105,7 +181,7 @@ public class CreateCtrl {
         modelSportsVenue.setName( name );
         sportsVenueIter = objectLayer.findSportsVenue( modelSportsVenue );
         while( sportsVenueIter.hasNext() ) {
-        	sportsVenue = sportsVenueIter.next();
+            sportsVenue = sportsVenueIter.next();
         }
         
         // check if the sportsVenue actually exists, and if so, throw an exception
@@ -129,7 +205,7 @@ public class CreateCtrl {
         modelScoreReport.setMatch(match);
         scoreReportIter = objectLayer.findScoreReport( modelScoreReport );
         while( scoreReportIter.hasNext() ) {
-        	scoreReport = scoreReportIter.next();
+            scoreReport = scoreReportIter.next();
         }
         
         // check if the Score Report actually exists, and if so, throw an exception

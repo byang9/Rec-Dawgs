@@ -40,7 +40,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="index.html">
+                <a class="navbar-brand page-scroll" href="StudentMainWindow">
                     <i class="fa fa-soccer-ball-o"></i>  <span class="light">Rec</span>Dawgs
                 </a>
             </div>
@@ -66,7 +66,7 @@
     <section id="signin" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/signin" autocomplete="off" spellcheck="false">
+                <form method=post action="http://localhost:8080/recdawgs_team9/ModifyAccountResult" autocomplete="off" spellcheck="false">
                     <h4>First Name: </h4><INPUT NAME="firstname" TYPE=text value="${firstname}" size=50 required></INPUT>
                     <h4>Last Name: </h4><INPUT NAME="lastname" TYPE=text value="${lastname}" size=50 required></INPUT>
                     <h4>Username: </h4><INPUT NAME="username" TYPE=text value="${username}" size=50 required></INPUT>

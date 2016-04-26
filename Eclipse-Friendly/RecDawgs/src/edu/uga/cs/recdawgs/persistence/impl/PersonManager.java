@@ -220,19 +220,19 @@ public class PersonManager {
 
         if ( modelPerson != null ){
             if (modelPerson.getId() >= 0)
-                query.append(" where id = '" + modelPerson.getId());
+                query.append(" where p.id = " + modelPerson.getId());
             else if (modelPerson.getUserName() != null)
-                query.append( " where username = '" + modelPerson.getUserName() + "'");
+                query.append( " where p.username = \'" + modelPerson.getUserName() + "\'");
             else{
                 if(modelPerson.getFirstName()!= null)
                     if( condition.length() > 0 )
                         condition.append( " and" );
-                    condition.append(" firstname = '" + modelPerson.getFirstName() + "'");
+                    condition.append(" p.firstname = '" + modelPerson.getFirstName() + "'");
 
                 if(modelPerson.getLastName()!= null)
                     if( condition.length() > 0 )
                         condition.append( " and" );
-                    condition.append(" lastname = '" + modelPerson.getLastName() + "'");
+                    condition.append(" p.lastname = '" + modelPerson.getLastName() + "'");
 
                 if(modelPerson.getPassword()!= null)
                      if( condition.length() > 0 )

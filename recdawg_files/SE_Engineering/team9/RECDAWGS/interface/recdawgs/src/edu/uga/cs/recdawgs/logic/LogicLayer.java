@@ -41,6 +41,7 @@ public interface LogicLayer
     
     // Create
     public long               	createTeam(String teamName) throws RDException;
+    public long                 createTeam(String teamName, String leagueName, long userID) throws RDException;
     public long               	createStudent(String userName, String password, String email, String firstName, String lastName, String studentId, String major, String address) throws RDException;
     public long               	createLeague(String name, boolean isIndoor, int minTeams, int maxTeams, int minTeamMembers, int maxTeamMembers, String matchRules, String leagueRules) throws RDException;
     public long					createSportsVenue(String name, String address, boolean isIndoor) throws RDException;

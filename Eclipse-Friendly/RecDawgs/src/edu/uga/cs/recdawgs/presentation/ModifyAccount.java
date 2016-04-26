@@ -125,7 +125,7 @@ public class ModifyAccount extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            student = logicLayer.retrieveStudent(session);
+            student = logicLayer.findMyAccount((Student)session.getUser());
             root.put( "firstname", student.getFirstName() );
             root.put( "lastname", student.getLastName() );
             root.put( "username", student.getUserName() );

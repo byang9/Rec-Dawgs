@@ -129,6 +129,14 @@ public class ViewTeamsOfLeague extends HttpServlet {
         // Setup the data-model
         //
         Map<String,Object> root = new HashMap<String,Object>();
+
+        if (nameOfLeague == null) {
+            root.put("league", "Current Active Teams");
+            root.put("title", "All Teams");
+        } else {
+            root.put("league", nameOfLeague);
+            root.put("title", nameOfLeague);
+        }
         
         try {
             rv = logicLayer.findTeamsOfLeague(nameOfLeague);

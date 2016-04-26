@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>All Teams</title>
+    <title>${title}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
+                        <a class="page-scroll" href="StudentMainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about"><i class="fa fa-group"></i> Teams</a>
@@ -70,7 +70,7 @@
         <div class="row">
             <form method=get action="http://localhost:8080/recdawgs_team9/ViewStudentsOfTeam">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Current Active Teams</h1>
+                <h1>${league}</h1>
                 <p>Click on a team to see team members</p>
                 <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
                   <tr>
@@ -90,6 +90,10 @@
             </div>
             </form>
         </div>
+        <hr>
+        <form method=get action="http://localhost:8080/recdawgs_team9/CreateTeam">
+        <input type=submit value="Create Team in ${league}" name="league" style="text-transform: none;color:rgba(5,5,5,1);">
+        </form>
         <hr>
         <p>Back to the <a href="ShowMainWindow"> main window</a></p>
     </section>

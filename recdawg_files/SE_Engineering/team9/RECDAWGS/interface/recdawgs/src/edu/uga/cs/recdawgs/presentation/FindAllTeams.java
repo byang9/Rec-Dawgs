@@ -77,7 +77,7 @@ public class FindAllTeams extends HttpServlet {
         HttpSession         httpSession;
         Session             session;
         String              ssid;
-
+        String              leagueName = req.getParameter("league");
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -130,6 +130,14 @@ public class FindAllTeams extends HttpServlet {
         // Setup the data-model
         //
         Map<String,Object> root = new HashMap<String,Object>();
+
+        if (leagueName == null) {
+            root.put("league", "Current Active Teams");
+            root.put("title", "All Teams");
+        } else {
+            root.put("league", leagueName);
+            root.put("title", leagueName);
+        }
         
         try {
             rv = logicLayer.findAllTeams();

@@ -68,6 +68,10 @@
   <servlet-name>JoinTeam</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.JoinTeam</servlet-class>
  </servlet>
+ <servlet>
+  <servlet-name>CreateTeam</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.CreateTeam</servlet-class>
+ </servlet>
  <servlet-mapping>
   <servlet-name>Login</servlet-name>
   <url-pattern>/Login</url-pattern>
@@ -135,5 +139,9 @@
     <servlet-mapping>
   <servlet-name>JoinTeam</servlet-name>
   <url-pattern>/JoinTeam</url-pattern>
+ </servlet-mapping>
+    <servlet-mapping>
+<servlet-name>CreateTeam</servlet-name>
+  <url-pattern>/CreateTeam</url-pattern>
  </servlet-mapping>
 </web-app>

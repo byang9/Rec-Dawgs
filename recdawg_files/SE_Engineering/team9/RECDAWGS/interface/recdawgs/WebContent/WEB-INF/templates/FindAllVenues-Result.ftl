@@ -51,7 +51,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
+                        <a class="page-scroll" href="StudentMainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about"><i class="fa fa-building"></i> Sports Venues</a>

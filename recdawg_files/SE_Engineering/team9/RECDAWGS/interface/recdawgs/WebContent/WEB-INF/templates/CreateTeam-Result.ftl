@@ -52,7 +52,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
+                        <a class="page-scroll" href="StudentMainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-group"></i> Create Team</a>
@@ -70,11 +70,11 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Create a Team</h1>
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/CreateTeam">
-                    <h4>Team Name: </h4><INPUT NAME="name" TYPE=text size=50 required></INPUT>
+                <h1>Create Team in ${league}</h1>
+                <form method=post action="http://localhost:8080/recdawgs_team9/CreateTeam">
+                    <h4>Team Name: </h4><INPUT NAME="team" TYPE=text size=50 required></INPUT>
                     <br>
-                    <INPUT type=submit></INPUT>
+                    <INPUT type=submit name="league" value="Create Team in ${league}"></INPUT>
                 </form>
             </div>
         </div>

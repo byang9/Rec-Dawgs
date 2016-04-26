@@ -20,7 +20,7 @@ import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
 
-public class FindAllStudentsCtrl {
+public class FindStudentsCtrl {
     
     private ObjectLayer objectLayer = null;
     
@@ -48,5 +48,21 @@ public class FindAllStudentsCtrl {
         }
 
         return students;
+    }
+
+    public Student findMyAccount(Student modelStudent)
+            throws RDException
+    {
+        Student            student = null;
+        Iterator<Student>  studentIter = null;
+        
+        // retrieve Student object
+        //
+        studentIter = objectLayer.findStudent( modelStudent );
+        while( studentIter.hasNext() ) {
+            student = studentIter.next();
+        }
+
+        return student;
     }
 }

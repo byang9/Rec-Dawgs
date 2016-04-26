@@ -17,8 +17,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -27,9 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.cs.recdawgs.entity.League;
-import edu.uga.cs.recdawgs.entity.Team;
-import edu.uga.cs.recdawgs.entity.User;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -46,12 +42,12 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class FindAllTeams extends HttpServlet {
+public class ModifyAccountResult extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllTeams-Result.ftl";
+    static  String            resultTemplateName = "StudentMainWindow-Result.ftl";
 
     private Configuration     cfg;
 
@@ -70,14 +66,21 @@ public class FindAllTeams extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Team>        rv = null;
-        List<List<Object>>  teams = null;
-        List<Object>        team = null;
-        Team	   	        t  = null;
+        Student				student = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
-        String              leagueName = req.getParameter("league");
+
+        // Get parameters
+        String firstname = req.getParameter("firstname");
+        String lastname = req.getParameter("lastname");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String email = req.getParameter("email");
+        String studentid = req.getParameter("studentid");
+        String major = req.getParameter("major");
+        String address = req.getParameter("address");
+
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -130,43 +133,18 @@ public class FindAllTeams extends HttpServlet {
         // Setup the data-model
         //
         Map<String,Object> root = new HashMap<String,Object>();
-
-        if (leagueName == null) {
-            root.put("league", "Current Active Teams");
-            root.put("title", "All Teams");
-        } else {
-            root.put("league", leagueName);
-            root.put("title", leagueName);
-        }
         
         try {
-            rv = logicLayer.findAllTeams();
-
-            // Build the data-model
-            //
-            teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
-
-            for( int i = 0; i < rv.size(); i++ ) {
-                t = (Team) rv.get( i );
-                League league = t.getParticipatesInLeague();
-                User user = t.getCaptain();
-                String teamName = t.getName();
-                String[] splitName = teamName.split(" ");
-                team = new LinkedList<Object>();
-                team.add( t.getId() );
-                if (splitName.length == 1)
-                    team.add( splitName[0] );
-                if (splitName.length == 2)
-                    team.add( splitName[0] + "_" + splitName[1]);
-                if (splitName.length == 3)
-                    team.add( splitName[0] + "_" + splitName[1] + "_" + splitName[2]);
-                if (splitName.length == 4)
-                    team.add( splitName[0] + "_" + splitName[1] + "_" + splitName[2] + "_" + splitName[3]);
-                team.add( league.getName() );
-                team.add( user.getFirstName() + " " + user.getLastName() );
-                teams.add( team );
-            }
+            logicLayer.s
+            student = logicLayer.createStudent(username, password, email, firstname, lastname, studentId, major, address);
+            root.put( "firstname", student.getFirstName() );
+            root.put( "lastname", student.getLastName() );
+            root.put( "username", student.getUserName() );
+            root.put( "password", student.getPassword() );
+            root.put( "email", student.getEmailAddress() );
+            root.put( "studentId", student.getStudentId() );
+            root.put( "major", student.getMajor() );
+            root.put( "address", student.getAddress() );
         } 
         catch( Exception e) {
             RDError.error( cfg, toClient, e );
