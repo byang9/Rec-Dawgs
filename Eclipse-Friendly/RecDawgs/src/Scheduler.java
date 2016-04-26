@@ -62,15 +62,11 @@ public class Scheduler{
     public static void main(String[]args){
 
     	if (args.length != 1){
-    		System.out.println("Please run the program with the correct arguments: Scheduler <team number>");
+    		System.out.println("Please run the program with the correct arguments: Scheduler <number of teams>");
     	}
 		else{
 			int numTeams = Integer.valueOf(args[0]);
 			createSchedule(numTeams );
 		}
-
-
     }
-
-
 }
