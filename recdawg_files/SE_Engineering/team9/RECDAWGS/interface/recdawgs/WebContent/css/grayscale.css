@@ -19,7 +19,8 @@ tr {
 }
 
 .signedin input[type=text],
-.signedin input[type=number] {
+.signedin input[type=number],
+.signedin input[type=password] {
     margin-top: 10px;
     text-align: center;
     margin-bottom: 45px;
@@ -33,7 +34,8 @@ tr {
 }
 
 .signedin input[type=text]:focus,
-.signedin input[type=number]:focus {
+.signedin input[type=number]:focus,
+.signedin input[type=password]:focus {
     width: 50%;
     outline: none;
     border-bottom: 2px solid;

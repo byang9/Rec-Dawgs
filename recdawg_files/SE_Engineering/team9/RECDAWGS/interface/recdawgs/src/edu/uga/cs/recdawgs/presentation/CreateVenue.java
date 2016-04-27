@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uga.cs.recdawgs.entity.Student;
+import edu.uga.cs.recdawgs.entity.SportsVenue;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
@@ -50,7 +50,7 @@ public class CreateVenue extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllTeamMembers-Result.ftl";
+    static  String            resultTemplateName = "CreateVenue-Result.ftl";
 
     private Configuration     cfg;
 
@@ -64,24 +64,25 @@ public class CreateVenue extends HttpServlet {
     }
 
     public void doGet( HttpServletRequest  req, HttpServletResponse res )
-            throws ServletException, IOException
+            throws ServletException, IOException 
     {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Student>       rv = null;
+        List<SportsVenue>       rv = null;
         List<List<Object>>  users = null;
         List<Object>        user = null;
-        Student             u = null;
-        String              nameOfTeam = req.getParameter("team");
-        if (nameOfTeam == null || nameOfTeam == "") {
-            resultTemplateName = "CreateTeam-Result.ftl";
-        } else {
-            resultTemplateName = "FindAllTeamMembers-Result.ftl";
-        }
-        String              nameOfLeague = req.getParameter("league");
-        if (nameOfLeague != null) 
-            nameOfLeague = nameOfLeague.replace("Create Team in ", "");
+        SportsVenue             u = null;
+        // String              name = req.getParameter("name");
+        // String              indoorString = req.getParameter("indoor");
+        // String              address = req.getParameter("address");
+        // boolean             isIndoor = false;
+        // if (name == null || name == "" || indoorString == null || indoorString == "" || address == null || address == "") {
+        //     resultTemplateName = "CreateVenue-Result.ftl";
+        // } else {
+        //     resultTemplateName = "FindAllVenues-Result.ftl";
+        //     if (indoorString.equalsIgnoreCase("yes")) isIndoor = true;
+        // }
         HttpSession         httpSession;
         Session             session;
         String              ssid;
@@ -137,39 +138,36 @@ public class CreateVenue extends HttpServlet {
         // Setup the data-model
         Map<String,Object> root = new HashMap<String,Object>();
         
-        if (nameOfTeam != null) {
-            try {
-                logicLayer.createTeam(nameOfTeam, nameOfLeague, session.getUser().getId());
-                logicLayer.joinTeam(session.getUser().getId(), nameOfTeam);
-                rv = logicLayer.findTeamMembers(nameOfTeam);
-                root.put( "team", nameOfTeam );
+        // if (nameOfTeam != null) {
+        //     if (name != null) {
+        //         try {
+        //             logicLayer.createSportsVenue(name, address, isIndoor);
+        //             rv = logicLayer.findAllSportsVenues();
 
-                // Build the data-model
-                //
-                users = new LinkedList<List<Object>>();
-                root.put( "users", users );
+        //             // Build the data-model
+        //             //
+        //             venues = new LinkedList<List<Object>>();
+        //             root.put( "venues", venues );
 
-                for( int i = 0; i < rv.size(); i++ ) {
-                    u = (Student) rv.get( i );
-                    user = new LinkedList<Object>();
-                    user.add(u.getId());
-                    user.add(u.getFirstName() + " " + u.getLastName());
-                    user.add(u.getUserName());
-                    user.add(u.getEmailAddress());
-                    user.add(u.getStudentId());
-                    user.add(u.getMajor());
-                    user.add(u.getAddress());
-                    users.add(user);
-                }
-            } 
-            catch( Exception e) {
-                e.printStackTrace();
-                RDError.error( cfg, toClient, e );
-                return;
-            }
-        } else {
-            root.put("league", nameOfLeague);
-        }
+        //             for( int i = 0; i < rv.size(); i++ ) {
+        //                 sv = (SportsVenue) rv.get( i );
+        //                 venue = new LinkedList<Object>();
+        //                 venue.add( sv.getId() );
+        //                 venue.add( sv.getName() );
+        //                 venue.add( sv.getAddress() );
+        //                 if (sv.getIsIndoor()) 
+        //                     venue.add( "Yes" );
+        //                 else 
+        //                     venue.add("No");
+        //                 venues.add( venue );
+        //             }
+        //     } catch( Exception e) {
+        //         RDError.error( cfg, toClient, e );
+        //         return;
+        //     }
+        // } else {
+        //     root.put("league", nameOfLeague);
+        // }
 
         // Merge the data-model and the template
         //
@@ -182,6 +180,7 @@ public class CreateVenue extends HttpServlet {
         }
 
         toClient.close();
+
     }
 
     public void doPost( HttpServletRequest  req, HttpServletResponse res )
@@ -190,17 +189,20 @@ public class CreateVenue extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Student>       rv = null;
-        List<List<Object>>  users = null;
-        List<Object>        user = null;
-        Student             u = null;
-        String              nameOfTeam = req.getParameter("team");
-        if (nameOfTeam == null) {
-            resultTemplateName = "CreateTeam-Result.ftl";
+        List<SportsVenue>       rv = null;
+        List<List<Object>>  venues = null;
+        List<Object>        venue = null;
+        SportsVenue             sv = null;
+        String              name = req.getParameter("name");
+        String              indoorString = req.getParameter("indoor");
+        String              address = req.getParameter("address");
+        boolean             isIndoor = false;
+        if (name == null || name == "" || indoorString == null || indoorString == "" || address == null || address == "") {
+            resultTemplateName = "CreateVenue-Result.ftl";
+        } else {
+            resultTemplateName = "FindAllVenues-Result.ftl";
+            if (indoorString.equalsIgnoreCase("yes")) isIndoor = true;
         }
-        String              nameOfLeague = req.getParameter("league");
-        if (nameOfLeague != null) 
-            nameOfLeague = nameOfLeague.replace("Create Team in ", "");
         HttpSession         httpSession;
         Session             session;
         String              ssid;
@@ -255,39 +257,35 @@ public class CreateVenue extends HttpServlet {
 
         // Setup the data-model
         Map<String,Object> root = new HashMap<String,Object>();
-        
-        if (nameOfTeam != null) {
+
+        if (name != null) {
             try {
-                logicLayer.createTeam(nameOfTeam, nameOfLeague, session.getUser().getId());
-                logicLayer.joinTeam(session.getUser().getId(), nameOfTeam);
-                rv = logicLayer.findTeamMembers(nameOfTeam);
-                root.put( "team", nameOfTeam );
+                logicLayer.createSportsVenue(name, address, isIndoor);
+                rv = logicLayer.findAllSportsVenues();
 
                 // Build the data-model
                 //
-                users = new LinkedList<List<Object>>();
-                root.put( "users", users );
+                venues = new LinkedList<List<Object>>();
+                root.put( "venues", venues );
 
                 for( int i = 0; i < rv.size(); i++ ) {
-                    u = (Student) rv.get( i );
-                    user = new LinkedList<Object>();
-                    user.add(u.getId());
-                    user.add(u.getFirstName() + " " + u.getLastName());
-                    user.add(u.getUserName());
-                    user.add(u.getEmailAddress());
-                    user.add(u.getStudentId());
-                    user.add(u.getMajor());
-                    user.add(u.getAddress());
-                    users.add(user);
+                    sv = (SportsVenue) rv.get( i );
+                    venue = new LinkedList<Object>();
+                    venue.add( sv.getId() );
+                    venue.add( sv.getName() );
+                    venue.add( sv.getAddress() );
+                    if (sv.getIsIndoor()) 
+                        venue.add( "Yes" );
+                    else 
+                        venue.add("No");
+                    venues.add( venue );
                 }
-            } 
-            catch( Exception e) {
-                e.printStackTrace();
+            } catch( Exception e) {
                 RDError.error( cfg, toClient, e );
                 return;
             }
         } else {
-            root.put("league", nameOfLeague);
+            // root.put("league", nameOfLeague);
         }
 
         // Merge the data-model and the template
@@ -303,4 +301,3 @@ public class CreateVenue extends HttpServlet {
         toClient.close();
     }
 }
-

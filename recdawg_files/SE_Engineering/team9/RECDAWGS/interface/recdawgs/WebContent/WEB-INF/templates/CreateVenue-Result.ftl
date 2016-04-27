@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Create a Sports Venue</h1>
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/createleague">
+                <form method=post action="http://localhost:8080/recdawgs_team9/CreateVenue">
                     <h4>Venue Name: </h4><INPUT NAME="name" TYPE=text size=50 required></INPUT>
                     <h4>Indoor (yes or no): </h4><INPUT NAME="indoor" TYPE=text size=50 required></INPUT>
                     <h4>Address: </h4><INPUT NAME="address" TYPE=text size=50 required></INPUT>
@@ -81,7 +81,7 @@
             </div>
         </div>
         <hr>
-        <p>Back to the <a href="ShowMainWindow"> main window</a></p>
+        <p>Back to the <a href="MainWindow"> main window</a></p>
     </section>
   
 

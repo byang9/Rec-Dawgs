@@ -58,7 +58,9 @@ class LeagueSportsVenueManager {
     }
 
     public Iterator<League> restoreWithSportsVenue(SportsVenue v) throws RDException {
-        String       selectSql = "select l.id, v.id from hasVenue";
+        String       selectSql = "select l.id, l.name, l.winnerid, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers, "
+                                + "l.maxTeamMembers, l.matchRules, l.leagueRules, h.leagueid, h.venueid from hasVenue h, league l" 
+                                + " where l.id=h.leagueid and h.venueid=" + v.getId();
         // HasVenue -- leagueid | (venueid)
         // League -- league rows that have leagueid
         Statement    stmt = null;
@@ -70,10 +72,10 @@ class LeagueSportsVenueManager {
         // form the query based on the given League object instance
         query.append(selectSql);
         
-        if (v != null) {
-            if (v.getId() >= 0) // id is unique, so it is sufficient to get a league
-                query.append( " where v.id = " + v.getId());
-        }
+        // if (v != null) {
+        //     if (v.getId() >= 0) // id is unique, so it is sufficient to get a league
+        //         query.append( " where v.id = " + v.getId());
+        // }
         
         try {
 
@@ -82,10 +84,7 @@ class LeagueSportsVenueManager {
             // retrieve the persistent SVIterator object
             if (stmt.execute(query.toString())) { // statement returned a result
                 ResultSet r = stmt.getResultSet();
-                if (stmt.execute("select l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules l.leagueRules from league l where l.id = " + r.getLong(1))) {
-                	ResultSet r2 = stmt.getResultSet();
-                	return new LeagueIterator(r2, objectLayer);
-                }
+                return new LeagueIterator(r, objectLayer);
             }
         }
         catch (Exception e) {      // just in case...

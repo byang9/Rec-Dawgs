@@ -43,7 +43,7 @@ public class FindStudentsCtrl {
         studentIter = objectLayer.findStudent( null );
         while( studentIter.hasNext() ) {
             student = studentIter.next();
-            System.out.println( student );
+            System.out.println( student.toString() );
             students.add( student );
         }
 

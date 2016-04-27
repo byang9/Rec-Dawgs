@@ -68,7 +68,7 @@
     
     <section id="about" class="container content-section text-center">
         <div class="row">
-            <form method=get action="http://localhost:8080/clubs/ViewLeaguesOfSV">
+            <form method=get action="http://localhost:8080/recdawgs_team9/ViewLeaguesOfSV">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Current Sports Venues</h1>
                 <p>Click on a venue to see leagues that use the venue</p>
@@ -82,7 +82,7 @@
                  <#list venues as venue>
                   <tr>
                       <td>${venue[0]}</td>
-                      <td><input type=submit name="venue" value=${venue[1]} style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
+                      <td><input type=submit name="venue" value='${venue[1]}' style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
                       <td>${venue[2]}</td>
                       <td>${venue[3]}</td>
                   </tr>

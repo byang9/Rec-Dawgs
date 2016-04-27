@@ -39,7 +39,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="index.html">
+                <a class="navbar-brand page-scroll" href="MainWindow">
                     <i class="fa fa-soccer-ball-o"></i>  <span class="light">Rec</span>Dawgs
                 </a>
             </div>
@@ -52,10 +52,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
+                        <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-soccer-ball-o"></i> Create League</a>
+                        <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-user"></i> Create Student</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
@@ -70,16 +70,16 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Create a League</h1>
-                <form method=post action="http://localhost:8080/recdawgs_team9/CreateLeague">
-                    <h4>League Name: </h4><INPUT NAME="name" TYPE=text size=50 required></INPUT>
-                    <h4>Played Indoor (yes or no): </h4><INPUT NAME="indoor" TYPE=text size=50 required></INPUT>
-                    <h4>Minimum Teams: </h4><INPUT NAME="minTeams" TYPE=number size=50 required></INPUT>
-                    <h4>Maximum Teams: </h4><INPUT NAME="maxTeams" TYPE=number size=50 required></INPUT>
-                    <h4>Minimum Members: </h4><INPUT NAME="minMembers" TYPE=number size=50 required></INPUT>
-                    <h4>Maximum Members: </h4><INPUT NAME="maxMembers" TYPE=number size=50 required></INPUT>
-                    <h4>Match Rules: </h4><INPUT NAME="matchRules" TYPE=text size=250 required></INPUT>
-                    <h4>League Rules: </h4><INPUT NAME="leagueRules" TYPE=text size=250 required></INPUT>
+                <h1>Create a Student</h1>
+                <form method=post action="http://localhost:8080/recdawgs_team9/CreateUser">
+                    <h4>First Name: </h4><INPUT NAME="firstname" TYPE=text size=50 required></INPUT>
+                    <h4>Last Name: </h4><INPUT NAME="lastname" TYPE=text size=50 required></INPUT>
+                    <h4>Username: </h4><INPUT NAME="username" TYPE=text size=50 required></INPUT>
+                    <h4>Password: </h4><INPUT NAME="password" TYPE=password size=50 required></INPUT>
+                    <h4>Email: </h4><INPUT NAME="email" TYPE=text size=50 required></INPUT>
+                    <h4>Student ID: </h4><INPUT NAME="studentId" TYPE=number size=50 required></INPUT>
+                    <h4>Major: </h4><INPUT NAME="major" TYPE=text size=50></INPUT>
+                    <h4>Address: </h4><INPUT NAME="address" TYPE=text size=50></INPUT>
                     <br>
                     <INPUT type=submit></INPUT>
                 </form>

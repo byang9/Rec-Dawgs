@@ -47,6 +47,7 @@ public class RDError {
             throw new ServletException( "Can't load template: " + errorTemplateName + ": " + e.toString() );
         }
 
+        if (msg.equals("java.lang.NullPointerException")) msg = "Mega-weird internal error. This shouldn't happen.";
         root.put( "reason", msg );
 
         try {

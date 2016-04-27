@@ -143,8 +143,14 @@ public class ViewLeaguesOfSV extends HttpServlet {
                 league = new LinkedList<Object>();
                 league.add( l.getId() );
                 league.add( l.getName() );
-                league.add( l.getWinnerOfLeague().getName() );
-                league.add( l.getIsIndoor() );
+                if (l.getWinnerOfLeague() != null)
+                    league.add( l.getWinnerOfLeague().getName() );
+                else 
+                    league.add( "None" );
+                if (l.getIsIndoor())   
+                    league.add( "Yes" );
+                else 
+                    league.add("No");
                 league.add( l.getMinTeams() );
                 league.add( l.getMaxTeams() );
                 league.add( l.getMinMembers() );

@@ -140,9 +140,14 @@ public class FindAllStudents extends HttpServlet {
 
             for( int i = 0; i < rv.size(); i++ ) {
                 u = (Student) rv.get( i );
+                if (u.getMajor() == null) continue;
+                System.out.println("getId " + i);
                 user.add(u.getId());
+                System.out.println("getFirstName / getLastName " + i);
                 user.add(u.getFirstName() + " " + u.getLastName());
+                System.out.println("getUserName " + i);
                 user.add(u.getUserName());
+                System.out.println("getEmailAddress " + i);
                 user.add(u.getEmailAddress());
                 user.add(u.getStudentId());
                 user.add(u.getMajor());

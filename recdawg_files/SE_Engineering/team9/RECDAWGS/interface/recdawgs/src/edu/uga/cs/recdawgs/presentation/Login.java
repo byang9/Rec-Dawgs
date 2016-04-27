@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.uga.cs.recdawgs.entity.User;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -90,7 +91,9 @@ public class Login extends HttpServlet {
 
             try {          
                 ssid = logicLayer.login( session, username, password );
-                if (!session.getUser().getIsStudent()) resultTemplateName = "AdminMainWindow.ftl";
+                User myUser = session.getUser();
+                myUser.setIsStudent(true);
+                session.setUser(myUser);
                 System.out.println( "Obtained ssid: " + ssid );
                 httpSession.setAttribute( "ssid", ssid );
                 System.out.println( "Connection: " + session.getConnection() );

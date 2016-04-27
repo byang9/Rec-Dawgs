@@ -102,7 +102,7 @@
                 <i class="fa fa-building"></i>
                 <h3>View all <a href="FindAllVenues">Sports Venues</a></h3>
                 <i class="fa fa-plus"></i> <i class="fa fa-building"></i>
-                <h3>Add <a href="AddVenue">Sports Venue</a></h3>
+                <h3>Add <a href="CreateVenue">Sports Venue</a></h3>
                 
                 <hr>
 
