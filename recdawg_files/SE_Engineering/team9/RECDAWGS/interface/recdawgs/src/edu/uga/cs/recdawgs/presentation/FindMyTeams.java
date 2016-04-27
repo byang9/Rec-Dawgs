@@ -131,6 +131,9 @@ public class FindMyTeams extends HttpServlet {
         // Setup the data-model
         //
         Map<String,Object> root = new HashMap<String,Object>();
+
+        root.put("league", "My Teams");
+        root.put("title", "My Teams");
         
         try {
             rv = logicLayer.findMyTeams((Student)session.getUser());

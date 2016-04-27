@@ -45,7 +45,7 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class CreateTeam extends HttpServlet {
+public class CreateVenue extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
@@ -139,10 +139,6 @@ public class CreateTeam extends HttpServlet {
         
         if (nameOfTeam != null) {
             try {
-                if (rv.size() == logicLayer.findLeague(nameOfLeague).getMaxTeams()) {
-                    RDError.error(cfg, toClient, "This league cannot have anymore teams!");
-                    return;
-                }
                 logicLayer.createTeam(nameOfTeam, nameOfLeague, session.getUser().getId());
                 logicLayer.joinTeam(session.getUser().getId(), nameOfTeam);
                 rv = logicLayer.findTeamMembers(nameOfTeam);
@@ -262,22 +258,10 @@ public class CreateTeam extends HttpServlet {
         
         if (nameOfTeam != null) {
             try {
-                List<Team> teamsInLeague = logicLayer.findTeamsOfLeague(nameOfLeague);
-                if (teamsInLeague.size() == logicLayer.findLeague(nameOfLeague).getMaxTeams()) {
-                    RDError.error(cfg, toClient, "This league cannot have anymore teams!");
-                    return;
-                }
-                for (int i = 0; i < teamsInLeague.size(); i++) {
-                    if (teamsInLeague.get(i).getCaptain().equals((Student)session.getUser())) {
-                        RDError.error(cfg, toClient, "Cannot be captain of two teams in the same league!");
-                        return;
-                    }
-                }
                 logicLayer.createTeam(nameOfTeam, nameOfLeague, session.getUser().getId());
                 logicLayer.joinTeam(session.getUser().getId(), nameOfTeam);
                 rv = logicLayer.findTeamMembers(nameOfTeam);
                 root.put( "team", nameOfTeam );
-                root.put("league", nameOfLeague);
 
                 // Build the data-model
                 //

@@ -37,5 +37,21 @@ private ObjectLayer objectLayer = null;
 
         return leagues;
     }
+
+    public League findLeague(String nameOfleague)
+            throws RDException
+    {
+        Iterator<League>  leagueIter = null;
+        League        league = null;
+        
+        League modelLeague = objectLayer.createLeague();
+        modelLeague.setName(nameOfleague);
+        leagueIter = objectLayer.findLeague(modelLeague);
+        while( leagueIter.hasNext() ) {
+            league = leagueIter.next();
+        }
+
+        return league;
+    }
 	
 }

@@ -29,6 +29,11 @@ public interface LogicLayer
     
     // Find My
     public List<Team> 		  	findMyTeams(Student modelStudent) throws RDException;
+    public Student              findMyAccount(Student modelStudent) throws RDException;
+
+    // Find Other
+    public Team                 findTeam(String nameOfTeam) throws RDException;
+    public League               findLeague(String nameOfLeague) throws RDException;
 	
 	// Find Object-to-Object
 	public List<Student>      	findTeamMembers(String teamName) throws RDException;
@@ -39,10 +44,11 @@ public interface LogicLayer
 	// Join
     public long               	joinTeam(long personId, String clubName) throws RDException;
     
-    // Create
+    // Create/Update
     public long               	createTeam(String teamName) throws RDException;
     public long                 createTeam(String teamName, String leagueName, long userID) throws RDException;
-    public long               	createStudent(String userName, String password, String email, String firstName, String lastName, String studentId, String major, String address) throws RDException;
+    public long               	createStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address) throws RDException;
+    public Student              updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException;
     public long               	createLeague(String name, boolean isIndoor, int minTeams, int maxTeams, int minTeamMembers, int maxTeamMembers, String matchRules, String leagueRules) throws RDException;
     public long					createSportsVenue(String name, String address, boolean isIndoor) throws RDException;
     public long					createScoreReport(String homeName, String awayName, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException;
@@ -51,5 +57,5 @@ public interface LogicLayer
     public void               	logout(String ssid) throws RDException;
     public String             	login(Session session, String userName, String password) throws RDException;
     public Student             	retrieveStudent(Session session) throws RDException;
-	public boolean 			  	isAdmin(User user);
+	public boolean 			  	isStudent(User user);
 }

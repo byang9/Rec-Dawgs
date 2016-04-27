@@ -90,14 +90,12 @@
                 <i class="fa fa-soccer-ball-o"></i>
                 <h3>View all <a href="FindAllLeagues">Leagues</a></h3>
                 <i class="fa fa-plus"></i> <i class="fa fa-soccer-ball-o"></i>
-                <h3>Add <a href="AddLeague">League</a></h3>
+                <h3>Add <a href="CreateLeague">League</a></h3>
                 
                 <hr>
 
                 <i class="fa fa-group"></i>
                 <h3>View all <a href="FindAllTeams">Teams</a></h3>
-                <i class="fa fa-plus"></i> <i class="fa fa-group"></i>
-                <h3>Add <a href="AddTeam">Team</a></h3>
 
                 <hr>
                 

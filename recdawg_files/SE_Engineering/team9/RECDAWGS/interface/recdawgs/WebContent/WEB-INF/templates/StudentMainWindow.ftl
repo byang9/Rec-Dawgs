@@ -36,7 +36,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="index.html">
+                <a class="navbar-brand page-scroll" href="MainWindow">
                     <span style="color: black"><i class="fa fa-soccer-ball-o"></i> <span class="light">Rec</span>Dawgs</span>
                 </a>
             </div>

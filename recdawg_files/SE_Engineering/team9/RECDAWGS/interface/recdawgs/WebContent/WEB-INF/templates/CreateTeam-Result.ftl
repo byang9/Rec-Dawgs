@@ -39,7 +39,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="index.html">
+                <a class="navbar-brand page-scroll" href="MainWindow">
                     <i class="fa fa-soccer-ball-o"></i>  <span class="light">Rec</span>Dawgs
                 </a>
             </div>
@@ -52,7 +52,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="StudentMainWindow"><i class="fa fa-home"></i> Home</a>
+                        <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-group"></i> Create Team</a>

@@ -35,7 +35,7 @@
         <h3>Cannot fulfill the request.</h3>
         <h4>Reason: </h4><h5>${reason}</h5>
 
-        <p>Back to the <a href="index.html"> main window</a></p>
+        <p>Back to the <a href="Logout"> main window</a></p>
     </div>
 <!-- Footer -->
     <footer>

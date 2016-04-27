@@ -81,7 +81,7 @@ public class MembershipManager {
         StringBuffer condition = new StringBuffer( 100 );
 
         if( !team.isPersistent() )
-            throw new RDException( "MembershipManager.restore: the argument membership includes a non-persistent Student object" );
+            throw new RDException( "MembershipManager.restore: the argument membership includes a non-persistent Team object" );
         
         condition.setLength( 0 );
         
@@ -114,12 +114,20 @@ public class MembershipManager {
     }
     
     public Iterator<Team> restore(Student student) throws RDException {
-        String selectSql = "select t.id, s.id from membership where s.id = ";            
+        //String selectSql = "select t.id, s.id from membership where s.id = "; 
+
+        String selectSql = "select t.id, t.name, t.leagueId, t.captainId, " +
+          "l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
+          "l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules, " +
+          "l.leagueRules, p.id, p.firstname, p.lastname, p.username, p.password, "
+          + "p.email, p.studentID, p.major, p.address, m.personid, m.teamid from team t, league l, person p, membership m"
+          + " where l.id=t.leagueId and p.id=t.captainId and t.id=m.teamid and m.personid=" + student.getId();
+
        Statement    stmt = null;
        StringBuffer query = new StringBuffer( 100 );
        StringBuffer condition = new StringBuffer( 100 );
 
-       if( student.isPersistent() )
+       if( !student.isPersistent() )
            throw new RDException( "MembershipManager.restore: the argument membership includes a non-persistent Student object" );
        
        condition.setLength( 0 );
@@ -127,10 +135,10 @@ public class MembershipManager {
        // form the query based on the given Club object instance
        query.append( selectSql );
        
-       if( student != null ) {
-           if( student.isPersistent() ) // id is unique, so it is sufficient to get a membership
-               query.append( student.getId() );
-       }
+       // if( student != null ) {
+       //     if( student.isPersistent() ) // id is unique, so it is sufficient to get a membership
+       //         query.append( student.getId() );
+       // }
        
        try {
            stmt = conn.createStatement();
@@ -139,10 +147,7 @@ public class MembershipManager {
            //
            if( stmt.execute( query.toString() ) ) { // statement returned a result
             ResultSet r = stmt.getResultSet();
-               if (stmt.execute("select s.id, s.name, s.address, s.isIndoor from student s where s.id = " + r.getLong(1))) {
-                ResultSet r2 = stmt.getResultSet();
-                return new TeamIterator(r2, objectLayer);
-               }
+            return new TeamIterator(r, objectLayer);
            }
        }
        catch( Exception e ) {      // just in case...

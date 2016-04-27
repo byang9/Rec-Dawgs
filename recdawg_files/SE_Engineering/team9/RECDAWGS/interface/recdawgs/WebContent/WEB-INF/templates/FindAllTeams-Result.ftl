@@ -38,7 +38,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="index.html">
+                <a class="navbar-brand page-scroll" href="MainWindow">
                     <i class="fa fa-soccer-ball-o"></i>  <span class="light">Rec</span>Dawgs
                 </a>
             </div>
@@ -51,7 +51,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="StudentMainWindow"><i class="fa fa-home"></i> Home</a>
+                        <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about"><i class="fa fa-group"></i> Teams</a>
@@ -82,7 +82,7 @@
                  <#list teams as team>
                   <tr>
                       <td>${team[0]}</td>
-                      <td><input type=submit name="team" value=${team[1]} style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
+                      <td><input type=submit name="team" value='${team[1]}' style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
                       <td>${team[2]}</td>
                       <td>${team[3]}</td>
                   </tr>

@@ -131,6 +131,11 @@ public class JoinTeam extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
+            rv = logicLayer.findTeamMembers(nameOfTeam);
+            if (rv.size() == logicLayer.findTeam(nameOfTeam).getParticipatesInLeague().getMaxMembers()) {
+                RDError.error(cfg, toClient, "This team cannot have anymore members!");
+                return;
+            }
             logicLayer.joinTeam(session.getUser().getId(), nameOfTeam);
             rv = logicLayer.findTeamMembers(nameOfTeam);
             root.put( "team", nameOfTeam );

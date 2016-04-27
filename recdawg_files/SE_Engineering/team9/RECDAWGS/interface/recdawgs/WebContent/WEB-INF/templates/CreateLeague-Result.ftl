@@ -39,7 +39,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="index.html">
+                <a class="navbar-brand page-scroll" href="MainWindow">
                     <i class="fa fa-soccer-ball-o"></i>  <span class="light">Rec</span>Dawgs
                 </a>
             </div>
@@ -52,7 +52,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="ShowMainWindow"><i class="fa fa-home"></i> Home</a>
+                        <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-soccer-ball-o"></i> Create League</a>
@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Create a League</h1>
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/CreateLeague">
+                <form method=post action="http://localhost:8080/recdawgs_team9/CreateLeague">
                     <h4>League Name: </h4><INPUT NAME="name" TYPE=text size=50 required></INPUT>
                     <h4>Played Indoor (yes or no): </h4><INPUT NAME="indoor" TYPE=text size=50 required></INPUT>
                     <h4>Minimum Teams: </h4><INPUT NAME="minTeams" TYPE=number size=50 required></INPUT>

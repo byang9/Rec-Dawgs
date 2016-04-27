@@ -314,7 +314,7 @@ a:focus {
     -o-background-size: cover;
 }
 
-.intro #introid {
+#introid {
     background: url(../img/soccer.png) no-repeat center center scroll;
 }
 

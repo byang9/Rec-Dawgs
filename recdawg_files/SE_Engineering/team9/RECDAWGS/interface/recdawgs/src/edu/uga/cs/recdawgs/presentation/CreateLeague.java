@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.uga.cs.recdawgs.entity.Student;
+import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
@@ -45,12 +46,12 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class CreateTeam extends HttpServlet {
+public class CreateLeague extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllTeamMembers-Result.ftl";
+    static  String            resultTemplateName = "FindAllLeagues-Result.ftl";
 
     private Configuration     cfg;
 
@@ -69,22 +70,15 @@ public class CreateTeam extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Student>       rv = null;
-        List<List<Object>>  users = null;
-        List<Object>        user = null;
-        Student             u = null;
-        String              nameOfTeam = req.getParameter("team");
-        if (nameOfTeam == null || nameOfTeam == "") {
-            resultTemplateName = "CreateTeam-Result.ftl";
-        } else {
-            resultTemplateName = "FindAllTeamMembers-Result.ftl";
-        }
-        String              nameOfLeague = req.getParameter("league");
-        if (nameOfLeague != null) 
-            nameOfLeague = nameOfLeague.replace("Create Team in ", "");
+        List<League>        rv = null;
+        List<List<Object>>  leagues = null;
+        List<Object>        league = null;
+        League              l  = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
+
+        resultTemplateName = "CreateLeague-Result.ftl";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -136,44 +130,6 @@ public class CreateTeam extends HttpServlet {
 
         // Setup the data-model
         Map<String,Object> root = new HashMap<String,Object>();
-        
-        if (nameOfTeam != null) {
-            try {
-                if (rv.size() == logicLayer.findLeague(nameOfLeague).getMaxTeams()) {
-                    RDError.error(cfg, toClient, "This league cannot have anymore teams!");
-                    return;
-                }
-                logicLayer.createTeam(nameOfTeam, nameOfLeague, session.getUser().getId());
-                logicLayer.joinTeam(session.getUser().getId(), nameOfTeam);
-                rv = logicLayer.findTeamMembers(nameOfTeam);
-                root.put( "team", nameOfTeam );
-
-                // Build the data-model
-                //
-                users = new LinkedList<List<Object>>();
-                root.put( "users", users );
-
-                for( int i = 0; i < rv.size(); i++ ) {
-                    u = (Student) rv.get( i );
-                    user = new LinkedList<Object>();
-                    user.add(u.getId());
-                    user.add(u.getFirstName() + " " + u.getLastName());
-                    user.add(u.getUserName());
-                    user.add(u.getEmailAddress());
-                    user.add(u.getStudentId());
-                    user.add(u.getMajor());
-                    user.add(u.getAddress());
-                    users.add(user);
-                }
-            } 
-            catch( Exception e) {
-                e.printStackTrace();
-                RDError.error( cfg, toClient, e );
-                return;
-            }
-        } else {
-            root.put("league", nameOfLeague);
-        }
 
         // Merge the data-model and the template
         //
@@ -194,20 +150,33 @@ public class CreateTeam extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Student>       rv = null;
-        List<List<Object>>  users = null;
-        List<Object>        user = null;
-        Student             u = null;
-        String              nameOfTeam = req.getParameter("team");
-        if (nameOfTeam == null) {
-            resultTemplateName = "CreateTeam-Result.ftl";
-        }
-        String              nameOfLeague = req.getParameter("league");
-        if (nameOfLeague != null) 
-            nameOfLeague = nameOfLeague.replace("Create Team in ", "");
+        List<League>        rv = null;
+        List<List<Object>>  leagues = null;
+        List<Object>        league = null;
+        League              l  = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
+
+        // Get Parameters
+        String name = req.getParameter("name");
+        String indoor = req.getParameter("indoor");
+        String minTeamString = req.getParameter("minTeams");
+        String maxTeamString = req.getParameter("maxTeams");
+        String minMemberString = req.getParameter("minMembers");
+        String maxMemberString = req.getParameter("maxMembers");
+        String matchRules = req.getParameter("matchRules");
+        String leagueRules = req.getParameter("leagueRules");
+
+        // Conversions
+        boolean isIndoor = false;
+        if (indoor.equalsIgnoreCase("yes")) isIndoor = true;
+        int minTeams = Integer.parseInt(minTeamString);
+        int maxTeams = Integer.parseInt(maxTeamString);
+        int minMembers = Integer.parseInt(minMemberString);
+        int maxMembers = Integer.parseInt(maxMemberString);
+
+        resultTemplateName = "FindAllLeagues-Result.ftl";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -260,50 +229,43 @@ public class CreateTeam extends HttpServlet {
         // Setup the data-model
         Map<String,Object> root = new HashMap<String,Object>();
         
-        if (nameOfTeam != null) {
-            try {
-                List<Team> teamsInLeague = logicLayer.findTeamsOfLeague(nameOfLeague);
-                if (teamsInLeague.size() == logicLayer.findLeague(nameOfLeague).getMaxTeams()) {
-                    RDError.error(cfg, toClient, "This league cannot have anymore teams!");
-                    return;
-                }
-                for (int i = 0; i < teamsInLeague.size(); i++) {
-                    if (teamsInLeague.get(i).getCaptain().equals((Student)session.getUser())) {
-                        RDError.error(cfg, toClient, "Cannot be captain of two teams in the same league!");
-                        return;
-                    }
-                }
-                logicLayer.createTeam(nameOfTeam, nameOfLeague, session.getUser().getId());
-                logicLayer.joinTeam(session.getUser().getId(), nameOfTeam);
-                rv = logicLayer.findTeamMembers(nameOfTeam);
-                root.put( "team", nameOfTeam );
-                root.put("league", nameOfLeague);
+        try {
+            logicLayer.createLeague(name, isIndoor, minTeams, maxTeams, minMembers, maxMembers, matchRules, leagueRules);
 
-                // Build the data-model
-                //
-                users = new LinkedList<List<Object>>();
-                root.put( "users", users );
+            rv = logicLayer.findAllLeagues();
 
-                for( int i = 0; i < rv.size(); i++ ) {
-                    u = (Student) rv.get( i );
-                    user = new LinkedList<Object>();
-                    user.add(u.getId());
-                    user.add(u.getFirstName() + " " + u.getLastName());
-                    user.add(u.getUserName());
-                    user.add(u.getEmailAddress());
-                    user.add(u.getStudentId());
-                    user.add(u.getMajor());
-                    user.add(u.getAddress());
-                    users.add(user);
-                }
-            } 
-            catch( Exception e) {
-                e.printStackTrace();
-                RDError.error( cfg, toClient, e );
-                return;
+            // Build the data-model
+            //
+            leagues = new LinkedList<List<Object>>();
+            root.put( "leagues", leagues );
+
+            for( int i = 0; i < rv.size(); i++ ) {
+                l = (League) rv.get( i );
+                Team team = l.getWinnerOfLeague();
+                league = new LinkedList<Object>();
+                league.add( l.getId() );
+                league.add( l.getName() );
+                if (team != null)
+                    league.add( team.getName() );
+                else 
+                    league.add( "None" );
+                if (l.getIsIndoor())   
+                    league.add( "Yes" );
+                else 
+                    league.add("No");
+                league.add( l.getMinTeams() );
+                league.add( l.getMaxTeams() );
+                league.add( l.getMinMembers() );
+                league.add( l.getMaxMembers() );
+                league.add( l.getMatchRules() );
+                league.add( l.getLeagueRules() );
+                leagues.add( league );
             }
-        } else {
-            root.put("league", nameOfLeague);
+        } 
+        catch( Exception e) {
+            e.printStackTrace();
+            RDError.error( cfg, toClient, e );
+            return;
         }
 
         // Merge the data-model and the template
