@@ -47,7 +47,7 @@ public class ModifyAccountResult extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "StudentMainWindow-Result.ftl";
+    static  String            resultTemplateName = "StudentMainWindow.ftl";
 
     private Configuration     cfg;
 
@@ -60,7 +60,7 @@ public class ModifyAccountResult extends HttpServlet {
         cfg.setServletContextForTemplateLoading( getServletContext(), "WEB-INF/templates" );
     }
 
-    public void doGet( HttpServletRequest  req, HttpServletResponse res )
+    public void doPost( HttpServletRequest  req, HttpServletResponse res )
             throws ServletException, IOException
     {
         Template            resultTemplate = null;
@@ -77,7 +77,7 @@ public class ModifyAccountResult extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        String studentid = req.getParameter("studentid");
+        String studentId = req.getParameter("studentid");
         String major = req.getParameter("major");
         String address = req.getParameter("address");
 
@@ -135,16 +135,10 @@ public class ModifyAccountResult extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            logicLayer.s
-            student = logicLayer.createStudent(username, password, email, firstname, lastname, studentId, major, address);
-            root.put( "firstname", student.getFirstName() );
-            root.put( "lastname", student.getLastName() );
-            root.put( "username", student.getUserName() );
-            root.put( "password", student.getPassword() );
-            root.put( "email", student.getEmailAddress() );
-            root.put( "studentId", student.getStudentId() );
-            root.put( "major", student.getMajor() );
-            root.put( "address", student.getAddress() );
+            Student newUser = logicLayer.updateStudent(username, password, email, firstname, lastname, studentId, major, address, session.getUser().getId());
+            session.setUser(newUser);
+            root.put("firstname", firstname);
+            root.put("username", username);
         } 
         catch( Exception e) {
             RDError.error( cfg, toClient, e );

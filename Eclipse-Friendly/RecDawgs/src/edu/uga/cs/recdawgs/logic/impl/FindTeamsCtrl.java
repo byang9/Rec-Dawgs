@@ -57,7 +57,7 @@ public class FindTeamsCtrl {
         Iterator<Team> 	teamIter = null;
         Team     	team = null;
 
-        teams = new LinkedList<Team>();;
+        teams = new LinkedList<Team>();
         
         teamIter = objectLayer.restoreStudentMemberOfTeam(modelStudent);
         while( teamIter.hasNext() ) {
@@ -67,5 +67,21 @@ public class FindTeamsCtrl {
         }
 
         return teams;
+    }
+
+    public Team findTeam(String nameOfTeam)
+            throws RDException
+    {
+        Iterator<Team>  teamIter = null;
+        Team        team = null;
+        
+        Team modelTeam = objectLayer.createTeam();
+        modelTeam.setName(nameOfTeam);
+        teamIter = objectLayer.findTeam(modelTeam);
+        while( teamIter.hasNext() ) {
+            team = teamIter.next();
+        }
+
+        return team;
     }
 }

@@ -28,7 +28,7 @@ public class PersonManager {
  
     public void save(Student user) throws RDException{
         String insertPersonSql = "insert into person ( firstname, lastname, username, password, email, isStudent, studentID, major, address ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";              
-        String updatePersonSql = "update person set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, major = ?, address = ? where id = ?";              
+        String updatePersonSql = "update person set firstname = ?, lastname = ?, username = ?, password = ?, email = ?, isStudent = ?, studentID = ?, major = ?, address = ? where id = ?";              
         PreparedStatement stmt;
         int inscnt;
         long personId;

@@ -102,11 +102,25 @@ public class LogicLayerImpl implements LogicLayer {
         return ctrlFindMyTeams.findMyTeams(modelStudent);
     }
 
-    public List<Team> findMyAccount(Student modelStudent) throws RDException {
+    public Student findMyAccount(Student modelStudent) throws RDException {
         FindStudentsCtrl ctrlFindMyTeams = new FindStudentsCtrl( objectLayer );
         return ctrlFindMyTeams.findMyAccount(modelStudent);
     }
+
+    // !!!!!!!!!!!!!!!!!!!!
+    // !!!! Find Other !!!!
+    // !!!!!!!!!!!!!!!!!!!!
+
+    public Team findTeam(String nameOfTeam) throws RDException {
+        FindTeamsCtrl ctrlFindTeam = new FindTeamsCtrl( objectLayer );
+        return ctrlFindTeam.findTeam(nameOfTeam);
+    }
     
+    public League findLeague(String nameOfLeague) throws RDException {
+        FindLeaguesCtrl ctrlFindLeague = new FindLeaguesCtrl( objectLayer );
+        return ctrlFindLeague.findLeague(nameOfLeague);
+    }
+
     // !!!!!!!!!!!!!!!!!!!!
     // !!!! Obj-to-Obj !!!!
     // !!!!!!!!!!!!!!!!!!!!
@@ -161,6 +175,11 @@ public class LogicLayerImpl implements LogicLayer {
         return ctrlCreateStudent.createStudent( username,  password, email, firstname, lastname, address, studentId, major );
 	}
 
+    public Student updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException {
+        UpdateCtrl ctrlUpdateStudent = new UpdateCtrl(objectLayer);
+        return ctrlUpdateStudent.updateStudent(username,  password, email, firstname, lastname, address, studentId, major, id);
+    }
+
 
 	public long createLeague(String name, boolean isIndoor, int minTeams, int maxTeams, int minTeamMembers, int maxTeamMembers, String matchRules, String leagueRules) throws RDException {
 		CreateCtrl ctrlCreateLeague = new CreateCtrl( objectLayer );
@@ -201,6 +220,11 @@ public class LogicLayerImpl implements LogicLayer {
 			return false;
 		}
     	return true;
+    }
+
+    public boolean isStudent(User user) {
+        if (user.getIsStudent()) return false;
+        return true;
     }
     
     public Student retrieveStudent(Session session) throws RDException {

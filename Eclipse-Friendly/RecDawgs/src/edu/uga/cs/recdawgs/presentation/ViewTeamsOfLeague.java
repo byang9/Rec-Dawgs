@@ -152,14 +152,7 @@ public class ViewTeamsOfLeague extends HttpServlet {
                 String[] splitName = teamName.split(" ");
                 team = new LinkedList<Object>();
                 team.add( t.getId() );
-                if (splitName.length == 1)
-                    team.add( splitName[0] );
-                if (splitName.length == 2)
-                    team.add( splitName[0] + "_" + splitName[1]);
-                if (splitName.length == 3)
-                    team.add( splitName[0] + "_" + splitName[1] + "_" + splitName[2]);
-                if (splitName.length == 4)
-                    team.add( splitName[0] + "_" + splitName[1] + "_" + splitName[2] + "_" + splitName[3]);
+                team.add(t.getName());
                 team.add( nameOfLeague );
                 team.add( t.getCaptain().getFirstName() + " " + t.getCaptain().getLastName() );
                 teams.add( team );

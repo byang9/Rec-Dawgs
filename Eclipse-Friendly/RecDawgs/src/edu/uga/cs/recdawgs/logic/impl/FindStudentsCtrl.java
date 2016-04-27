@@ -24,7 +24,7 @@ public class FindStudentsCtrl {
     
     private ObjectLayer objectLayer = null;
     
-    public FindAllStudentsCtrl( ObjectLayer objectModel )
+    public FindStudentsCtrl( ObjectLayer objectModel )
     {
         this.objectLayer = objectModel;
     }

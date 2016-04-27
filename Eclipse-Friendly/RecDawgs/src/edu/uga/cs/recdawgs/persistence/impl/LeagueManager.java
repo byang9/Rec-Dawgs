@@ -57,7 +57,7 @@ class LeagueManager
 
             stmt.setBoolean(3, league.getIsIndoor());
             stmt.setLong(4, league.getMinTeams());
-            stmt.setLong(5, league.getMinTeams());
+            stmt.setLong(5, league.getMaxTeams());
             stmt.setLong(6, league.getMinMembers());
             stmt.setLong(7, league.getMaxMembers());
             stmt.setString(8, league.getMatchRules());
@@ -125,7 +125,7 @@ class LeagueManager
             stmt.setLong(3, league.getWinnerOfLeague().getId());
             stmt.setBoolean(4, league.getIsIndoor());
             stmt.setLong(5, league.getMinTeams());
-            stmt.setLong(6, league.getMinTeams());
+            stmt.setLong(6, league.getMaxTeams());
             stmt.setLong(7, league.getMinMembers());
             stmt.setLong(8, league.getMaxMembers());
             stmt.setString(9, league.getMatchRules());
@@ -185,7 +185,7 @@ class LeagueManager
             if (league.getId() >= 0) // id is unique, so it is sufficient to get a league
                 query.append( " where id = " + league.getId());
             else if (league.getName() != null) // leagueName is unique, so it is sufficient to get a league
-                query.append(" where name = '" + league.getName() + "'");
+                query.append(" where name = \'" + league.getName() + "\'");
             else {
 
                 if (league.getWinnerOfLeague() != null)
