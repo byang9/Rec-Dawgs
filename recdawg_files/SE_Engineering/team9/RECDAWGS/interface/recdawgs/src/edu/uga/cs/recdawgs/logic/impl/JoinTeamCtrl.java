@@ -10,6 +10,7 @@ package edu.uga.cs.recdawgs.logic.impl;
 
 
 import java.util.Iterator;
+import java.util.List;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Team;
@@ -56,8 +57,14 @@ public class JoinTeamCtrl {
         }
         if( student == null )
             throw new RDException( "Failed to locate a Student with id: " + studentId );
-        else 
-        	objectLayer.createStudentMemberOfTeam(student, team);
+
+        FindTeamsCtrl ctrlFindMyTeams = new FindTeamsCtrl( objectLayer );
+        List<Team> teams = ctrlFindMyTeams.findMyTeams(modelStudent);
+        for (int i = 0; i < teams.size(); i++)
+            if (teams.get(i).getParticipatesInLeague().getName().equals(team.getParticipatesInLeague().getName()))
+                throw new RDException("Cannot join team because you are already on a team in this league");
+
+    	objectLayer.createStudentMemberOfTeam(student, team);
 
         return team.getId();
     }

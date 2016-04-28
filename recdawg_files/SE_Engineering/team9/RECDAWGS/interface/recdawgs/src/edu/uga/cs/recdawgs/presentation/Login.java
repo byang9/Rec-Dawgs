@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.uga.cs.recdawgs.entity.User;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -49,6 +50,7 @@ public class Login extends HttpServlet {
             String         ssid = null;
             Session        session = null;
             LogicLayer     logicLayer = null;
+            String         forgot = req.getParameter("forgot");
 
             httpSession = req.getSession();
             ssid = (String) httpSession.getAttribute( "ssid" );
@@ -84,16 +86,27 @@ public class Login extends HttpServlet {
             username = req.getParameter( "username" );
             password = req.getParameter( "password" );
 
-            if( username == null || password == null ) {
+            if (forgot != null && username != null) {
+                try {
+                    Student updateStudent = logicLayer.findStudent(username);
+                    updateStudent.setPassword("recdawgs");
+                    logicLayer.updateStudent(updateStudent.getUserName(), "recdawgs", updateStudent.getEmailAddress(), updateStudent.getFirstName(), updateStudent.getLastName(), updateStudent.getStudentId(), updateStudent.getMajor(), updateStudent.getAddress(), updateStudent.getId());
+                    RDMessage.error( cfg, toClient, "Your new password is: recdawgs" );
+                    return;
+                } catch (Exception e) {
+                    RDError.error(cfg, toClient, e);
+                    return;
+                }
+            }
+
+            if( username == null || password == null || username.equals("") || password.equals("")) {
                 RDError.error( cfg, toClient, "Username or password is blank!" );
                 return;
             }
 
             try {          
                 ssid = logicLayer.login( session, username, password );
-                User myUser = session.getUser();
-                myUser.setIsStudent(true);
-                session.setUser(myUser);
+                session.setIsStudent(true);
                 System.out.println( "Obtained ssid: " + ssid );
                 httpSession.setAttribute( "ssid", ssid );
                 System.out.println( "Connection: " + session.getConnection() );

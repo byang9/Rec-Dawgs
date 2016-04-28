@@ -70,10 +70,12 @@ public class SessionManager
             throws RDException
     {
         User person = session.getUser();
+        boolean isStudent = session.getIsStudent();
         
         if( loggedIn.containsKey(person.getUserName()) ) {
             Session qs = loggedIn.get(person.getUserName());
             qs.setUser(person);
+            qs.setIsStudent(isStudent);
             return qs.getSessionId();
         }
                 

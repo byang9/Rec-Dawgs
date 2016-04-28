@@ -60,6 +60,30 @@ public class UpdateCtrl {
         return student;
     }
 
+    public Team updateTeam(long id, String newName) throws RDException {
+        Team               team  = null;
+        Team               modelTeam  = null;
+        Iterator<Team>     teamIter  = null;
+
+        // check if the userName already exists
+        modelTeam = objectLayer.createTeam();
+        modelTeam.setId( id );
+        teamIter = objectLayer.findTeam( modelTeam );
+        while( teamIter.hasNext() ) {
+            team = teamIter.next();
+        }
+        
+        // check if the team actually exists, and if so, throw an exception
+        if( team == null )
+            throw new RDException( "This team does not exist. Cannot modify team that does not exist." );
+        
+        team.setName(newName);
+
+        objectLayer.storeTeam( team );
+
+        return team;
+    }
+
 
 
 }

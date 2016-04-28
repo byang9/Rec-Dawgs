@@ -1,8 +1,8 @@
 // Gnu Emacs C++ mode:  -*- Java -*-
 //
-// Class:	FindAllClubs
+// Class:   FindAllClubs
 //
-// Type:	Servlet
+// Type:    Servlet
 //
 // K.J. Kochut
 //
@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
@@ -42,14 +43,14 @@ import freemarker.template.TemplateException;
 //
 //   parameters:
 //
-//	none
+//  none
 //
-public class ViewTeamsOfLeague extends HttpServlet {
-	
+public class LeaveTeam extends HttpServlet {
+    
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllTeams-Result.ftl";
+    static  String            resultTemplateName = "FindAllTeamMembers-Result.ftl";
 
     private Configuration     cfg;
 
@@ -68,15 +69,18 @@ public class ViewTeamsOfLeague extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Team>   rv = null;
-        List<List<Object>>  teams = null;
-        List<Object>        team = null;
-        Team			    t = null;
-        String				nameOfLeague = req.getParameter("league");
+        List<Student>       rv = null;
+        List<List<Object>>  users = null;
+        List<Object>        user = null;
+        Student             u = null;
+        String              nameOfTeam = req.getParameter("team");
+        nameOfTeam = nameOfTeam.replace("Join ", "");
+        nameOfTeam = nameOfTeam.replace("Leave ", "");
         HttpSession         httpSession;
         Session             session;
         String              ssid;
-
+        String              action = "JoinTeam";
+        String              preAction = "Join";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -106,19 +110,19 @@ public class ViewTeamsOfLeague extends HttpServlet {
         
         ssid = (String) httpSession.getAttribute( "ssid" );
         if( ssid == null ) {       // not logged in!
-        	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return;
         }
 
         session = SessionManager.getSessionById( ssid );
         if( session == null ) {
-        	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return; 
         }
         
         logicLayer = session.getLogicLayer();
         if( logicLayer == null ) {
-        	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
+            RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
             return; 
         }
         
@@ -127,43 +131,43 @@ public class ViewTeamsOfLeague extends HttpServlet {
         // No parameters here
 
         // Setup the data-model
-        //
         Map<String,Object> root = new HashMap<String,Object>();
-
-        if (nameOfLeague == null) {
-            root.put("league", "Current Active Teams");
-            root.put("title", "All Teams");
-            root.put("button", "hidden");
-        } else {
-            root.put("league", nameOfLeague);
-            root.put("title", nameOfLeague);
-            root.put("button", "visible");
-        }
         
         try {
-            rv = logicLayer.findTeamsOfLeague(nameOfLeague);
+            logicLayer.leaveTeam(session.getUser().getId(), nameOfTeam);
+            rv = logicLayer.findTeamMembers(nameOfTeam);
+            root.put( "team", nameOfTeam );
 
             // Build the data-model
             //
-            teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
+            users = new LinkedList<List<Object>>();
+            root.put( "users", users );
 
             for( int i = 0; i < rv.size(); i++ ) {
-                t = (Team) rv.get( i );
-                String teamName = t.getName();
-                String[] splitName = teamName.split(" ");
-                team = new LinkedList<Object>();
-                team.add( t.getId() );
-                team.add(t.getName());
-                team.add( nameOfLeague );
-                team.add( t.getCaptain().getFirstName() + " " + t.getCaptain().getLastName() );
-                teams.add( team );
+                u = (Student) rv.get( i );
+                if (u.getUserName().equals(session.getUser().getUserName())) {
+                    action = "LeaveTeam";
+                    preAction = "Leave";
+                }
+                user = new LinkedList<Object>();
+                user.add(u.getId());
+                user.add(u.getFirstName() + " " + u.getLastName());
+                user.add(u.getUserName());
+                user.add(u.getEmailAddress());
+                user.add(u.getStudentId());
+                user.add(u.getMajor());
+                user.add(u.getAddress());
+                users.add(user);
             }
         } 
         catch( Exception e) {
+            e.printStackTrace();
             RDError.error( cfg, toClient, e );
             return;
         }
+
+        root.put("action", action);
+        root.put("preaction", preAction);
 
         // Merge the data-model and the template
         //
@@ -176,7 +180,6 @@ public class ViewTeamsOfLeague extends HttpServlet {
         }
 
         toClient.close();
-
     }
 }
 

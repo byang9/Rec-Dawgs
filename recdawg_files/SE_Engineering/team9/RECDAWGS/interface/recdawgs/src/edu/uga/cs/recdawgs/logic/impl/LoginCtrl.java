@@ -28,6 +28,8 @@ public class LoginCtrl
         Iterator<Student> students = objectLayer.findStudent( modelStudent );
         if( students.hasNext() ) {
             Student student = students.next();
+            if (!student.getUserName().equals(userName) || !student.getPassword().equals(password))
+                throw new RDException( "SessionManager.login: Invalid User Name or Password" );
             session.setUser( student );
             ssid = SessionManager.storeSession( session );
         }

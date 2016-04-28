@@ -34,8 +34,8 @@
  </servlet>
  <!--
  <servlet>
-  <servlet-name>ShowMainWindow</servlet-name>
-  <servlet-class>edu.uga.cs.recdawgs.presentation.ShowMainWindow</servlet-class>
+  <servlet-name>MainWindow</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.MainWindow</servlet-class>
  </servlet>
 -->
  <servlet>
@@ -77,8 +77,16 @@
   <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllStudents</servlet-class>
  </servlet>
  <servlet>
+  <servlet-name>FindAllAdmins</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllAdmins</servlet-class>
+ </servlet>
+ <servlet>
   <servlet-name>JoinTeam</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.JoinTeam</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>LeaveTeam</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.LeaveTeam</servlet-class>
  </servlet>
  <servlet>
   <servlet-name>CreateTeam</servlet-name>
@@ -95,6 +103,10 @@
  <servlet>
 <servlet-name>CreateReport</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.CreateReport</servlet-class>
+</servlet>
+  <servlet>
+<servlet-name>EditTeam</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.EditTeam</servlet-class>
 </servlet>
  <servlet-mapping>
   <servlet-name>MainWindow</servlet-name>
@@ -130,8 +142,8 @@
  </servlet-mapping>
  <!--
  <servlet-mapping>
-  <servlet-name>ShowMainWindow</servlet-name>
-  <url-pattern>/ShowMainWindow</url-pattern>
+  <servlet-name>MainWindow</servlet-name>
+  <url-pattern>/MainWindow</url-pattern>
  </servlet-mapping>
 -->
  <servlet-mapping>
@@ -172,9 +184,17 @@
   <servlet-name>FindAllStudents</servlet-name>
   <url-pattern>/FindAllStudents</url-pattern>
  </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FindAllAdmins</servlet-name>
+  <url-pattern>/FindAllAdmins</url-pattern>
+ </servlet-mapping>
     <servlet-mapping>
   <servlet-name>JoinTeam</servlet-name>
   <url-pattern>/JoinTeam</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>LeaveTeam</servlet-name>
+  <url-pattern>/LeaveTeam</url-pattern>
  </servlet-mapping>
     <servlet-mapping>
 <servlet-name>CreateTeam</servlet-name>
@@ -191,5 +211,9 @@
  <servlet-mapping>
 <servlet-name>CreateReport</servlet-name>
   <url-pattern>/CreateReport</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+<servlet-name>EditTeam</servlet-name>
+  <url-pattern>/EditTeam</url-pattern>
  </servlet-mapping>
 </web-app>

@@ -89,6 +89,12 @@ public class MainWindow extends HttpServlet {
                 RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
                 return; 
             }
+
+            if (session.getIsStudent()) {
+                resultTemplateName = "StudentMainWindow.ftl";
+            } else {
+                resultTemplateName = "AdminMainWindow.ftl";
+            }
             
             // Load templates from the WEB-INF/templates directory of the Web app.
             //

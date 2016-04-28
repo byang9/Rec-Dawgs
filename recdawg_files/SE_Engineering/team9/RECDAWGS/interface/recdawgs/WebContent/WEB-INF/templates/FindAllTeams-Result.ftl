@@ -92,10 +92,10 @@
         </div>
         <hr>
         <form method=get action="http://localhost:8080/recdawgs_team9/CreateTeam">
-        <input type=submit value="Create Team in ${league}" name="league" style="text-transform: none;color:rgba(5,5,5,1);">
+        <input type=submit value="Create Team in ${league}" name="league" style="text-transform: none;color:rgba(5,5,5,1);visibility: ${button};">
         </form>
         <hr>
-        <p>Back to the <a href="ShowMainWindow"> main window</a></p>
+        <p>Back to the <a href="MainWindow"> main window</a></p>
     </section>
   
 

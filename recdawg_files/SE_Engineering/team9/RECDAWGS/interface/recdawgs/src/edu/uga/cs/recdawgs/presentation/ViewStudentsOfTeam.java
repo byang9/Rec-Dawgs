@@ -78,6 +78,8 @@ public class ViewStudentsOfTeam extends HttpServlet {
         HttpSession         httpSession;
         Session             session;
         String              ssid;
+        String              action = "JoinTeam";
+        String              preAction = "Join";
 
         
         // Load templates from the WEB-INF/templates directory of the Web app.
@@ -136,6 +138,12 @@ public class ViewStudentsOfTeam extends HttpServlet {
             rv = logicLayer.findTeamMembers(nameOfTeam);
             root.put( "team", nameOfTeam );
 
+            if (logicLayer.findTeam(nameOfTeam).getCaptain().getUserName().equals(session.getUser().getUserName())) {
+                root.put("button", "visible");
+            } else {
+                root.put("button", "hidden");
+            }
+
             // Build the data-model
             //
             users = new LinkedList<List<Object>>();
@@ -143,6 +151,10 @@ public class ViewStudentsOfTeam extends HttpServlet {
 
             for( int i = 0; i < rv.size(); i++ ) {
                 u = (Student) rv.get( i );
+                if (u.getUserName().equals(session.getUser().getUserName())) {
+                    action = "LeaveTeam";
+                    preAction = "Leave";
+                }
                 user = new LinkedList<Object>();
                 user.add(u.getId());
                 user.add(u.getFirstName() + " " + u.getLastName());
@@ -159,6 +171,9 @@ public class ViewStudentsOfTeam extends HttpServlet {
             RDError.error( cfg, toClient, e );
             return;
         }
+
+        root.put("action", action);
+        root.put("preaction", preAction);
 
         // Merge the data-model and the template
         //

@@ -75,9 +75,12 @@ public class JoinTeam extends HttpServlet {
         Student             u = null;
         String              nameOfTeam = req.getParameter("team");
         nameOfTeam = nameOfTeam.replace("Join ", "");
+        nameOfTeam = nameOfTeam.replace("Leave ", "");
         HttpSession         httpSession;
         Session             session;
         String              ssid;
+        String              action = "JoinTeam";
+        String              preAction = "Join";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -147,6 +150,10 @@ public class JoinTeam extends HttpServlet {
 
             for( int i = 0; i < rv.size(); i++ ) {
                 u = (Student) rv.get( i );
+                if (u.getUserName().equals(session.getUser().getUserName())) {
+                    action = "LeaveTeam";
+                    preAction = "Leave";
+                }
                 user = new LinkedList<Object>();
                 user.add(u.getId());
                 user.add(u.getFirstName() + " " + u.getLastName());
@@ -163,6 +170,9 @@ public class JoinTeam extends HttpServlet {
             RDError.error( cfg, toClient, e );
             return;
         }
+
+        root.put("action", action);
+        root.put("preaction", preAction);
 
         // Merge the data-model and the template
         //

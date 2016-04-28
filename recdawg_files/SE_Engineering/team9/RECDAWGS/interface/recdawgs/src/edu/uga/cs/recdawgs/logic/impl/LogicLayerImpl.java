@@ -121,6 +121,11 @@ public class LogicLayerImpl implements LogicLayer {
         return ctrlFindLeague.findLeague(nameOfLeague);
     }
 
+    public Student findStudent(String username) throws RDException {
+        FindStudentsCtrl findAStudent = new FindStudentsCtrl( objectLayer );
+        return findAStudent.findStudent(username);
+    }
+
     // !!!!!!!!!!!!!!!!!!!!
     // !!!! Obj-to-Obj !!!!
     // !!!!!!!!!!!!!!!!!!!!
@@ -175,12 +180,6 @@ public class LogicLayerImpl implements LogicLayer {
         return ctrlCreateStudent.createStudent( username,  password, email, firstname, lastname, address, studentId, major );
 	}
 
-    public Student updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException {
-        UpdateCtrl ctrlUpdateStudent = new UpdateCtrl(objectLayer);
-        return ctrlUpdateStudent.updateStudent(username,  password, email, firstname, lastname, address, studentId, major, id);
-    }
-
-
 	public long createLeague(String name, boolean isIndoor, int minTeams, int maxTeams, int minTeamMembers, int maxTeamMembers, String matchRules, String leagueRules) throws RDException {
 		CreateCtrl ctrlCreateLeague = new CreateCtrl( objectLayer );
         return ctrlCreateLeague.createLeague( name,  isIndoor, minTeams, maxTeams, minTeamMembers, maxTeamMembers, matchRules, leagueRules );
@@ -197,7 +196,40 @@ public class LogicLayerImpl implements LogicLayer {
 		CreateCtrl ctrlCreateStudent = new CreateCtrl( objectLayer );
         return ctrlCreateStudent.createScoreReport( homeName,  awayName, homePoints, awayPoints, date, student, match );
 	}
-    
+
+    // !!!!!!!!!!!!!!!!!!!!
+    // !!!!!! Update !!!!!!
+    // !!!!!!!!!!!!!!!!!!!!
+
+    public Student updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException {
+        UpdateCtrl ctrlUpdateStudent = new UpdateCtrl(objectLayer);
+        return ctrlUpdateStudent.updateStudent(username,  password, email, firstname, lastname, address, studentId, major, id);
+    }
+
+    public Team updateTeam(long id, String name) throws RDException {
+        UpdateCtrl ctrlUpdateTeam = new UpdateCtrl(objectLayer);
+        return ctrlUpdateTeam.updateTeam(id, name);
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!
+    // !!!!!! Delete !!!!!!
+    // !!!!!!!!!!!!!!!!!!!!
+
+    public void deleteStudent(long id) throws RDException {
+        DeleteCtrl deleteStudentCtrl = new DeleteCtrl(objectLayer);
+        deleteStudentCtrl.deleteStudent(id);
+    }
+
+    public void leaveTeam(long id, String teamName) throws RDException {
+        DeleteCtrl leaveTeamCtrl = new DeleteCtrl(objectLayer);
+        leaveTeamCtrl.leaveTeam(id, teamName);
+    }
+
+    public void deleteTeam(String teamName) throws RDException {
+        DeleteCtrl deleteTeamCtrl = new DeleteCtrl(objectLayer);
+        deleteTeamCtrl.deleteTeam(teamName);
+    }
+
     // !!!!!!!!!!!!!!!!!!!!
     // !!! Login/Logout !!!
     // !!!!!!!!!!!!!!!!!!!!

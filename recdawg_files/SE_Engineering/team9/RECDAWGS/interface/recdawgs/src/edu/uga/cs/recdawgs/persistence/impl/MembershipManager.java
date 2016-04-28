@@ -159,7 +159,7 @@ public class MembershipManager {
    }
 
     public void delete(Student student, Team team) throws RDException{
-        String               deleteMembershipSql = "delete from membership where studentid = ? and teamid = ?";              
+        String               deleteMembershipSql = "delete from membership where personid = ? and teamid = ?";              
         PreparedStatement    stmt = null;
         int                  inscnt;
              

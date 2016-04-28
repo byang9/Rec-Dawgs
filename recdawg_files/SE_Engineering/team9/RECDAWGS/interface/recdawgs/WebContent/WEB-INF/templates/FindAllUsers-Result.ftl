@@ -95,7 +95,7 @@
             </div>
             
         <hr>
-        <p>Back to the <a href="ShowMainWindow"> main window</a></p>
+        <p>Back to the <a href="MainWindow"> main window</a></p>
     </section>
   
 

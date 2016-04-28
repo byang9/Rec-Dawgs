@@ -95,12 +95,22 @@
             </div>
         
         <hr>
-        <form method=get action="http://localhost:8080/recdawgs_team9/JoinTeam">
-        <input type=submit value="Join ${team}" name="team" style="text-transform: none;color:rgba(5,5,5,1);">
+        <form method=get action="http://localhost:8080/recdawgs_team9/${action}">
+        <input type=submit value="${preaction} ${team}" name="team" style="text-transform: none;color:rgba(5,5,5,1);">
+        </form>
+        <br>
+        <br>
+        <form method=get action="http://localhost:8080/recdawgs_team9/EditTeam">
+        <input type=submit value="Edit ${team}" name="team" style="text-transform: none;color:rgba(5,5,5,1);visibility: ${button};">
+        </form>
+        <br>
+        <br>
+        <form method=get action="http://localhost:8080/recdawgs_team9/DeleteTeam">
+        <input type=submit value="Delete ${team}" name="team" style="text-transform: none;color:rgba(5,5,5,1);visibility: ${button};">
         </form>
             
         <hr>
-        <p>Back to the <a href="ShowMainWindow"> main window</a></p>
+        <p>Back to the <a href="MainWindow"> main window</a></p>
     </section>
   
 

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Create League</title>
+    <title>Create Team</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -55,7 +55,7 @@
                         <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-file-text"></i> Create Score Report</a>
+                        <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-group"></i> Create Team</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
@@ -70,15 +70,11 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Create a Score Report</h1>
-                <form method=post action="http://uml.cs.uga.edu:8080/logan_jahnke_currency/CreateLeague">
-                    <h4>Home Team: </h4><INPUT NAME="homeTeam" TYPE=text size=50 required></INPUT>
-                    <h4>Home Points: </h4><INPUT NAME="homePoints" TYPE=number size=50 required></INPUT>
-                    <h4>Away Points: </h4><INPUT NAME="awayPoints" TYPE=number size=50 required></INPUT>
-                    <h4>Away Team: </h4><INPUT NAME="awayTeam" TYPE=text size=50 required></INPUT>
-                    <h4>Match Date: </h4><INPUT NAME="matchDate" TYPE=date size=50 required></INPUT>
+                <h1>Edit ${team}</h1>
+                <form method=post action="http://localhost:8080/recdawgs_team9/EditTeam">
+                    <h4>Team Name: </h4><INPUT NAME="newName" value='${team}' TYPE=text size=50 required></INPUT>
                     <br>
-                    <INPUT type=submit></INPUT>
+                    <INPUT type=submit name="team" value="Edit ${team}"></INPUT>
                 </form>
             </div>
         </div>

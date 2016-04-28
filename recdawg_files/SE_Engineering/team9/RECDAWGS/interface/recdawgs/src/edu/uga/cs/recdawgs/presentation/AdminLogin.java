@@ -91,9 +91,7 @@ public class AdminLogin extends HttpServlet {
 
             try {          
                 ssid = logicLayer.login( session, username, password );
-                User myUser = session.getUser();
-                myUser.setIsStudent(false);
-                session.setUser(myUser);
+                session.setIsStudent(false);
                 System.out.println( "Obtained ssid: " + ssid );
                 httpSession.setAttribute( "ssid", ssid );
                 System.out.println( "Connection: " + session.getConnection() );

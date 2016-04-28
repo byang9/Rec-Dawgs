@@ -41,6 +41,7 @@ public class Session
     private User person;
     private String id;
     private Date expiration;
+    private boolean isStudent;
     //private static Logger log = SessionManager.getLog();
     
     /***********************************************************
@@ -186,6 +187,20 @@ public class Session
     public void setLogicLayer(LogicLayer logicLayer)
     {
         this.logicLayer = logicLayer;
+    }
+
+    /**
+     * @param student or not
+     */
+    public void setIsStudent(boolean isStudent) {
+        this.isStudent = isStudent;
+    }
+
+    /**
+     * @return the preset student or not
+     */
+    public boolean getIsStudent() {
+        return isStudent;
     }
     
 }

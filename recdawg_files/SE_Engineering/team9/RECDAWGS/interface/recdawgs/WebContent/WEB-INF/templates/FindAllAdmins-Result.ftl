@@ -74,8 +74,7 @@
                 <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
                   <tr>
                       <td><b>Id</b></td>
-                      <td><b>First Name</b></td>
-                      <td><b>Last Name</b></td>
+                      <td><b>Name</b></td>
                       <td><b>Username</b></td>
                       <td><b>Email</b></td>
                   </tr>
@@ -85,13 +84,12 @@
                       <td>${admin[1]}</td>
                       <td>${admin[2]}</td>
                       <td>${admin[3]}</td>
-                      <td>${admin[4]}</td>
                   </tr>
                  </#list></table>
             </div>
             
         <hr>
-        <p>Back to the <a href="ShowMainWindow"> main window</a></p>
+        <p>Back to the <a href="MainWindow"> main window</a></p>
     </section>
   
 

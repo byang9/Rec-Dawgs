@@ -34,6 +34,7 @@ public interface LogicLayer
     // Find Other
     public Team                 findTeam(String nameOfTeam) throws RDException;
     public League               findLeague(String nameOfLeague) throws RDException;
+    public Student              findStudent(String username) throws RDException;
 	
 	// Find Object-to-Object
 	public List<Student>      	findTeamMembers(String teamName) throws RDException;
@@ -48,11 +49,18 @@ public interface LogicLayer
     public long               	createTeam(String teamName) throws RDException;
     public long                 createTeam(String teamName, String leagueName, long userID) throws RDException;
     public long               	createStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address) throws RDException;
-    public Student              updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException;
     public long               	createLeague(String name, boolean isIndoor, int minTeams, int maxTeams, int minTeamMembers, int maxTeamMembers, String matchRules, String leagueRules) throws RDException;
     public long					createSportsVenue(String name, String address, boolean isIndoor) throws RDException;
     public long					createScoreReport(String homeName, String awayName, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException;
-    public void                 createSchedule(String nameOfLeague)throws RDException;
+    //public void                 createSchedule(String nameOfLeague)throws RDException;
+
+    // Update
+    public Student              updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException;
+    public Team                 updateTeam(long id, String name) throws RDException;
+
+    // Delete
+    public void                 deleteStudent(long id) throws RDException;
+    public void                 leaveTeam(long id, String teamName) throws RDException;
 
     // Login/Logout
     public void               	logout(String ssid) throws RDException;

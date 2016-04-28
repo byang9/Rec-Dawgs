@@ -77,6 +77,9 @@
                     <h4>Address: </h4><INPUT NAME="address" TYPE=text value="${address}" size=50></INPUT>
                     <br>
                     <INPUT type=submit></INPUT>
+                    <br>
+                    <br>
+                    <INPUT type=submit name="remove" value="Remove Account"></INPUT>
                 </form>
             </div>
         </div>

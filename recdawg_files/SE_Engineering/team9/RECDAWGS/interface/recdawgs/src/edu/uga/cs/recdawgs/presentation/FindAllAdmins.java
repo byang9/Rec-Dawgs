@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -44,12 +45,12 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class ViewTeamsOfLeague extends HttpServlet {
+public class FindAllAdmins extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllTeams-Result.ftl";
+    static  String            resultTemplateName = "FindAllAdmins-Result.ftl";
 
     private Configuration     cfg;
 
@@ -68,11 +69,10 @@ public class ViewTeamsOfLeague extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Team>   rv = null;
-        List<List<Object>>  teams = null;
-        List<Object>        team = null;
-        Team			    t = null;
-        String				nameOfLeague = req.getParameter("league");
+        List<Student>       rv = null;
+        List<List<Object>>  users = null;
+        List<Object>        user = null;
+        Student			    u = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
@@ -129,35 +129,24 @@ public class ViewTeamsOfLeague extends HttpServlet {
         // Setup the data-model
         //
         Map<String,Object> root = new HashMap<String,Object>();
-
-        if (nameOfLeague == null) {
-            root.put("league", "Current Active Teams");
-            root.put("title", "All Teams");
-            root.put("button", "hidden");
-        } else {
-            root.put("league", nameOfLeague);
-            root.put("title", nameOfLeague);
-            root.put("button", "visible");
-        }
         
         try {
-            rv = logicLayer.findTeamsOfLeague(nameOfLeague);
+            rv = logicLayer.findAllStudents();
 
             // Build the data-model
             //
-            teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
+            users = new LinkedList<List<Object>>();
+            root.put( "admins", users );
 
             for( int i = 0; i < rv.size(); i++ ) {
-                t = (Team) rv.get( i );
-                String teamName = t.getName();
-                String[] splitName = teamName.split(" ");
-                team = new LinkedList<Object>();
-                team.add( t.getId() );
-                team.add(t.getName());
-                team.add( nameOfLeague );
-                team.add( t.getCaptain().getFirstName() + " " + t.getCaptain().getLastName() );
-                teams.add( team );
+                u = (Student) rv.get( i );
+                user = new LinkedList<Object>();
+                if (u.getMajor() != null) continue;
+                user.add(u.getId());
+                user.add(u.getFirstName() + " " + u.getLastName());
+                user.add(u.getUserName());
+                user.add(u.getEmailAddress());
+                users.add(user);
             }
         } 
         catch( Exception e) {

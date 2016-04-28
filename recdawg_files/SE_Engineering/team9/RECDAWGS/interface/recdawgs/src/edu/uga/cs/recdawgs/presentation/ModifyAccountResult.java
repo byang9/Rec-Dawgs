@@ -81,6 +81,8 @@ public class ModifyAccountResult extends HttpServlet {
         String major = req.getParameter("major");
         String address = req.getParameter("address");
 
+        // Remove Account
+        String remove = req.getParameter("remove");
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -133,6 +135,17 @@ public class ModifyAccountResult extends HttpServlet {
         // Setup the data-model
         //
         Map<String,Object> root = new HashMap<String,Object>();
+
+        if (remove != null) {
+            try {
+                logicLayer.deleteStudent(session.getUser().getId());
+                RDMessage.error(cfg, toClient, "Account successfully deleted.");
+                return;
+            } catch (Exception e) {
+                RDError.error(cfg, toClient, "Could not delete account: " + e);
+                return;
+            }
+        }
         
         try {
             Student newUser = logicLayer.updateStudent(username, password, email, firstname, lastname, studentId, major, address, session.getUser().getId());

@@ -8,6 +8,7 @@ package edu.uga.cs.recdawgs.logic.impl;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
@@ -117,6 +118,12 @@ public class CreateCtrl {
         else 
             throw new RDException( "This student does not exist with this id: " + userID );
 
+        FindTeamsCtrl ctrlFindMyTeams = new FindTeamsCtrl( objectLayer );
+        List<Team> teams = ctrlFindMyTeams.findMyTeams(modelStudent);
+        for (int i = 0; i < teams.size(); i++)
+            if (teams.get(i).getParticipatesInLeague().getName().equals(league.getName()))
+                throw new RDException("Cannot create team because you are already on a team in this league");
+
         team = objectLayer.createTeam(team_name);
         team.setParticipatesInLeague(league);
         team.setCaptain(student);
@@ -163,7 +170,7 @@ public class CreateCtrl {
         
         // check if the league actually exists, and if so, throw an exception
         if( league != null )
-            throw new RDException( "A league with this user name already exists" );
+            throw new RDException( "A league with this name already exists" );
         
         league = objectLayer.createLeague(name, leagueRules, matchRules, isIndoor, minTeams, maxTeams, minMembers, maxMembers);
         objectLayer.storeLeague( league );
@@ -186,7 +193,7 @@ public class CreateCtrl {
         
         // check if the sportsVenue actually exists, and if so, throw an exception
         if( sportsVenue != null )
-            throw new RDException( "A Sports Venue with this user name already exists" );
+            throw new RDException( "A Sports Venue with this name already exists" );
         
         sportsVenue = objectLayer.createSportsVenue(name, address, isIndoor);
         objectLayer.storeSportsVenue( sportsVenue );

@@ -37,6 +37,7 @@ public class AdministratorIterator implements Iterator<Administrator>{
         String userName;
         String password;
         String email;
+        boolean isStudent;
 
         if ( more ){
 
@@ -48,6 +49,7 @@ public class AdministratorIterator implements Iterator<Administrator>{
                 userName = rs.getString(4);
                 password = rs.getString(5);
                 email = rs.getString(6);
+                isStudent = rs.getBoolean(7);
 
                 more = rs.next();
 
@@ -58,11 +60,15 @@ public class AdministratorIterator implements Iterator<Administrator>{
 
             Administrator user;
 			try {
-				user = objectLayer.createAdministrator( firstName, lastName, userName, password, email);
-				user.setId( id );
+                if (!isStudent) {
+				    user = objectLayer.createAdministrator( firstName, lastName, userName, password, email);
+				    user.setId( id );
 
-				return user;
-			} catch (RDException e) {
+    				return user;
+	           } else {
+                    next();
+               }
+    		} catch (RDException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

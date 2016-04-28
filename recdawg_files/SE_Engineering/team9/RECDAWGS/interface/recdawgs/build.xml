@@ -40,7 +40,7 @@
 	
   <target name="build" depends="compile">
       <echo>Building the war application archive</echo>
-      <war destfile="${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
+      <war destfile="../../../../../../../../jboss/standalone/deployments/${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
           <fileset dir="${build.dir}" excludes="*.svn,**/web.xml,README"/>
       </war>
   </target>

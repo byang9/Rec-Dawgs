@@ -116,11 +116,7 @@
                 <i class="fa fa-user"></i>
                 <h3>View all <a href="FindAllStudents">Users</a></h3>
                 <i class="fa fa-user"></i>
-                <h3>View all <a href="FindAllUsers">Administrators</a></h3>
-                <i class="fa fa-plus"></i> <i class="fa fa-user"></i>
-                <h3>Add <a href="AddUser">User</a></h3>
-                <i class="fa fa-plus"></i> <i class="fa fa-user"></i>
-                <h3>Add <a href="AddUser">Administrator</a></h3>
+                <h3>View all <a href="FindAllAdmins">Administrators</a></h3>
                 
                 <hr>
                 
