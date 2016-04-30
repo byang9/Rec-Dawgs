@@ -9,7 +9,8 @@ package edu.uga.cs.recdawgs.logic.impl;
 import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
-import edu.uga.cs.recdawgs.entity.league;
+import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 import java.util.*;
 
@@ -54,19 +55,23 @@ public class CreateSchedule {
         return teams;
     }
 
-    public long createSchedule( String nameOfLeague )
+    public void createSchedule( String nameOfLeague )
             throws RDException
     { 
       
         List<Team> teams = findTeamsOfLeague(nameOfLeague);
         int numOfTeams = teams.size();
+        //create a matrix for the schedule
         int[][] schedule = scheduler(numOfTeams);
-
-        HashMap<Integer, Integer> teamToScheduleId = new HashMap<Integer, Integer>();
+        
+        //HashMap<Integer, Integer> teamToScheduleId = new HashMap<Integer, Integer>();
+        //create a hashmap that maps a schedule Id to a team
+        HashMap<Integer, Team> teamToScheduleId = new HashMap<Integer, Team>();
 
         //initialize hashmap
         for (int i = 0; i < teams.size(); i++){
-            teamToScheduleId.put(teams.get(i).getId(), i);
+           // teamToScheduleId.put((int) teams.get(i).getId(), i);
+        	teamToScheduleId.put(i, teams.get(i));
         }
 
 
@@ -74,13 +79,15 @@ public class CreateSchedule {
             
 
             for (int col = row+1; col < schedule[0].length; col++){
-                Calendar c = new Calender();
-                c.set(Calendar.DAY_OF_YEAR + (7 * schedule[row][col]));
+                Calendar c = Calendar.getInstance();
+                c.set(Calendar.DAY_OF_YEAR, Calendar.DAY_OF_YEAR + (7 * schedule[row][col]));
 
                 Date roundDate = c.getTime();
                 //create round= round[row , col] 
                 //create match (team 1 = row, team 2 = col, round  )
+                //create Match on the given data
                 objectLayer.createMatch(0, 0, roundDate, false, teamToScheduleId.get(row), teamToScheduleId.get(col));
+                
             }
         }
 
@@ -133,6 +140,7 @@ public class CreateSchedule {
             }//for
 
         }//for
+        return schedule;
     }//createSchedule
     
 }

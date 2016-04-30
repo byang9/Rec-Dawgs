@@ -20,9 +20,7 @@ public class TeamIterator implements Iterator<Team>{
         this.rs = rs;
         this.objectLayer = objectLayer;
         try{
-            this.more = rs.next();
-            System.out.println("How about here?");
-        }
+            this.more = rs.next();        }
         catch( Exception e ) {   
              throw new RDException( "TeamIterator: Cannot create Team iterator; root cause: " + e );
         }

@@ -76,7 +76,6 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     // Create a student with given attributes
     public Student createStudent(String firstName, String lastName, String userName, String password, String emailAddress, String studentId, String major, String address) throws RDException {
-        System.out.println("Creating student!");
         return new StudentImpl(firstName, lastName, userName, password, emailAddress, studentId, major, address);
     }
 
