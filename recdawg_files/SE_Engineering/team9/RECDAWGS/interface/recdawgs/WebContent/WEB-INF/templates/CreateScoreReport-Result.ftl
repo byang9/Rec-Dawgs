@@ -55,7 +55,13 @@
                         <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-file-text"></i> Create Score Report</a>
+                        <a class="page-scroll" href="FindAllLeagues"><i class="fa fa-soccer-ball-o"></i> Leagues</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="FindAllTeams"><i class="fa fa-group"></i> Teams</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="FindAllVenues"><i class="fa fa-building"></i> Sports Venues</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>

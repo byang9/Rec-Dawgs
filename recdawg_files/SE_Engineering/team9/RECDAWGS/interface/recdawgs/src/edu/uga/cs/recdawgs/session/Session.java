@@ -12,12 +12,14 @@ package edu.uga.cs.recdawgs.session;
 
 import java.sql.Connection;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.Date;
 
 //import org.apache.log4j.Logger;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.User;
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.logic.impl.LogicLayerImpl;
 //import edu.uga.cs.recdawgs.logic.*;
@@ -200,7 +202,21 @@ public class Session
      * @return the preset student or not
      */
     public boolean getIsStudent() {
-        return isStudent;
+        try {
+            Iterator<Student> studentIter = objectLayer.findStudent((Student)this.person);
+            Student myStudent = studentIter.next();
+            System.out.println("My Student Major: " + myStudent.getMajor());
+            if (myStudent.getMajor() == null) return false;
+            return true;
+        } catch( RDException e ) {
+            try {
+                throw e;
+            } 
+            catch (RDException e1) {
+                e1.printStackTrace();
+                return true;
+            }
+        }
     }
     
 }

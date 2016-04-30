@@ -268,6 +268,12 @@ public class CreateLeague extends HttpServlet {
             return;
         }
 
+        if (session.getIsStudent()) {
+            root.put("visible", "hidden");
+        } else {
+            root.put("visible", "visible");
+        }
+
         // Merge the data-model and the template
         //
         try {

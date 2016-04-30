@@ -115,6 +115,12 @@ public class Login extends HttpServlet {
                 RDError.error( cfg, toClient, e );
                 return;
             }
+
+            if (session.getIsStudent()) {
+                resultTemplateName = "StudentMainWindow.ftl";
+            } else {
+                resultTemplateName = "AdminMainWindow.ftl";
+            }
             
             // Load templates from the WEB-INF/templates directory of the Web app.
             //

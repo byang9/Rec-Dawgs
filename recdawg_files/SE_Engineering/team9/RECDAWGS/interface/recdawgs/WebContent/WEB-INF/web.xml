@@ -112,6 +112,10 @@
   <servlet-name>DeleteLeague</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.DeleteLeague</servlet-class>
  </servlet>
+ <servlet>
+  <servlet-name>DeleteTeam</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.DeleteTeam</servlet-class>
+ </servlet>
  <servlet-mapping>
   <servlet-name>MainWindow</servlet-name>
   <url-pattern>/MainWindow</url-pattern>
@@ -211,6 +215,10 @@
      <servlet-mapping>
 <servlet-name>DeleteLeague</servlet-name>
   <url-pattern>/DeleteLeague</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+<servlet-name>DeleteTeam</servlet-name>
+  <url-pattern>/DeleteTeam</url-pattern>
  </servlet-mapping>
  <servlet-mapping>
 <servlet-name>CreateVenue</servlet-name>

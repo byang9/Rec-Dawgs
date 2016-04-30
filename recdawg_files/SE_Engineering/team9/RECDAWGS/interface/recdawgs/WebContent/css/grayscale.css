@@ -53,6 +53,27 @@ tr {
     border-radius: 5px; 
 }
 
+select {
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 45px;
+    width: 25%;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    border: none;
+    border-bottom: 2px solid;
+    border-bottom-color: rgba(255,255,255,0.4);
+    background-color: transparent;
+}
+
+select:focus {
+    width: 50%;
+    outline: none;
+    border-bottom: 2px solid;
+    border-bottom-color: rgba(255,255,255,1);
+}
+
 .signedin input[type=date] {
     text-transform: uppercase;
     margin-top: 1em;
