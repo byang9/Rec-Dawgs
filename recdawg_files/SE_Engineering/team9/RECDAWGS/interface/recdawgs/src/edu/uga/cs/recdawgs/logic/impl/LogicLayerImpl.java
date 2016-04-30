@@ -206,6 +206,11 @@ public class LogicLayerImpl implements LogicLayer {
         return ctrlUpdateStudent.updateStudent(username,  password, email, firstname, lastname, address, studentId, major, id);
     }
 
+    public League updateLeague(long id, String name, int minTeams, int maxTeams, int minMems, int maxMems, String matchRules, String leagueRules) throws RDException {
+        UpdateCtrl ctrlUpdateLeague = new UpdateCtrl(objectLayer);
+        return ctrlUpdateLeague.updateLeague(id, name, minTeams, maxTeams, minMems, maxMems, matchRules, leagueRules);
+    }
+
     public Team updateTeam(long id, String name) throws RDException {
         UpdateCtrl ctrlUpdateTeam = new UpdateCtrl(objectLayer);
         return ctrlUpdateTeam.updateTeam(id, name);
@@ -270,7 +275,6 @@ public class LogicLayerImpl implements LogicLayer {
     		throw new RDException("Your account does not exist. How did you log in?");
     }
 
-    @Override
     public void createSchedule(String nameOfLeague) throws RDException {
         CreateSchedule createSched = new CreateSchedule( objectLayer );
         createSched.createSchedule(nameOfLeague);

@@ -48,7 +48,7 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class DeleteTeam extends HttpServlet {
+public class UpdateTeam extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
@@ -80,7 +80,7 @@ public class DeleteTeam extends HttpServlet {
         Session             session;
         String              ssid;
 
-        resultTemplateName = "DeleteTeam-Result.ftl";
+        resultTemplateName = "UpdateTeam-Result.ftl";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -194,9 +194,9 @@ public class DeleteTeam extends HttpServlet {
         String              ssid;
 
         // Get Parameters
-        String teamName = req.getParameter("league");
+        String teamName = req.getParameter("team");
 
-        resultTemplateName = "FindAllTeams-Result.ftl";
+        resultTemplateName = "EditTeam-Result.ftl";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -250,29 +250,9 @@ public class DeleteTeam extends HttpServlet {
         Map<String,Object> root = new HashMap<String,Object>();
         
         try {
-            List<Student> students = logicLayer.findTeamMembers(teamName);
-            if (students.size() > 0)
-                RDError.error(cfg, toClient, "Cannot delete team that has members in it.");
-            logicLayer.deleteTeam(teamName);
-
-            rv = logicLayer.findAllTeams();
-
-             // Build the data-model
-            //
-            teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
-
-            for( int i = 0; i < rv.size(); i++ ) {
-                t = (Team) rv.get( i );
-                League league = t.getParticipatesInLeague();
-                User user = t.getCaptain();
-                team = new LinkedList<Object>();
-                team.add( t.getId() );
-                team.add(t.getName());
-                team.add( league.getName() );
-                team.add( user.getFirstName() + " " + user.getLastName() );
-                teams.add( team );
-            }
+            Team theTeam = logicLayer.findTeam(teamName);
+            
+            root.put("name", theTeam.getName());
         } 
         catch( Exception e) {
             e.printStackTrace();

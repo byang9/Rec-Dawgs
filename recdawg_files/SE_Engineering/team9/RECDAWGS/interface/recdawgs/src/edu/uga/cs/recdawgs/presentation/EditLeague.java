@@ -30,8 +30,6 @@ import javax.servlet.http.HttpSession;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Team;
-import edu.uga.cs.recdawgs.entity.League;
-import edu.uga.cs.recdawgs.entity.User;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
 import edu.uga.cs.recdawgs.session.SessionManager;
@@ -48,12 +46,12 @@ import freemarker.template.TemplateException;
 //
 //	none
 //
-public class DeleteTeam extends HttpServlet {
+public class EditLeague extends HttpServlet {
 	
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindAllTeams-Result.ftl";
+    static  String            resultTemplateName = "FindAllLeagues-Result.ftl";
 
     private Configuration     cfg;
 
@@ -72,15 +70,12 @@ public class DeleteTeam extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Team>        rv = null;
-        List<List<Object>>  teams = null;
-        List<Object>        team = null;
-        Team              t  = null;
+        String              nameOfLeague = req.getParameter("league");
+        resultTemplateName = "EditLeague-Result.ftl";
+        nameOfLeague = nameOfLeague.replace("Edit ", "");
         HttpSession         httpSession;
         Session             session;
         String              ssid;
-
-        resultTemplateName = "DeleteTeam-Result.ftl";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -132,38 +127,25 @@ public class DeleteTeam extends HttpServlet {
 
         // Setup the data-model
         Map<String,Object> root = new HashMap<String,Object>();
-
-        if (session.getIsStudent()) {
+        
+        if (nameOfLeague != null) {
             try {
-                logicLayer.deleteTeam(req.getParameter("team").replace("Delete ", ""));
-                RDMessage.error(cfg, toClient, "Your team has been deleted.");
-            } catch (Exception e) {
-                RDError.error(cfg, toClient, "Could not delete team: " + e);
+                League l = logicLayer.findLeague(nameOfLeague);
+                root.put( "league", l.getName() );
+                root.put( "minTeams", l.getMinTeams() );
+                root.put( "maxTeams", l.getMaxTeams() );
+                root.put( "minMem", l.getMinMembers() );
+                root.put( "maxMem", l.getMaxMembers() );
+                root.put( "matchRules", l.getMatchRules() );
+                root.put( "leagueRules", l.getLeagueRules() );
+            } 
+            catch( Exception e) {
+                e.printStackTrace();
+                RDError.error( cfg, toClient, e );
+                return;
             }
-        }
-
-        try {
-            //logicLayer.deleteTeam(name);
-
-            rv = logicLayer.findAllTeams();
-
-             // Build the data-model
-            //
-            teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
-
-            for( int i = 0; i < rv.size(); i++ ) {
-                t = (Team) rv.get( i );
-                team = new LinkedList<Object>();
-                team.add( t.getName() );
-                team.add( t.getName() );
-                teams.add( team );
-            }
-        } 
-        catch( Exception e) {
-            e.printStackTrace();
-            RDError.error( cfg, toClient, e );
-            return;
+        } else {
+            root.put("league", "Undefined");
         }
 
         // Merge the data-model and the template
@@ -185,18 +167,17 @@ public class DeleteTeam extends HttpServlet {
         Template            resultTemplate = null;
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
-        List<Team>        rv = null;
-        List<List<Object>>  teams = null;
-        List<Object>        team = null;
-        Team              t  = null;
+        List<League>       rv = null;
+        List<List<Object>>  leagues = null;
+        List<Object>        league = null;
+        League             l = null;
+        String              nameOfLeague = req.getParameter("league");
+        nameOfLeague = nameOfLeague.replace("Edit ", "");
         HttpSession         httpSession;
         Session             session;
         String              ssid;
 
-        // Get Parameters
-        String teamName = req.getParameter("league");
-
-        resultTemplateName = "FindAllTeams-Result.ftl";
+        resultTemplateName = "FindAllLeagues-Result.ftl";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -248,34 +229,49 @@ public class DeleteTeam extends HttpServlet {
 
         // Setup the data-model
         Map<String,Object> root = new HashMap<String,Object>();
+
+        String newName = req.getParameter("name");
+        int minTeams = Integer.parseInt(req.getParameter("minTeams"));
+        int maxTeams = Integer.parseInt(req.getParameter("maxTeams"));
+        int minMems = Integer.parseInt(req.getParameter("minMem"));
+        int maxMems = Integer.parseInt(req.getParameter("maxMem"));
+        String matchRules = req.getParameter("matchRules");
+        String leagueRules = req.getParameter("leagueRules");
         
         try {
-            List<Student> students = logicLayer.findTeamMembers(teamName);
-            if (students.size() > 0)
-                RDError.error(cfg, toClient, "Cannot delete team that has members in it.");
-            logicLayer.deleteTeam(teamName);
+            long id = logicLayer.findLeague(nameOfLeague).getId();
+            logicLayer.updateLeague(id, newName, minTeams, maxTeams, minMems, maxMems, matchRules, leagueRules);
+            rv = logicLayer.findAllLeagues();
 
-            rv = logicLayer.findAllTeams();
-
-             // Build the data-model
+            // Build the data-model
             //
-            teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
+            leagues = new LinkedList<List<Object>>();
+            root.put( "leagues", leagues );
 
             for( int i = 0; i < rv.size(); i++ ) {
-                t = (Team) rv.get( i );
-                League league = t.getParticipatesInLeague();
-                User user = t.getCaptain();
-                team = new LinkedList<Object>();
-                team.add( t.getId() );
-                team.add(t.getName());
-                team.add( league.getName() );
-                team.add( user.getFirstName() + " " + user.getLastName() );
-                teams.add( team );
+                l = (League) rv.get( i );
+                //Person founder = objectModel.findEstablishedBy( c );
+                Team team = l.getWinnerOfLeague();
+                league = new LinkedList<Object>();
+                league.add( l.getId() );
+                league.add( l.getName() );
+                if (team != null)
+                    league.add( team.getName() );
+                else 
+                    league.add( "None" );
+                if (l.getIsIndoor())   
+                    league.add( "Yes" );
+                else 
+                    league.add("No");
+                league.add( l.getMinTeams() );
+                league.add( l.getMaxTeams() );
+                league.add( l.getMinMembers() );
+                league.add( l.getMaxMembers() );
+                league.add( l.getMatchRules() );
+                league.add( l.getLeagueRules() );
+                leagues.add( league );
             }
-        } 
-        catch( Exception e) {
-            e.printStackTrace();
+        } catch( Exception e) {
             RDError.error( cfg, toClient, e );
             return;
         }

@@ -60,6 +60,36 @@ public class UpdateCtrl {
         return student;
     }
 
+    public League updateLeague(long id, String newName, int minTeams, int maxTeams, int minMems, int maxMems, String matchRules, String leagueRules) throws RDException {
+        League               league  = null;
+        League               modelLeague  = null;
+        Iterator<League>     leagueIter  = null;
+
+        // check if the userName already exists
+        modelLeague = objectLayer.createLeague();
+        modelLeague.setId( id );
+        leagueIter = objectLayer.findLeague( modelLeague );
+        while( leagueIter.hasNext() ) {
+            league = leagueIter.next();
+        }
+        
+        // check if the league actually exists, and if so, throw an exception
+        if( league == null )
+            throw new RDException( "This league does not exist. Cannot modify league that does not exist." );
+        
+        league.setName(newName);
+        league.setMinTeams(minTeams);
+        league.setMaxTeams(maxTeams);
+        league.setMinMembers(minMems);
+        league.setMaxMembers(maxMems);
+        league.setMatchRules(matchRules);
+        league.setLeagueRules(leagueRules);
+
+        objectLayer.storeLeague( league );
+
+        return league;
+    }
+
     public Team updateTeam(long id, String newName) throws RDException {
         Team               team  = null;
         Team               modelTeam  = null;

@@ -79,6 +79,7 @@
                     <div class="row">
                         <h1>Welcome ${firstname}</h1>
                         <h3>You are logged in as ${username}</h3>
+                        <p>Admin Mode</p>
                         <div class="col-md-8 col-md-offset-2">
                             <h1 class="brand-heading"></h1>
                             <p class="intro-text"></p>
@@ -100,6 +101,8 @@
                 <h3>View all <a href="FindAllLeagues">Leagues</a></h3>
                 <i class="fa fa-plus"></i> <i class="fa fa-soccer-ball-o"></i>
                 <h3>Add <a href="CreateLeague">League</a></h3>
+                <i class="fa fa-edit"></i> <i class="fa fa-soccer-ball-o"></i>
+                <h3>Edit <a href="UpdateLeague">League</a></h3>
                 <i class="fa fa-minus"></i> <i class="fa fa-soccer-ball-o"></i>
                 <h3>Delete a <a href="DeleteLeague">League</a></h3>
                 
@@ -107,6 +110,8 @@
 
                 <i class="fa fa-group"></i>
                 <h3>View all <a href="FindAllTeams">Teams</a></h3>
+                <i class="fa fa-edit"></i> <i class="fa fa-group"></i>
+                <h3>Edit <a href="UpdateTeam">Team</a></h3>
                 <i class="fa fa-minus"> <i class="fa fa-group"></i>
                 <h3>Delete a <a href="DeleteTeam">Team</a></h3>
 

@@ -52,10 +52,11 @@ public interface LogicLayer
     public long               	createLeague(String name, boolean isIndoor, int minTeams, int maxTeams, int minTeamMembers, int maxTeamMembers, String matchRules, String leagueRules) throws RDException;
     public long					createSportsVenue(String name, String address, boolean isIndoor) throws RDException;
     public long					createScoreReport(String homeName, String awayName, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException;
-    //public void                 createSchedule(String nameOfLeague)throws RDException;
+    public void                 createSchedule(String nameOfLeague)throws RDException;
 
     // Update
     public Student              updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException;
+    public League               updateLeague(long id, String name, int minTeams, int maxTeams, int minMems, int maxMems, String matchRules, String leagueRules) throws RDException;
     public Team                 updateTeam(long id, String name) throws RDException;
 
     // Delete

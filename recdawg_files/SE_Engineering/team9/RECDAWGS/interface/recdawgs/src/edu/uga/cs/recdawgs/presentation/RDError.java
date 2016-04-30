@@ -37,6 +37,7 @@ public class RDError {
     {
         Template	    errorTemplate = null;
         Map<String, String> root = new HashMap<String, String>();
+        String back = "MainWindow";
 
         // Load the error template from the WEB-INF/templates directory of the Web app
         //
@@ -49,6 +50,8 @@ public class RDError {
 
         if (msg.equals("java.lang.NullPointerException")) msg = "Mega-weird internal error. This shouldn't happen.";
         root.put( "reason", msg );
+        if (msg.equals("Session expired or illegal; please log in")) back = "Logout";
+        root.put( "window", back );
 
         try {
             errorTemplate.process( root, toClient );

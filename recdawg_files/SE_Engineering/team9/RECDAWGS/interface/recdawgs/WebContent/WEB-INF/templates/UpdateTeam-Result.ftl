@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Delete Team</title>
+    <title>Update Team</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -76,8 +76,8 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Delete a Team</h1>
-                <form method=post action="http://localhost:8080/recdawgs_team9/DeleteTeam">
+                <h1>Update a Team</h1>
+                <form method=get action="http://localhost:8080/recdawgs_team9/EditTeam">
                     <h4>Team Name: </h4>
                     <select name="team">
                         <#list teams as team>

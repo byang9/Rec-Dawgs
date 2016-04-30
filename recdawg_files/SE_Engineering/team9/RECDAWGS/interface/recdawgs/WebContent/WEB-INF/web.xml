@@ -108,6 +108,18 @@
 <servlet-name>EditTeam</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.EditTeam</servlet-class>
 </servlet>
+<servlet>
+<servlet-name>EditLeague</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.EditLeague</servlet-class>
+</servlet>
+<servlet>
+    <servlet-name>UpdateTeam</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.UpdateTeam</servlet-class>
+</servlet>
+<servlet>
+<servlet-name>UpdateLeague</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.UpdateLeague</servlet-class>
+</servlet>
     <servlet>
   <servlet-name>DeleteLeague</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.DeleteLeague</servlet-class>
@@ -231,5 +243,17 @@
  <servlet-mapping>
 <servlet-name>EditTeam</servlet-name>
   <url-pattern>/EditTeam</url-pattern>
+ </servlet-mapping>
+<servlet-mapping>
+<servlet-name>UpdateTeam</servlet-name>
+  <url-pattern>/UpdateTeam</url-pattern>
+ </servlet-mapping>
+<servlet-mapping>
+<servlet-name>UpdateLeague</servlet-name>
+  <url-pattern>/UpdateLeague</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+<servlet-name>EditLeague</servlet-name>
+  <url-pattern>/EditLeague</url-pattern>
  </servlet-mapping>
 </web-app>

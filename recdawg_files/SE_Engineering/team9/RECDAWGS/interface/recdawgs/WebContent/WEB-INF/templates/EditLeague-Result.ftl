@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Delete Team</title>
+    <title>Edit League</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -76,16 +76,17 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Delete a Team</h1>
-                <form method=post action="http://localhost:8080/recdawgs_team9/DeleteTeam">
-                    <h4>Team Name: </h4>
-                    <select name="team">
-                        <#list teams as team>
-                        <option value="${team[0]}">${team[1]}</option>
-                        </#list>
-                    </select>
+                <h1>Edit ${league}</h1>
+                <form method=post action="http://localhost:8080/recdawgs_team9/EditLeague">
+                    <h4>League Name: </h4><INPUT NAME="name" value='${league}' TYPE=text size=50 required></INPUT>
+                    <h4>Minimum Teams: </h4><INPUT NAME="minTeams" value='${minTeams}' TYPE=number size=50 required></INPUT>
+                    <h4>Maximum Teams: </h4><INPUT NAME="maxTeams" value='${maxTeams}' TYPE=number size=50 required></INPUT>
+                    <h4>Minimum Members: </h4><INPUT NAME="minMem" value='${minMem}' TYPE=number size=50 required></INPUT>
+                    <h4>Maximum Members: </h4><INPUT NAME="maxMem" value='${maxMem}' TYPE=number size=50 required></INPUT>
+                    <h4>Match Rules: </h4><INPUT NAME="matchRules" value='${matchRules}' TYPE=text size=250 required></INPUT>
+                    <h4>League Rules: </h4><INPUT NAME="leagueRules" value='${leagueRules}' TYPE=text size=250 required></INPUT>
                     <br>
-                    <INPUT type=submit></INPUT>
+                    <INPUT type=submit name="league" value="Edit ${league}"></INPUT>
                 </form>
             </div>
         </div>
