@@ -55,7 +55,13 @@
                         <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about"><i class="fa fa-plus"></i> <i class="fa fa-soccer-ball-o"></i> Delete League</a>
+                        <a class="page-scroll" href="FindAllLeagues"><i class="fa fa-soccer-ball-o"></i> Leagues</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="FindAllTeams"><i class="fa fa-group"></i> Teams</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="FindAllVenues"><i class="fa fa-building"></i> Sports Venues</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
@@ -72,7 +78,12 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>Delete a League</h1>
                 <form method=post action="http://localhost:8080/recdawgs_team9/DeleteLeague">
-                    <h4>League Name: </h4><INPUT NAME="name" TYPE=text size=50 required></INPUT>
+                    <h4>League Name: </h4>
+                    <select name="league">
+                        <#list leagues as league>
+                        <option value="${league[0]}">${league[1]}</option>
+                        </#list>
+                    </select>
                     <br>
                     <INPUT type=submit></INPUT>
                 </form>

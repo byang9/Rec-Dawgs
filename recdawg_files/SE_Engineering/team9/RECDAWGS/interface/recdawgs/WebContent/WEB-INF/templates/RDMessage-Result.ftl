@@ -34,7 +34,7 @@
 
         <h3>${message}</h3>
 
-        <p>Back to the <a href="Logout"> main window</a></p>
+        <p>Back to the <a href="MainWindow"> main window</a></p>
     </div>
 <!-- Footer -->
     <footer>

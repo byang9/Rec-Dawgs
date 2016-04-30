@@ -49,10 +49,19 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about"><i class="fa fa-tasks"></i> Actions</a>
+                        <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#signout"><i class="fa fa-sign-out"></i> Sign Out</a>
+                        <a class="page-scroll" href="FindAllLeagues"><i class="fa fa-soccer-ball-o"></i> Leagues</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="FindAllTeams"><i class="fa fa-group"></i> Teams</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="FindAllVenues"><i class="fa fa-building"></i> Sports Venues</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
                     </li>
                 </ul>
             </div>
@@ -98,8 +107,8 @@
 
                 <i class="fa fa-group"></i>
                 <h3>View all <a href="FindAllTeams">Teams</a></h3>
-                <i class="fa fa-minus"><i class="fa fa-group"></i>
-                <h3>Delete a <a href="FindAllTeams">Team</a></h3>
+                <i class="fa fa-minus"> <i class="fa fa-group"></i>
+                <h3>Delete a <a href="DeleteTeam">Team</a></h3>
 
                 <hr>
                 
