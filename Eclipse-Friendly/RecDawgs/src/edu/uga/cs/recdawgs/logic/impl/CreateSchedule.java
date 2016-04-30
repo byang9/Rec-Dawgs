@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Match;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 import java.util.*;
@@ -86,7 +87,8 @@ public class CreateSchedule {
                 //create round= round[row , col] 
                 //create match (team 1 = row, team 2 = col, round  )
                 //create Match on the given data
-                objectLayer.createMatch(0, 0, roundDate, false, teamToScheduleId.get(row), teamToScheduleId.get(col));
+                Match match_ = objectLayer.createMatch(0, 0, roundDate, false, teamToScheduleId.get(row), teamToScheduleId.get(col));
+                objectLayer.storeMatch(match_);
                 
             }
         }

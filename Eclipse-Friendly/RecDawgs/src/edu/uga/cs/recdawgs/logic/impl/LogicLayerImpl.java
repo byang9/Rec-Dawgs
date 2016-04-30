@@ -233,5 +233,13 @@ public class LogicLayerImpl implements LogicLayer {
     	else
     		throw new RDException("Your account does not exist. How did you log in?");
     }
+
+
+	@Override
+	public void createSchedule(String nameOfLeague) throws RDException {
+		CreateSchedule createSched = new CreateSchedule( objectLayer );
+		createSched.createSchedule(nameOfLeague);
+		
+	}
     
 }

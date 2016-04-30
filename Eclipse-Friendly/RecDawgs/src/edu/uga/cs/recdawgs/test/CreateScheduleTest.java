@@ -19,25 +19,29 @@ import edu.uga.cs.recdawgs.object.impl.ObjectLayerImpl;
 import edu.uga.cs.recdawgs.persistence.PersistenceLayer;
 import edu.uga.cs.recdawgs.persistence.impl.DbUtils;
 import edu.uga.cs.recdawgs.persistence.impl.PersistenceLayerImpl;
+import edu.uga.cs.recdawgs.logic.*;
+import edu.uga.cs.recdawgs.logic.impl.LogicLayerImpl;
 
 public class CreateScheduleTest {
     public static void main(String[] args){
         Connection  conn = null;
         ObjectLayer objectLayer = null;
         PersistenceLayer persistence = null;
-
+        LogicLayer logicLayer = null;
          // get a database connection
         try {
             conn = DbUtils.connect();
         }catch (Exception seq) {
             System.err.println( "CreateScheduleTest: Unable to obtain a database connection" );
         }
-        // obtain a reference to the ObjectModel module      
+        // obtain a reference to the ObjectModel module    
         objectLayer = new ObjectLayerImpl();
         // obtain a reference to Persistence module and connect it to the ObjectModel        
         persistence = new PersistenceLayerImpl( conn, objectLayer ); 
         // connect the ObjectModel module to the Persistence module
-        objectLayer.setPersistence( persistence ); 
+        objectLayer.setPersistence( persistence );
+        
+        logicLayer = new LogicLayerImpl(objectLayer);
         
         try{
 
@@ -50,7 +54,7 @@ public class CreateScheduleTest {
                 if (league.getName() == "Baseball") break;
             }
             System.out.println("\nLeague chosen: " + league.getName());
-            
+            logicLayer.createSchedule(league.getName());
  
 
 
