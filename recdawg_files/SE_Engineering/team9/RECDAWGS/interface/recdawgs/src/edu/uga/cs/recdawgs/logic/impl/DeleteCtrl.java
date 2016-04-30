@@ -107,5 +107,25 @@ public class DeleteCtrl {
         if (team.getCaptain().getUserName().equals(student.getUserName()))
             objectLayer.deleteStudentCaptainOfTeam(student, team);
     }
+    
+    public void deleteLeague( String name ) throws RDException { 
+        League               league  = null;
+        League               modelLeague  = null;
+        Iterator<League>     leagueIter  = null;
+
+        // check if the userName already exists
+        modelLeague = objectLayer.createLeague();
+        modelLeague.setName( name );
+        leagueIter = objectLayer.findLeague( modelLeague );
+        while( leagueIter.hasNext() ) {
+            league = leagueIter.next();
+        }
+        
+        // check if the team actually exists, and if so, throw an exception
+        if( league == null )
+            throw new RDException( "League does not exist" );
+
+        objectLayer.deleteLeague( league );
+    }
 }
 

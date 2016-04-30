@@ -229,6 +229,10 @@ public class LogicLayerImpl implements LogicLayer {
         DeleteCtrl deleteTeamCtrl = new DeleteCtrl(objectLayer);
         deleteTeamCtrl.deleteTeam(teamName);
     }
+    public void deleteLeague(String leagueName) throws RDException {
+        DeleteCtrl deleteLeagueCtrl = new DeleteCtrl(objectLayer);
+        deleteLeagueCtrl.deleteLeague(leagueName);
+    }
 
     // !!!!!!!!!!!!!!!!!!!!
     // !!! Login/Logout !!!

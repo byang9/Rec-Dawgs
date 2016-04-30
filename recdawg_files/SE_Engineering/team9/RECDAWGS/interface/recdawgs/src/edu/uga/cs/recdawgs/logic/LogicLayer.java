@@ -60,6 +60,7 @@ public interface LogicLayer
 
     // Delete
     public void                 deleteStudent(long id) throws RDException;
+    public void                 deleteLeague(String leagueName) throws RDException;
     public void                 leaveTeam(long id, String teamName) throws RDException;
 
     // Login/Logout
