@@ -66,6 +66,7 @@
 //         cfg.setServletContextForTemplateLoading( getServletContext(), "WEB-INF/templates" );
 //     }
 
+<<<<<<< HEAD
 //     public void doGet( HttpServletRequest  req, HttpServletResponse res )
 //             throws ServletException, IOException
 //     {
@@ -83,6 +84,26 @@
 //         HttpSession         httpSession;
 //         Session             session;
 //         String              ssid;
+=======
+    public void doGet( HttpServletRequest  req, HttpServletResponse res )
+            throws ServletException, IOException
+    {
+        Template            resultTemplate = null;
+        BufferedWriter      toClient = null;
+        LogicLayer          logicLayer = null;
+        List<Student>        rv = null;
+        List<List<Object>>  users = null;
+        List<Object>        user = null;
+	Student			u = null;
+	String		nameOfTeam = req.getParameter("team");
+	nameOfTeam = nameOfTeam.replace('_', ' ');
+        Team              t  = null;
+        HttpSession         httpSession;
+        Session             session;
+        String              ssid;
+	String		    action;
+	String		    preAction;
+>>>>>>> origin/master
 
 //         resultTemplateName = "UpdateTeam-Result.ftl";
         

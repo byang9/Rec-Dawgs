@@ -144,5 +144,33 @@ public class FindAssociationsCtrl
         
         return svs;
     }
+    
+    public List<ScoreReport> findLeagueResult(String leagueName) throws RDException{
+        League                  league = null;
+        League                  modelLeague = null;
+        Iterator<League>        leagueIter = null;
+        ScoreReport             sr = null;
+        Iterator<ScoreReport>   srIter = null;
+        List<ScoreReport>       svs = null;
+        
+        modelLeague = objectLayer.createLeague();
+        modelLeague.setName(leagueName);
+        leagueIter = objectLayer.findLeague(modelLeague);
+        while( leagueIter.hasNext() ) {
+            league = leagueIter.next();
+        }
+        if( league == null )
+            throw new RDException( "The league could not be found:  " + leagueName );
+        
+        srIter = objectLayer.findScoreReport(null);
+        while (srIter.hasNext()){
+            sr = srIter.next();
+            if(sr.getMatch().getHomeTeam().getParticipatesInLeague().getId() == modelLeague.getId()){
+                svs.add(sr);
+            }   
+        }
+        
+        return svs;
+    }
   
 }

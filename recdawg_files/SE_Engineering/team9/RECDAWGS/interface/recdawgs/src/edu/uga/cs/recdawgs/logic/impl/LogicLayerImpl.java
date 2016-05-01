@@ -130,6 +130,7 @@ public class LogicLayerImpl implements LogicLayer {
         FindStudentsCtrl findAStudent = new FindStudentsCtrl( objectLayer );
         return findAStudent.findStudent(username);
     }
+    
 
     // !!!!!!!!!!!!!!!!!!!!
     // !!!! Obj-to-Obj !!!!
@@ -153,6 +154,11 @@ public class LogicLayerImpl implements LogicLayer {
     public List<SportsVenue> findSVsOfLeague(String leagueName) throws RDException {
     	FindAssociationsCtrl ctrlFindLeaguesofSV = new FindAssociationsCtrl( objectLayer );
 		return ctrlFindLeaguesofSV.findSVOfLeague(leagueName);
+	}
+    
+    public List<ScoreReport> findLeagueResult(String leagueName) throws RDException {
+    	FindAssociationsCtrl ctrlFindLeagueResult = new FindAssociationsCtrl( objectLayer );
+		return ctrlFindLeagueResult.findLeagueResult(leagueName);
 	}
     
     // !!!!!!!!!!!!!!!!!!!!

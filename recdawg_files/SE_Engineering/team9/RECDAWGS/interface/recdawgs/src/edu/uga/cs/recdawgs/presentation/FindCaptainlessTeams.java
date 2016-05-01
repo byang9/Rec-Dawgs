@@ -48,6 +48,7 @@
 // //
 // public class FindCaptainlessTeams extends HttpServlet {
 	
+<<<<<<< HEAD
 //     private static final long serialVersionUID = 1L;
 
 //     static  String            templateDir = "WEB-INF/templates";
@@ -78,6 +79,39 @@
 //         Session             session;
 //         String              ssid;
 //         String              leagueName = req.getParameter("league");
+=======
+    private static final long serialVersionUID = 1L;
+
+    static  String            templateDir = "WEB-INF/templates";
+    static  String            resultTemplateName = "FindAllTeams-Result.ftl";
+
+    private Configuration     cfg;
+
+    public void init() 
+    {
+        // Prepare the FreeMarker configuration;
+        // - Load templates from the WEB-INF/templates directory of the Web app.
+        //
+        cfg = new Configuration();
+        cfg.setServletContextForTemplateLoading( getServletContext(), "WEB-INF/templates" );
+    }
+
+    public void doGet( HttpServletRequest  req, HttpServletResponse res )
+            throws ServletException, IOException
+    {
+        Template            resultTemplate = null;
+        BufferedWriter      toClient = null;
+        LogicLayer          logicLayer = null;
+        List<Team>        rv = null;
+        List<List<Object>>  teams = null;
+        List<Object>        team = null;
+        Team	   	        t  = null;
+        HttpSession         httpSession;
+        Session             session;
+        String              ssid;
+        String              leagueName = req.getParameter("league");
+	String		    action, preAction;
+>>>>>>> origin/master
         
 //         // Load templates from the WEB-INF/templates directory of the Web app.
 //         //
@@ -141,6 +175,7 @@
 //             root.put("button", "visible");
 //         }
         
+<<<<<<< HEAD
 //         try {
 //             rv = logicLayer.findAllTeams();
 
@@ -184,4 +219,49 @@
 
 //     }
 // }
+=======
+        try {
+            rv = logicLayer.findAllTeams();
+
+            // Build the data-model
+            //
+            teams = new LinkedList<List<Object>>();
+            root.put( "teams", teams );
+
+            for( int i = 0; i < rv.size(); i++ ) {
+		if(rv.get(i).getCaptain() != null) continue;
+                t = (Team) rv.get( i );
+                League league = t.getParticipatesInLeague();
+                action = "AppointCaptain";
+		preAction = "Appoint";
+                String teamName = t.getName();
+                String[] splitName = teamName.split(" ");
+                team = new LinkedList<Object>();
+                team.add( t.getId() );
+                team.add(t.getName());
+                team.add( league.getName() );
+                //team.add( user.getFirstName() + " " + user.getLastName() );
+                teams.add( team );
+            }
+        } 
+        catch( Exception e) {
+            RDError.error( cfg, toClient, e );
+            return;
+        }
+
+        // Merge the data-model and the template
+        //
+        try {
+            resultTemplate.process( root, toClient );
+            toClient.flush();
+        } 
+        catch (TemplateException e) {
+            throw new ServletException( "Error while processing FreeMarker template", e);
+        }
+
+        toClient.close();
+
+    }
+}
+>>>>>>> origin/master
 
