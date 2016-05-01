@@ -146,8 +146,6 @@
                 <hr>
                 
                 <i class="fa fa-user"></i> <i class="fa fa-random"></i> <i class="fa fa-group"></i>
-                <h3>Assign <a href="AssignUserTeam">User to Team</a></h3>
-                <i class="fa fa-user"></i> <i class="fa fa-random"></i> <i class="fa fa-group"></i>
                 <h3>Appoint <a href="AppointCaptain">Captain to Team</a></h3>
                 <i class="fa fa-building"></i> <i class="fa fa-random"></i> <i class="fa fa-soccer-ball-o"></i>
                 <h3>Assign <a href="VenueToLeague">Sports Venue to League</a></h3>
