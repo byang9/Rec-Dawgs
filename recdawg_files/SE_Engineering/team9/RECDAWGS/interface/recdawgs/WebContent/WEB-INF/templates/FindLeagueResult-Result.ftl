@@ -106,7 +106,7 @@
         </form>
         <hr>
         <form method=get action="http://localhost:8080/recdawgs_team9/FindLeagueResult">
-        <input type=submit value="View results of league: ${league}" name="league" style="text-transform: none;color:rgba(5,5,5,1);visibility: ${button};">
+        <input type=submit value="View Results of League: ${league}" name="league" style="text-transform: none;color:rgba(5,5,5,1);visibility: ${button};">
         </form>
         <hr>
         <p>Back to the <a href="MainWindow"> main window</a></p>

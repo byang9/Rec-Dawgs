@@ -9,10 +9,6 @@
   <servlet-class>edu.uga.cs.recdawgs.presentation.Login</servlet-class>
  </servlet>
  <servlet>
-  <servlet-name>AdminLogin</servlet-name>
-  <servlet-class>edu.uga.cs.recdawgs.presentation.AdminLogin</servlet-class>
- </servlet>
- <servlet>
   <servlet-name>Logout</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.Logout</servlet-class>
  </servlet>
@@ -144,10 +140,10 @@
   <servlet-name>FindLeagueResult</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.FindLeagueResult</servlet-class>
  </servlet>
-<servlet>
+<!--<servlet>
 <servlet-name>FindCaptainlessTeams</servlet-name>
  <servlet-class>edu.uga.cs.recdawgs.presentation.FindCaptainlessTeams</servlet-class>
-</servlet>
+</servlet>-->
  <servlet>
   <servlet-name>VenueToLeague</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.VenueToLeague</servlet-class>
@@ -159,10 +155,6 @@
  <servlet-mapping>
   <servlet-name>Login</servlet-name>
   <url-pattern>/Login</url-pattern>
- </servlet-mapping>
- <servlet-mapping>
-  <servlet-name>AdminLogin</servlet-name>
-  <url-pattern>/AdminLogin</url-pattern>
  </servlet-mapping>
  <servlet-mapping>
   <servlet-name>Logout</servlet-name>
@@ -202,10 +194,11 @@
   <servlet-name>ModifyAccountResult</servlet-name>
   <url-pattern>/ModifyAccountResult</url-pattern>
  </servlet-mapping>
- <servlet-mapping>
+ <!--<servlet-mapping>
   <servlet-name>FindCaptainlessTeams</servlet-name>
   <url-pattern>/FindCaptainlessTeams</url-pattern>
  </servlet-mapping>
+-->
 <!--
  <servlet-mapping>
   <servlet-name>RDError</servlet-name>

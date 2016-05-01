@@ -53,7 +53,7 @@ public class FindLeagueResult extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     static  String            templateDir = "WEB-INF/templates";
-    static  String            resultTemplateName = "FindLeagueRestul-Result.ftl";
+    static  String            resultTemplateName = "FindLeagueResult-Result.ftl";
 
     private Configuration     cfg;
 
@@ -81,6 +81,7 @@ public class FindLeagueResult extends HttpServlet {
         String              ssid;
 
         String              nameOfLeague = req.getParameter("league");
+        nameOfLeague = nameOfLeague.replace("View Results of League: ", "");
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
         try {
@@ -142,19 +143,19 @@ public class FindLeagueResult extends HttpServlet {
             // Build the data-model
             //
             scoreReports = new LinkedList<List<Object>>();
-            root.put( "scoreReports", scoreReports );
+            root.put( "teams", scoreReports );
 
             for( int i = 0; i < rv.size(); i++ ) {
                 sr = (ScoreReport) rv.get( i );
                 User user = sr.getStudent();
-                team = new LinkedList<Object>();
-                team.add( sr.getId() );
-                team.add( sr.getHomePoint() );
-                team.add( sr.getAwayPoints() );
-                team.add( sr.getDate() );
-                team.add( sr.getMatch().getId() );
-                team.add( user.getFirstName() + " " + user.getLastName() );
-                teams.add( team );
+                scoreReport = new LinkedList<Object>();
+                scoreReport.add( sr.getId() );
+                scoreReport.add( sr.getHomePoint() );
+                scoreReport.add( sr.getAwayPoints() );
+                scoreReport.add( sr.getDate() );
+                scoreReport.add( sr.getMatch().getId() );
+                scoreReport.add( user.getFirstName() + " " + user.getLastName() );
+                scoreReports.add( scoreReport );
             }
         } 
         catch( Exception e) {

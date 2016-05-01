@@ -17,6 +17,7 @@ import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.SportsVenue;
+import edu.uga.cs.recdawgs.entity.ScoreReport;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 
@@ -165,8 +166,9 @@ public class FindAssociationsCtrl
         srIter = objectLayer.findScoreReport(null);
         while (srIter.hasNext()){
             sr = srIter.next();
-            if(sr.getMatch().getHomeTeam().getParticipatesInLeague().getId() == modelLeague.getId()){
-                svs.add(sr);
+            if (sr.getMatch() != null)
+                if(sr.getMatch().getHomeTeam().getParticipatesInLeague().getId() == modelLeague.getId()){
+                    svs.add(sr);
             }   
         }
         
