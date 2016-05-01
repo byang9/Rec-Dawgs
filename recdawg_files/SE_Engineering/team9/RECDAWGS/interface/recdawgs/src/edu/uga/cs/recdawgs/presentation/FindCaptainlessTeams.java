@@ -78,6 +78,7 @@ public class FindCaptainlessTeams extends HttpServlet {
         Session             session;
         String              ssid;
         String              leagueName = req.getParameter("league");
+	String		    action, preAction;
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -161,7 +162,7 @@ public class FindCaptainlessTeams extends HttpServlet {
                 team.add( t.getId() );
                 team.add(t.getName());
                 team.add( league.getName() );
-                team.add( user.getFirstName() + " " + user.getLastName() );
+                //team.add( user.getFirstName() + " " + user.getLastName() );
                 teams.add( team );
             }
         } 

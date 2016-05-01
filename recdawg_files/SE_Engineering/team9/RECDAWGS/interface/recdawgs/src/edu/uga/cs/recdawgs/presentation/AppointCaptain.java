@@ -75,7 +75,6 @@ public class AppointCaptain extends HttpServlet {
         List<Student>        rv = null;
         List<List<Object>>  users = null;
         List<Object>        user = null;
-	List
 	Student			u = null;
 	String		nameOfTeam = req.getParameter("team");
 	nameOfTeam = nameOfTeam.replace('_', ' ');
@@ -83,6 +82,8 @@ public class AppointCaptain extends HttpServlet {
         HttpSession         httpSession;
         Session             session;
         String              ssid;
+	String		    action;
+	String		    preAction;
 
         resultTemplateName = "UpdateTeam-Result.ftl";
         
