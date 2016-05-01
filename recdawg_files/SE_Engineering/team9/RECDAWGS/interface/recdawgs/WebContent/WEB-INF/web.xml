@@ -140,6 +140,10 @@
   <servlet-name>DeleteVenue</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.DeleteVenue</servlet-class>
  </servlet>
+    <servlet>
+  <servlet-name>FindLeagueResult</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.FindLeagueResult</servlet-class>
+ </servlet>
 <servlet>
 <servlet-name>FindCaptainlessTeams</servlet-name>
  <servlet-class>edu.uga.cs.recdawgs.presentation.FindCaptainlessTeams</servlet-class>
@@ -291,6 +295,10 @@
  <servlet-mapping>
 <servlet-name>DeleteVenue</servlet-name>
   <url-pattern>/DeleteVenue</url-pattern>
+ </servlet-mapping>
+    <servlet-mapping>
+<servlet-name>FindLeagueResult</servlet-name>
+  <url-pattern>/FindLeagueResult</url-pattern>
  </servlet-mapping>
  <servlet-mapping>
 <servlet-name>VenueToLeague</servlet-name>
