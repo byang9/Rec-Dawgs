@@ -194,6 +194,10 @@
   <servlet-name>ModifyAccountResult</servlet-name>
   <url-pattern>/ModifyAccountResult</url-pattern>
  </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>FindCaptainlessTeams</servlet-name>
+  <url-pattern>/FindCaptainlessTeams</url-pattern>
+ </servlet-mapping>
 <!--
  <servlet-mapping>
   <servlet-name>RDError</servlet-name>
