@@ -76,8 +76,8 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Update a League</h1>
-                <form method=get action="http://localhost:8080/recdawgs_team9/VenueToLeague">
+                <h1>Assign Sports Venue to League</h1>
+                <form method=post action="http://localhost:8080/recdawgs_team9/VenueToLeague">
                     <h4>Sports Venue Name: </h4>
                     <select name="venue">
                         <#list venues as venue>

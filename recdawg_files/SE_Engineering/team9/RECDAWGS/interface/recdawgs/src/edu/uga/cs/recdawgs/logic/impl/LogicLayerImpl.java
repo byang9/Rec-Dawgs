@@ -227,6 +227,20 @@ public class LogicLayerImpl implements LogicLayer {
     }
 
     // !!!!!!!!!!!!!!!!!!!!
+    // !!!!!! Assign !!!!!!
+    // !!!!!!!!!!!!!!!!!!!!
+
+    public void assignVenueToLeague(League league, SportsVenue sv) throws RDException {
+        AssignCtrl ctrlSVLeague = new AssignCtrl(objectLayer);
+        ctrlSVLeague.assignVenueToLeague(league, sv);
+    }
+
+    public void assignCaptainToTeam(Student captain, Team team) throws RDException {
+        AssignCtrl ctrlCapTeam = new AssignCtrl(objectLayer);
+        ctrlCapTeam.assignCaptainToTeam(captain, team);
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!
     // !!!!!! Delete !!!!!!
     // !!!!!!!!!!!!!!!!!!!!
 

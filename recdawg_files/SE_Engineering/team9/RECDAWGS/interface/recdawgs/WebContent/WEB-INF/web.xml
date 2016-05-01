@@ -140,6 +140,10 @@
   <servlet-name>DeleteVenue</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.DeleteVenue</servlet-class>
  </servlet>
+ <servlet>
+  <servlet-name>VenueToLeague</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.VenueToLeague</servlet-class>
+ </servlet>
  <servlet-mapping>
   <servlet-name>MainWindow</servlet-name>
   <url-pattern>/MainWindow</url-pattern>
@@ -279,5 +283,9 @@
  <servlet-mapping>
 <servlet-name>DeleteVenue</servlet-name>
   <url-pattern>/DeleteVenue</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+<servlet-name>VenueToLeague</servlet-name>
+  <url-pattern>/VenueToLeague</url-pattern>
  </servlet-mapping>
 </web-app>

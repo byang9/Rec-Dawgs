@@ -61,6 +61,10 @@ public interface LogicLayer
     public Team                 updateTeam(long id, String name) throws RDException;
     public SportsVenue          updateSportsVenue(long id, String name, boolean isIndoor, String address) throws RDException;
 
+    // Assignments
+    public void                 assignVenueToLeague(League league, SportsVenue sv) throws RDException;
+    public void                 assignCaptainToTeam(Student captain, Team team) throws RDException;
+
     // Delete
     public void                 deleteStudent(long id) throws RDException;
     public void                 deleteLeague(String leagueName) throws RDException;
