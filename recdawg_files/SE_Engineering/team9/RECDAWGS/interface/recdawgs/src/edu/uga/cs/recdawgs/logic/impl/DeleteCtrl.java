@@ -127,5 +127,25 @@ public class DeleteCtrl {
 
         objectLayer.deleteLeague( league );
     }
+
+    public void deleteSportsVenue( String name ) throws RDException { 
+        SportsVenue               venue  = null;
+        SportsVenue               modelSportsVenue  = null;
+        Iterator<SportsVenue>     sportsVenueIter  = null;
+
+        // check if the venue already exists
+        modelSportsVenue = objectLayer.createSportsVenue();
+        modelSportsVenue.setName( name );
+        sportsVenueIter = objectLayer.findSportsVenue( modelSportsVenue );
+        while( sportsVenueIter.hasNext() ) {
+            venue = sportsVenueIter.next();
+        }
+        
+        // check if the venue actually exists, and if so, throw an exception
+        if( venue == null )
+            throw new RDException( "SportsVenue does not exist" );
+
+        objectLayer.deleteSportsVenue( venue );
+    }
 }
 

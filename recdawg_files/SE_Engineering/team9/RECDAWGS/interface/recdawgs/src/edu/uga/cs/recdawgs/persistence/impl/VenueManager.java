@@ -29,7 +29,7 @@ class VenueManager
     
     public void save(SportsVenue venue) throws RDException {
         String insertVenueSql = "insert into venue ( name, address, isIndoor ) values ( ?, ?, ? )";
-        String updateVenueSql = "update venue set name = ?, address = ?, isIndoor = ?, id = ?";
+        String updateVenueSql = "update venue set name = ?, address = ?, isIndoor = ? where id = ?";
         PreparedStatement stmt = null;
         int inscnt;
         long venueID;
@@ -105,13 +105,11 @@ class VenueManager
             if (venue.getId() >= 0) // id is unique, so it is sufficient to get a Venue
                 query.append( " where id = " + venue.getId());
             else if (venue.getName() != null) // VenueName is unique, so it is sufficient to get a Venue
-                query.append(" where name = '" + venue.getName() + "'");
-            //query.append( " and name = '" + club.getName() + "'" );
+                query.append(" where name = \'" + venue.getName() + "\'");
             else {
 
                 if (venue.getAddress() != null)
-                    condition.append( " and address = '" + venue.getAddress() + "'");   
-                //   condition.append( " and address = '" + club.getAddress() + "'" );  
+                    condition.append( " and address = '" + venue.getAddress() + "'");
 
                 if (condition.length() > 0)
                     condition.append(" and");

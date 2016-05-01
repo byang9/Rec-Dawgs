@@ -52,13 +52,13 @@
                         <a class="page-scroll" href="MainWindow"><i class="fa fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="FindAllLeagues"><i class="fa fa-soccer-ball-o"></i> Leagues</a>
+                        <a class="page-scroll" href="#league"><i class="fa fa-soccer-ball-o"></i> Leagues</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="FindAllTeams"><i class="fa fa-group"></i> Teams</a>
+                        <a class="page-scroll" href="#team"><i class="fa fa-group"></i> Teams</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="FindAllVenues"><i class="fa fa-building"></i> Sports Venues</a>
+                        <a class="page-scroll" href="#venue"><i class="fa fa-building"></i> Sports Venues</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="Logout"><i class="fa fa-sign-out"></i> Sign Out</a>
@@ -97,6 +97,9 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
+                
+                <hr id="league">
+                
                 <i class="fa fa-soccer-ball-o"></i>
                 <h3>View all <a href="FindAllLeagues">Leagues</a></h3>
                 <i class="fa fa-plus"></i> <i class="fa fa-soccer-ball-o"></i>
@@ -106,7 +109,7 @@
                 <i class="fa fa-minus"></i> <i class="fa fa-soccer-ball-o"></i>
                 <h3>Delete a <a href="DeleteLeague">League</a></h3>
                 
-                <hr>
+                <hr id="team">
 
                 <i class="fa fa-group"></i>
                 <h3>View all <a href="FindAllTeams">Teams</a></h3>
@@ -115,12 +118,16 @@
                 <i class="fa fa-minus"> <i class="fa fa-group"></i>
                 <h3>Delete a <a href="DeleteTeam">Team</a></h3>
 
-                <hr>
+                <hr id="venue">
                 
                 <i class="fa fa-building"></i>
                 <h3>View all <a href="FindAllVenues">Sports Venues</a></h3>
                 <i class="fa fa-plus"></i> <i class="fa fa-building"></i>
                 <h3>Add <a href="CreateVenue">Sports Venue</a></h3>
+                <i class="fa fa-edit"></i> <i class="fa fa-group"></i>
+                <h3>Edit <a href="UpdateVenue">Sports Venue</a></h3>
+                <i class="fa fa-minus"> <i class="fa fa-group"></i>
+                <h3>Delete a <a href="DeleteVenue">Sports Venue</a></h3>
                 
                 <hr>
 

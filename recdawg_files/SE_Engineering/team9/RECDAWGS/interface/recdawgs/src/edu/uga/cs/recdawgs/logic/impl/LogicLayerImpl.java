@@ -121,6 +121,11 @@ public class LogicLayerImpl implements LogicLayer {
         return ctrlFindLeague.findLeague(nameOfLeague);
     }
 
+    public SportsVenue findSportsVenue(String nameOfVenue) throws RDException {
+        FindSportsVenuesCtrl findAVenue = new FindSportsVenuesCtrl( objectLayer );
+        return findAVenue.findSportsVenue(nameOfVenue);
+    }
+
     public Student findStudent(String username) throws RDException {
         FindStudentsCtrl findAStudent = new FindStudentsCtrl( objectLayer );
         return findAStudent.findStudent(username);
@@ -216,6 +221,11 @@ public class LogicLayerImpl implements LogicLayer {
         return ctrlUpdateTeam.updateTeam(id, name);
     }
 
+    public SportsVenue updateSportsVenue(long id, String name, boolean isIndoor, String address) throws RDException {
+        UpdateCtrl ctrlUpdateSV = new UpdateCtrl(objectLayer);
+        return ctrlUpdateSV.updateSportsVenue(id, name, isIndoor, address);
+    }
+
     // !!!!!!!!!!!!!!!!!!!!
     // !!!!!! Delete !!!!!!
     // !!!!!!!!!!!!!!!!!!!!
@@ -237,6 +247,11 @@ public class LogicLayerImpl implements LogicLayer {
     public void deleteLeague(String leagueName) throws RDException {
         DeleteCtrl deleteLeagueCtrl = new DeleteCtrl(objectLayer);
         deleteLeagueCtrl.deleteLeague(leagueName);
+    }
+
+    public void deleteSportsVenue(String venueName) throws RDException {
+        DeleteCtrl deleteVenueCtrl = new DeleteCtrl(objectLayer);
+        deleteVenueCtrl.deleteSportsVenue(venueName);
     }
 
     // !!!!!!!!!!!!!!!!!!!!

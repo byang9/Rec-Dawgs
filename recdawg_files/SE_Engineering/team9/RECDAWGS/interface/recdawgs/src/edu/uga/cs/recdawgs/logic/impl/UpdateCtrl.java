@@ -114,6 +114,32 @@ public class UpdateCtrl {
         return team;
     }
 
+    public SportsVenue updateSportsVenue(long id, String newName, boolean isIndoor, String address) throws RDException {
+        SportsVenue               venue  = null;
+        SportsVenue               modelSportsVenue  = null;
+        Iterator<SportsVenue>     sportsVenueIter  = null;
+
+        // check if the userName already exists
+        modelSportsVenue = objectLayer.createSportsVenue();
+        modelSportsVenue.setId( id );
+        sportsVenueIter = objectLayer.findSportsVenue( modelSportsVenue );
+        while( sportsVenueIter.hasNext() ) {
+            venue = sportsVenueIter.next();
+        }
+        
+        // check if the SportsVenue actually exists, and if so, throw an exception
+        if( venue == null )
+            throw new RDException( "This venue does not exist. Cannot modify venue that does not exist." );
+        
+        venue.setName(newName);
+        venue.setIsIndoor(isIndoor);
+        venue.setAddress(address);
+
+        objectLayer.storeSportsVenue( venue );
+
+        return venue;
+    }
+
 
 
 }

@@ -34,6 +34,7 @@ public interface LogicLayer
     // Find Other
     public Team                 findTeam(String nameOfTeam) throws RDException;
     public League               findLeague(String nameOfLeague) throws RDException;
+    public SportsVenue          findSportsVenue(String nameOfVenue) throws RDException;
     public Student              findStudent(String username) throws RDException;
 	
 	// Find Object-to-Object
@@ -58,12 +59,14 @@ public interface LogicLayer
     public Student              updateStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address, long id) throws RDException;
     public League               updateLeague(long id, String name, int minTeams, int maxTeams, int minMems, int maxMems, String matchRules, String leagueRules) throws RDException;
     public Team                 updateTeam(long id, String name) throws RDException;
+    public SportsVenue          updateSportsVenue(long id, String name, boolean isIndoor, String address) throws RDException;
 
     // Delete
     public void                 deleteStudent(long id) throws RDException;
     public void                 deleteLeague(String leagueName) throws RDException;
     public void                 leaveTeam(long id, String teamName) throws RDException;
     public void                 deleteTeam(String teamName) throws RDException;
+    public void                 deleteSportsVenue(String venueName) throws RDException;
 
     // Login/Logout
     public void               	logout(String ssid) throws RDException;

@@ -37,4 +37,27 @@ public class FindSportsVenuesCtrl {
         
         return svs;
     }
+
+    public SportsVenue findSportsVenue(String name)
+            throws RDException
+    {
+        SportsVenue                modelSportsVenue = null;
+        Iterator<SportsVenue>      svIter = null;
+        List<SportsVenue>            svs = null;
+        SportsVenue                 venue = null;
+
+        svs = new LinkedList<SportsVenue>();
+
+        // find the sv object
+        modelSportsVenue = objectLayer.createSportsVenue();
+        modelSportsVenue.setName(name);
+        svIter = objectLayer.findSportsVenue( modelSportsVenue );
+        while( svIter.hasNext() ) {
+            venue = svIter.next();
+        }
+        if( venue == null )
+            throw new RDException( "This sports venue does not exist!" );
+        
+        return venue;
+    }
 }
