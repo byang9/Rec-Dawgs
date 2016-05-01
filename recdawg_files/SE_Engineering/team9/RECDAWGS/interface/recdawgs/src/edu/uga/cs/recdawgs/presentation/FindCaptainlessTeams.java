@@ -153,7 +153,8 @@ public class FindCaptainlessTeams extends HttpServlet {
 		if(rv.get(i).getCaptain() != null) continue;
                 t = (Team) rv.get( i );
                 League league = t.getParticipatesInLeague();
-                User user = t.getCaptain();
+                action = "AppointCaptain";
+		preAction = "Appoint";
                 String teamName = t.getName();
                 String[] splitName = teamName.split(" ");
                 team = new LinkedList<Object>();
