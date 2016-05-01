@@ -405,25 +405,51 @@ public class TeamManager {
 
     }//delete
     
-    public void delete(Student student, Team team){
-        String               deleteTeamSql = "update team set captainid=0 where id = " + team.getId();              
-        PreparedStatement    stmt = null;
-        
-        // form the query based on the given Team object instance
-        if( !team.isPersistent() ) // is the Team object persistent?  If not, nothing to actually delete
-            return;
-        
-        try {
+    public void delete(Student student, Team team, Student newCaptain){
+        if (newCaptain != null) {
+            String               deleteTeamSql = "update team set captainid=? where id = " + team.getId();              
+            PreparedStatement    stmt = null;
             
-            //DELETE t1, t2 FROM t1, t2 WHERE t1.id = t2.id;
-            //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
-            stmt = (PreparedStatement) conn.prepareStatement( deleteTeamSql );
+            // form the query based on the given Team object instance
+            if( !team.isPersistent() ) // is the Team object persistent?  If not, nothing to actually delete
+                return;
             
-            stmt.executeUpdate();
-         
-        }
-        catch( SQLException e ) {
-            System.out.println("Error: " + e);
+            try {
+                
+                //DELETE t1, t2 FROM t1, t2 WHERE t1.id = t2.id;
+                //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
+                stmt = (PreparedStatement) conn.prepareStatement( deleteTeamSql );
+                
+                stmt.setLong(1, newCaptain.getId());
+
+                stmt.executeUpdate();
+             
+            }
+            catch( SQLException e ) {
+                System.out.println("Error: " + e);
+            }
+        } else {
+            String               deleteTeamSql = "delete from team where id = ?";              
+            PreparedStatement    stmt = null;
+            
+            // form the query based on the given Team object instance
+            if( !team.isPersistent() ) // is the Team object persistent?  If not, nothing to actually delete
+                return;
+            
+            try {
+                
+                //DELETE t1, t2 FROM t1, t2 WHERE t1.id = t2.id;
+                //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
+                stmt = (PreparedStatement) conn.prepareStatement( deleteTeamSql );
+                
+                stmt.setLong( 1, team.getId() );
+                
+                stmt.executeUpdate();
+             
+            }
+            catch( SQLException e ) {
+                System.out.println("Error: " + e);
+            }
         }
 
     }//delete

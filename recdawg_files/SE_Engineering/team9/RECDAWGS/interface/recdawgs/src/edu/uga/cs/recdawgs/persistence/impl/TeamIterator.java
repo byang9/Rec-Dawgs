@@ -77,8 +77,10 @@ public class TeamIterator implements Iterator<Team>{
 				team.setId( id );
 				team.setName(teamName);
 				team.setParticipatesInLeague(league);
-				team.setCaptain(captain);
+                if (captain != null)
+    				team.setCaptain(captain);
 
+                System.out.println(team.toString());
 	            return team;
 			} catch (RDException e) {
 				// TODO Auto-generated catch block

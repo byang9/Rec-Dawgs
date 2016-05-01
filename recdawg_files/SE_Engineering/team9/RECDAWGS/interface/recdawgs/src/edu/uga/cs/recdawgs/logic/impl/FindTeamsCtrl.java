@@ -43,7 +43,6 @@ public class FindTeamsCtrl {
         teamIter = objectLayer.findTeam( null );
         while( teamIter.hasNext() ) {
             team = teamIter.next();
-            System.out.println( team );
             teams.add( team );
         }
 

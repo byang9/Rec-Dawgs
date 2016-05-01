@@ -445,7 +445,7 @@ public interface ObjectLayer
      * @param team the team
      * @throws RDException in case either the student or team is null or another error occurs
      */
-    public void deleteStudentCaptainOfTeam( Student student, Team team ) throws RDException;
+    public void deleteStudentCaptainOfTeam( Student student, Team team, Student newCaptain ) throws RDException;
 
     // Student--isMemberOf-->Team;   multiplicity: 1..* - *
     //

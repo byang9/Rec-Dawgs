@@ -168,7 +168,7 @@ public interface PersistenceLayer
      * @param team the Team to be deleted
      * @throws RDException in case an error occurred during the delete operation 
      */
-    public void deleteTeam( Team team ) throws RDException;      
+    public void deleteTeam( Team team ) throws RDException;    
 
     /** 
      * Restore all League objects that match league attributes of the model League.
@@ -297,7 +297,7 @@ public interface PersistenceLayer
      * @param team the Team
      * @throws RDException in case an error occurred during the delete operation 
      */
-    public void deleteStudentCaptainOfTeam( Student student, Team team ) throws RDException;
+    public void deleteStudentCaptainOfTeam( Student student, Team team, Student newCaptain ) throws RDException;
 
     // Student--isMemberOf-->Team;   multiplicity: 1..* - *
     //
