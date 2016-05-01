@@ -16,21 +16,26 @@ RecDawgs consists of a four-tier architecture. This includes the Presentation Cl
 ## Features
 
 - User Friendly
+
 We want users to be able to navigate the system and perform desired functions with ease.
 In order to do this, our user-interface is simple, sleek, and organized in a logical fashion.
 
 - Available
+
 This system can handle a significant load of users, concurrently.
 The more users that register for RecDawgs, the more urgent the need for availability.
 
 - High Performance
+
 Users will be able to access RecDawgs services with a short response time in order to add to the quality of their experience.
 
 - Reliable
+
 The cost of application failure is high, as it may result in a loss of registered students along with the use of time and effort to maintain code.
 Therefore, this system is well tested to perform quality operations.
 
 - Flexible
+
 RecDawgs must allow for adaptation of changing needs and therefore will be designed will be designed with modularity, simplicity, and readable code in order to achieve this goal.
 
 ## Metrics
