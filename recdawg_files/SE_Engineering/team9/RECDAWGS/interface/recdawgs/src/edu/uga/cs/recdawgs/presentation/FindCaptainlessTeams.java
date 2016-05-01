@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.entity.User;
@@ -74,11 +75,14 @@ public class FindCaptainlessTeams extends HttpServlet {
         List<List<Object>>  teams = null;
         List<Object>        team = null;
         Team	   	        t  = null;
+	List<List<Object>>  users = null;
+	Student		    user = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
         String              leagueName = req.getParameter("league");
 	String		    action, preAction;
+	String		    servlet = "ViewStudentsOfTeam";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -149,9 +153,9 @@ public class FindCaptainlessTeams extends HttpServlet {
             //
             teams = new LinkedList<List<Object>>();
             root.put( "teams", teams );
+	    root.put( "servlet", servlet );
 
             for( int i = 0; i < rv.size(); i++ ) {
-		if(rv.get(i).getCaptain() != null) continue;
                 t = (Team) rv.get( i );
                 League league = t.getParticipatesInLeague();
                 action = "AppointCaptain";
@@ -159,10 +163,11 @@ public class FindCaptainlessTeams extends HttpServlet {
                 String teamName = t.getName();
                 String[] splitName = teamName.split(" ");
                 team = new LinkedList<Object>();
+		user = t.getCaptain();
                 team.add( t.getId() );
                 team.add(t.getName());
                 team.add( league.getName() );
-                //team.add( user.getFirstName() + " " + user.getLastName() );
+                team.add( user.getFirstName() + " " + user.getLastName() );
                 teams.add( team );
             }
         } 

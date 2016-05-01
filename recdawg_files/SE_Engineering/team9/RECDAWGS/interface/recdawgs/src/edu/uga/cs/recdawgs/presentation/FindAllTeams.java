@@ -78,6 +78,7 @@ public class FindAllTeams extends HttpServlet {
         Session             session;
         String              ssid;
         String              leagueName = req.getParameter("league");
+	String		    servlet = "ViewStudentsOfTeam";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -148,6 +149,7 @@ public class FindAllTeams extends HttpServlet {
             //
             teams = new LinkedList<List<Object>>();
             root.put( "teams", teams );
+	    root.put( "servlet", servlet );
 
             for( int i = 0; i < rv.size(); i++ ) {
                 t = (Team) rv.get( i );

@@ -74,7 +74,7 @@
     
     <section id="about" class="container content-section text-center">
         <div class="row">
-            <form method=get action="http://localhost:8080/recdawgs_team9/ViewStudentsOfTeam">
+            <form method=get action="http://localhost:8080/recdawgs_team9/${servlet}">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>${league}</h1>
                 <p>Click on a team to see team members</p>

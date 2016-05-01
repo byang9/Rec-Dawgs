@@ -78,6 +78,7 @@ public class FindMyTeams extends HttpServlet {
         HttpSession         httpSession;
         Session             session;
         String              ssid;
+	String		    servlet = "ViewStudentsOfTeam";
 
         
         // Load templates from the WEB-INF/templates directory of the Web app.
@@ -142,6 +143,7 @@ public class FindMyTeams extends HttpServlet {
             //
             teams = new LinkedList<List<Object>>();
             root.put( "teams", teams );
+	    root.put( "servlet", servlet );
 
             for( int i = 0; i < rv.size(); i++ ) {
                 t = (Team) rv.get( i );
