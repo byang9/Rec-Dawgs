@@ -1,0 +1,1 @@
+wc -l src/edu/uga/cs/recdawgs/**/*.java src/edu/uga/cs/recdawgs/**/**/*.java WebContent/*.html WebContent/**/*.css WebContent/WEB-INF/web.xml WebContent/WEB-INF/**/*.ftl

@@ -156,7 +156,10 @@ public class ViewTeamsOfLeague extends HttpServlet {
                 team.add( t.getId() );
                 team.add(t.getName());
                 team.add( nameOfLeague );
-                team.add( t.getCaptain().getFirstName() + " " + t.getCaptain().getLastName() );
+                if (t.getCaptain() != null)
+                    team.add( t.getCaptain().getFirstName() + " " + t.getCaptain().getLastName() );
+                else
+                    team.add("Captainless");
                 teams.add( team );
             }
         } 

@@ -102,10 +102,12 @@ public class DeleteCtrl {
         // check if the student actually exists, and if so, throw an exception
         if( team == null )
             throw new RDException( "Team does not exist" );
-        
-        objectLayer.deleteStudentMemberOfTeam( student, team );
-        if (team.getCaptain().getUserName().equals(student.getUserName()))
+
+        if (team.getCaptain().getUserName().equals(student.getUserName())) {
             objectLayer.deleteStudentCaptainOfTeam(student, team);
+            System.out.println("!!!!!!Same username!!!!!!");
+        }
+        objectLayer.deleteStudentMemberOfTeam( student, team );
     }
     
     public void deleteLeague( String name ) throws RDException { 

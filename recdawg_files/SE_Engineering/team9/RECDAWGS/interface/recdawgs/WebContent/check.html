@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Update League</title>
+    <title>${title}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,6 @@
 </head>
 
 <body>
-    <div class="signedin">
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
@@ -75,28 +74,62 @@
     
     <section id="about" class="container content-section text-center">
         <div class="row">
+            <form method=get action="http://localhost:8080/recdawgs_team9/ViewStudentsOfTeam">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Update a League</h1>
-                <form method=get action="http://localhost:8080/recdawgs_team9/VenueToLeague">
-                    <h4>Sports Venue Name: </h4>
-                    <select name="venue">
-                        <#list venues as venue>
-                        <option value="${venue[0]}">${venue[1]}</option>
-                        </#list>
-                    </select>
-                    <br>
-                    <br>
-                    <h4>League Name: </h4>
-                    <select name="league">
-                        <#list leagues as league>
-                        <option value="${league[0]}">${league[1]}</option>
-                        </#list>
-                    </select>
-                    <br>
-                    <INPUT type=submit></INPUT>
-                </form>
+                <h1>${league}</h1>
+                <p>Click on a team to see team members</p>
+                <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
+                  <tr>
+                      <td><b>Id</b></td>
+                      <td><b>Name</b></td>
+                      <td><b>League</b></td>
+                      <td><b>Captain</b></td>
+                  </tr>
+                 <#list teams as team>
+                  <tr>
+                      <td>${team[0]}</td>
+                      <td><input type=submit name="team" value='${team[1]}' style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
+                      <td>${team[2]}</td>
+                      <td>${team[3]}</td>
+                  </tr>
+                 </#list></table>
             </div>
+            </form>
         </div>
+        <hr>
+        <div class="row">
+            <form method=get action="http://localhost:8080/recdawgs_team9/ViewStudentsOfTeam">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h1>${round}</h1>
+                <p>Click on a match to add score report</p>
+                <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
+                  <tr>
+                      <td><b>Id</b></td>
+                      <td><b>Home Team</b></td>
+                      <td><b>Away Team</b></td>
+                      <td><b>Match Date</b></td>
+                      <td><b>Location</b></td>
+                      <td><b>Home Points</b></td>
+                      <td><b>Away Points</b></td>
+                  </tr>
+                 <#list matches as match>
+                  <tr>
+                      <td><input type=submit name="match" value='${match[0]}' style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
+                      <td>${match[1]}</td>
+                      <td>${match[2]}</td>
+                      <td>${match[3]}</td>
+                      <td>${match[4]}</td>
+                      <td>${match[5]}</td>
+                      <td>${match[6]}</td>
+                  </tr>
+                 </#list></table>
+            </div>
+            </form>
+        </div>
+        <hr>
+        <form method=get action="http://localhost:8080/recdawgs_team9/CreateTeam">
+        <input type=submit value="Create Team in ${league}" name="league" style="text-transform: none;color:rgba(5,5,5,1);visibility: ${button};">
+        </form>
         <hr>
         <p>Back to the <a href="MainWindow"> main window</a></p>
     </section>
@@ -121,7 +154,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
-    </div>
     
 </body>
 </html>

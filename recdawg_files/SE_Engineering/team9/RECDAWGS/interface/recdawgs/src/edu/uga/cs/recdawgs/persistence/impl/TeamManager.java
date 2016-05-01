@@ -366,7 +366,9 @@ public class TeamManager {
                 ResultSet r = stmt.getResultSet();
                 if (stmt.execute("select id, firstname, lastname, username, password, email, studentID, major, address from person where id = " + r.getLong(1))) {
                 	ResultSet r2 = stmt.getResultSet();
-                	return objectLayer.createStudent(r2.getString(2), r2.getString(3), r2.getString(4), r2.getString(5), r2.getString(6), r2.getString(8), r2.getString(9), r2.getString(10));
+                    Student cap = objectLayer.createStudent(r2.getString(2), r2.getString(3), r2.getString(4), r2.getString(5), r2.getString(6), r2.getString(8), r2.getString(9), r2.getString(10));
+                    cap.setId(r.getLong(1));
+                	return cap;
                 }
             }
 
@@ -404,7 +406,7 @@ public class TeamManager {
     }//delete
     
     public void delete(Student student, Team team){
-        String               deleteTeamSql = "update team set captainid=null where id = " + team.getId();              
+        String               deleteTeamSql = "update team set captainid=0 where id = " + team.getId();              
         PreparedStatement    stmt = null;
         
         // form the query based on the given Team object instance
@@ -417,8 +419,6 @@ public class TeamManager {
             //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
             stmt = (PreparedStatement) conn.prepareStatement( deleteTeamSql );
             
-            stmt.setLong( 1, team.getId() );
-            
             stmt.executeUpdate();
          
         }
@@ -429,7 +429,7 @@ public class TeamManager {
     }//delete
 
     public void delete(Team team, League league){
-        String               deleteTeamLeagueSql = "update team set leagueid = null where id = " + team.getId();              
+        String               deleteTeamLeagueSql = "update team set leagueid = 0 where id = " + team.getId();              
         PreparedStatement    stmt = null;
         
         // form the query based on the given Team object instance
@@ -441,8 +441,6 @@ public class TeamManager {
             //DELETE t1, t2 FROM t1, t2 WHERE t1.id = t2.id;
             //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
             stmt = (PreparedStatement) conn.prepareStatement( deleteTeamLeagueSql );
-            
-            stmt.setLong( 1, team.getId() );
             
             stmt.executeUpdate();
          

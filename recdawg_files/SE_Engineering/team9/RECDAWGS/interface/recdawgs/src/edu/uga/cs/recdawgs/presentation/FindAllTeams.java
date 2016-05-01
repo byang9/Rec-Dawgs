@@ -159,7 +159,10 @@ public class FindAllTeams extends HttpServlet {
                 team.add( t.getId() );
                 team.add(t.getName());
                 team.add( league.getName() );
-                team.add( user.getFirstName() + " " + user.getLastName() );
+                if (t.getCaptain() != null)
+                    team.add( user.getFirstName() + " " + user.getLastName() );
+                else
+                    team.add("Captainless");
                 teams.add( team );
             }
         } 

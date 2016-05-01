@@ -383,7 +383,7 @@ class LeagueManager
     
     
     public void delete(Team team, League league){
-        String               deleteTeamLeagueSql = "update team set winnerID = null where id = " + team.getId();              
+        String               deleteTeamLeagueSql = "update team set winnerID = 0 where id = " + team.getId();              
         PreparedStatement    stmt = null;
         
         // form the query based on the given Team object instance
@@ -395,8 +395,6 @@ class LeagueManager
             //DELETE t1, t2 FROM t1, t2 WHERE t1.id = t2.id;
             //DELETE FROM t1, t2 USING t1, t2 WHERE t1.id = t2.id;
             stmt = (PreparedStatement) conn.prepareStatement( deleteTeamLeagueSql );
-            
-            stmt.setLong( 1, team.getId() );
             
             stmt.executeUpdate();
          

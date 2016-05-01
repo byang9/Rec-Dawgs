@@ -57,9 +57,13 @@ public class TeamIterator implements Iterator<Team>{
                     league = objectLayer.createLeague(rs.getString(6), rs.getString(14), rs.getString(13), 
                     		rs.getBoolean(8), (int)rs.getLong(9), (int)rs.getLong(10), (int)rs.getLong(11), (int)rs.getLong(12));
                     league.setId(rs.getLong(5));
-                    captain = objectLayer.createStudent(rs.getString(16), rs.getString(17), rs.getString(18), rs.getString(19),
+                    if (rs.getLong(15) > 0) {
+                        captain = objectLayer.createStudent(rs.getString(16), rs.getString(17), rs.getString(18), rs.getString(19),
                     		rs.getString(20), rs.getString(21), rs.getString(22), rs.getString(23));
-                    captain.setId(rs.getLong(15));
+                        captain.setId(rs.getLong(15));
+                    } else {
+                        captain = null;
+                    }
                     more = rs.next();
             }
             catch( Exception e){
