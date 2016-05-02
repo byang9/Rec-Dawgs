@@ -8,6 +8,8 @@ package edu.uga.cs.recdawgs.logic.impl;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import java.util.LinkedList;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
@@ -69,6 +71,34 @@ public class DeleteCtrl {
         objectLayer.deleteTeam( team );
     }
 
+    public List<Student> findTeamMembers( String teamName )
+            throws RDException
+    {
+        Team                team = null;
+        Team                modelTeam = null;
+        Iterator<Team>      teamIter = null;
+        Iterator<Student>     studentIter = null;
+        List<Student>        students  = null;
+
+        students = new LinkedList<Student>();
+
+        // find the team object
+        modelTeam = objectLayer.createTeam();
+        modelTeam.setName( teamName );
+        teamIter = objectLayer.findTeam( modelTeam );
+        while( teamIter.hasNext() ) {
+            team = teamIter.next();
+        }
+        if( team == null )
+            throw new RDException( "A team with this name does not exist: " + teamName );
+
+        studentIter = objectLayer.restoreStudentMemberOfTeam(team);
+        while ( studentIter.hasNext() )
+            students.add(studentIter.next());
+        
+        return students;
+    }
+
     public void leaveTeam( long id, String nameOfTeam ) throws RDException { 
         Student               student  = null;
         Student               modelStudent  = null;
@@ -104,8 +134,11 @@ public class DeleteCtrl {
             throw new RDException( "Team does not exist" );
 
         if (team.getCaptain().getUserName().equals(student.getUserName())) {
-            objectLayer.deleteStudentCaptainOfTeam(student, team);
-            System.out.println("!!!!!!Same username!!!!!!");
+            List<Student> listOfNewCaptains = findTeamMembers(nameOfTeam);
+            if (listOfNewCaptains.size() > 0)
+                objectLayer.deleteStudentCaptainOfTeam(student, team, listOfNewCaptains.get(0));
+            else
+                objectLayer.deleteStudentCaptainOfTeam(student, team, null);
         }
         objectLayer.deleteStudentMemberOfTeam( student, team );
     }

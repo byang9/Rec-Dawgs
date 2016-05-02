@@ -323,8 +323,8 @@ public class ObjectLayerImpl implements ObjectLayer {
     
     
     
-    public void deleteStudentCaptainOfTeam(Student student, Team team) throws RDException {
-        persistence.deleteStudentCaptainOfTeam(student, team);
+    public void deleteStudentCaptainOfTeam(Student student, Team team, Student newCaptain) throws RDException {
+        persistence.deleteStudentCaptainOfTeam(student, team, newCaptain);
     }
 
     

@@ -74,23 +74,27 @@
     
     <section id="about" class="container content-section text-center">
         <div class="row">
-            <form method=get action="http://localhost:8080/recdawgs_team9/${servlet}">
+            <form method=get action="http://localhost:8080/recdawgs_team9/ViewStudentsOfTeam">
             <div class="col-lg-8 col-lg-offset-2">
                 <h1>${league}</h1>
                 <p>Click on a team to see team members</p>
                 <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
                   <tr>
                       <td><b>Id</b></td>
-                      <td><b>Name</b></td>
-                      <td><b>League</b></td>
-                      <td><b>Captain</b></td>
+                      <td><b>HomePoints</b></td>
+                      <td><b>AwayPoints</b></td>
+                      <td><b>Date</b></td>
+                      <td><b>Match ID</b></td>
+                      <td><b>Reporting Student</b></td>
                   </tr>
                  <#list teams as team>
                   <tr>
                       <td>${team[0]}</td>
-                      <td><input type=submit name="team" value='${team[1]}' style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
+                      <td>${team[1]}</td>
                       <td>${team[2]}</td>
                       <td>${team[3]}</td>
+                      <td>${team[4]}</td>
+                      <td>${team[5]}</td>
                   </tr>
                  </#list></table>
             </div>

@@ -204,8 +204,8 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     // Deletes captain association from team
-    public void deleteStudentCaptainOfTeam(Student student, Team team) throws RDException {
-        teamManager.delete(student, team);
+    public void deleteStudentCaptainOfTeam(Student student, Team team, Student newCaptain) throws RDException {
+        teamManager.delete(student, team, newCaptain);
     }
     
     // Saves a student and team relationship

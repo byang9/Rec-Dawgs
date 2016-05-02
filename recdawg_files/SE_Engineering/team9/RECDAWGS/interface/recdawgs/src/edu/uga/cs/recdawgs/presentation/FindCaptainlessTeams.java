@@ -84,67 +84,67 @@ public class FindCaptainlessTeams extends HttpServlet {
 	String		    action, preAction;
 	String		    servlet = "ViewStudentsOfTeam";
         
-        // Load templates from the WEB-INF/templates directory of the Web app.
-        //
-        try {
-            resultTemplate = cfg.getTemplate( resultTemplateName );
-        } 
-        catch( IOException e ) {
-            throw new ServletException( 
-                    "Can't load template in: " + templateDir + ": " + e.toString());
-        }
+         // Load templates from the WEB-INF/templates directory of the Web app.
+         //
+         try {
+             resultTemplate = cfg.getTemplate( resultTemplateName );
+         } 
+         catch( IOException e ) {
+             throw new ServletException( 
+                     "Can't load template in: " + templateDir + ": " + e.toString());
+         }
         
-        // Prepare the HTTP response:
-        // - Use the charset of template for the output
-        // - Use text/html MIME-type
-        //
-        toClient = new BufferedWriter(
-                new OutputStreamWriter( res.getOutputStream(), resultTemplate.getEncoding() )
-                );
+         // Prepare the HTTP response:
+         // - Use the charset of template for the output
+         // - Use text/html MIME-type
+         //
+         toClient = new BufferedWriter(
+                 new OutputStreamWriter( res.getOutputStream(), resultTemplate.getEncoding() )
+                 );
 
-        res.setContentType("text/html; charset=" + resultTemplate.getEncoding());
+         res.setContentType("text/html; charset=" + resultTemplate.getEncoding());
         
-        httpSession = req.getSession();
-        if( httpSession == null ) {       // assume not logged in!
-            RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
-            return;
-        }
+         httpSession = req.getSession();
+         if( httpSession == null ) {       // assume not logged in!
+             RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
+             return;
+         }
         
-        ssid = (String) httpSession.getAttribute( "ssid" );
-        if( ssid == null ) {       // not logged in!
-        	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
-            return;
-        }
+         ssid = (String) httpSession.getAttribute( "ssid" );
+         if( ssid == null ) {       // not logged in!
+         	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
+             return;
+         }
 
-        session = SessionManager.getSessionById( ssid );
-        if( session == null ) {
-        	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
-            return; 
-        }
+         session = SessionManager.getSessionById( ssid );
+         if( session == null ) {
+         	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
+             return; 
+         }
         
-        logicLayer = session.getLogicLayer();
-        if( logicLayer == null ) {
-        	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
-            return; 
-        }
+         logicLayer = session.getLogicLayer();
+         if( logicLayer == null ) {
+         	RDError.error( cfg, toClient, "Session expired or illegal; please log in" );
+             return; 
+         }
         
-        // Get the servlet parameters
-        //
-        // No parameters here
+         // Get the servlet parameters
+         //
+         // No parameters here
 
-        // Setup the data-model
-        //
-        Map<String,Object> root = new HashMap<String,Object>();
+         // Setup the data-model
+         //
+         Map<String,Object> root = new HashMap<String,Object>();
 
-        if (leagueName == null) {
-            root.put("league", "Current Active Teams");
-            root.put("title", "All Teams");
-            root.put("button", "hidden");
-        } else {
-            root.put("league", leagueName);
-            root.put("title", leagueName);
-            root.put("button", "visible");
-        }
+         if (leagueName == null) {
+             root.put("league", "Current Active Teams");
+             root.put("title", "All Teams");
+             root.put("button", "hidden");
+         } else {
+             root.put("league", leagueName);
+             root.put("title", leagueName);
+             root.put("button", "visible");
+         }
         
         try {
             rv = logicLayer.findAllTeams();
@@ -190,4 +190,3 @@ public class FindCaptainlessTeams extends HttpServlet {
 
     }
 }
-
