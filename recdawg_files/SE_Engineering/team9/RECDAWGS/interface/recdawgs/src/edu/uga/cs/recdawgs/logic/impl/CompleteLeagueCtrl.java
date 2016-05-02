@@ -65,20 +65,29 @@ public class CompleteLeague {
             }
         }
         
-        //gets all matches in a league and calculate which team has most wins
+        //gets all matches in a league and calculate wins
         matchIter = objectLayer.findMatch(null);
         while( matchIter.hasNext() ) {
             match = matchIter.next();
-            int homePoints = match.getHomePoints();
-            int awayPoints = match.getAwayPoints();
-            if(homePoints == 0 && awayPoints == 0){
-                throw new RDException( "There is a match that hasn't been played" );
-            }else if(homePoints>awayPoints){
-                
+            if(match.getHomeTeam().getParticipatesInLeague().getId() == league.getId()){
+                int homePoints = match.getHomePoints();
+                int awayPoints = match.getAwayPoints();
+                if(homePoints == 0 && awayPoints == 0){
+                    throw new RDException( "There is a match that hasn't been played" );
+                }else if(homePoints>awayPoints){
+                    Integer newScore = new Integer(scoreList.get(teamList.indexOf(match.getHomeTeam()))+1);
+                    scoreList.set(teamList.indexOf(match.getHomeTeam()), newScore);
+
+                }else if(awayPoints>homePoints){
+                    Integer newScore = new Integer(scoreList.get(teamList.indexOf(match.getAwayTeam()))+1);
+                    scoreList.set(teamList.indexOf(match.getAwayTeam()), newScore);
+                }
             }
         }
-        //createTeamWinnerOfLeague(team)
-
+        //gets winning team and createTeamWinnerOfLeague(team)
+        Integer max = Collections.max(scoreList);
+        Team winTeam = teamList.get(scoreList.indexOf(max));
+        objectLayer.createTeamWinnerOfLeague(winTeam,league);
         
     }
 }

@@ -79,4 +79,6 @@ public interface LogicLayer
     public String             	login(Session session, String userName, String password) throws RDException;
     public Student             	retrieveStudent(Session session) throws RDException;
 	public boolean 			  	isStudent(User user);
+    
+    public void completeLeague( String leagueName ) throws RDException;
 }

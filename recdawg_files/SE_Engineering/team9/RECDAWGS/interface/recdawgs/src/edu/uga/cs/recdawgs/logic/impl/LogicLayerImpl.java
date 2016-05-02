@@ -321,4 +321,9 @@ public class LogicLayerImpl implements LogicLayer {
         
     }
     
+    public void completeLeague( String leagueName ) throws RDException{
+        CompleteLeagueCtrl ctrlName = new CompleteLeagueCtrl(objectLayer);
+        ctrlName.completeLeague(leagueName);
+    }
+    
 }
