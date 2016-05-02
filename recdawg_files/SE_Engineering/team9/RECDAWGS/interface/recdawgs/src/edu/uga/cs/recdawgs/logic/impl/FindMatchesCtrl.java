@@ -104,15 +104,10 @@ private ObjectLayer objectLayer = null;
         Iterator<Team>  teamIter = null;
 
         try{
-            Match modelMatch = objectLayer.createMatch();
-            modelMatch.setHomeTeam(findTeam(teamName));
-            matchIter = objectLayer.findMatch(modelMatch);
+            matchIter = objectLayer.restoreTeamHomeTeamMatch(findTeam(teamName));
             while (matchIter.hasNext())
                 matches.add(matchIter.next());
-            modelMatch = objectLayer.createMatch();
-            modelMatch.setAwayTeam(findTeam(teamName));
-            matchIter = objectLayer.findMatch(modelMatch);
-            while (matchIter.hasNext())
+            matchIter = objectLayer.restoreTeamAwayTeamMatch(findTeam(teamName));
                 matches.add(matchIter.next());
         } catch(RDException e){
             throw new RDException("Error in getting matches for specific team.");

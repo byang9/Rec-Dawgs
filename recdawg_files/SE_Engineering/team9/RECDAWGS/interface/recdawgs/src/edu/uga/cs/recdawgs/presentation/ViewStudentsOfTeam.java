@@ -181,8 +181,12 @@ public class ViewStudentsOfTeam extends HttpServlet {
                 m = (Match) rv1.get( i );
                 match = new LinkedList<Object>();
                 match.add(m.getId());
+                System.out.println("Added id: " + m.getId());
                 match.add(m.getHomeTeam().getName() + " vs. " + m.getAwayTeam().getName());
+                System.out.println("Added home team: " + m.getHomeTeam().getName());
+                System.out.println("Added away team: " + m.getAwayTeam().getName());
                 match.add(m.getDate());
+                System.out.println("Added date: " + m.getDate());
                 matches.add(match);
             }
         } 
