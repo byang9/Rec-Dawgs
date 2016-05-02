@@ -81,7 +81,8 @@ public class FindCaptainlessTeams extends HttpServlet {
         Session             session;
         String              ssid;
         String              leagueName = req.getParameter("league");
-	String		    action, preAction;
+	String		    action = "AppointCaptain"; 
+	String		    preAction = "Appoint";
 	String		    servlet = "ViewStudentsOfTeam";
         
          // Load templates from the WEB-INF/templates directory of the Web app.
@@ -158,8 +159,8 @@ public class FindCaptainlessTeams extends HttpServlet {
             for( int i = 0; i < rv.size(); i++ ) {
                 t = (Team) rv.get( i );
                 League league = t.getParticipatesInLeague();
-                action = "AppointCaptain";
-		preAction = "Appoint";
+                //action = "AppointCaptain";
+		//preAction = "Appoint";
                 String teamName = t.getName();
                 String[] splitName = teamName.split(" ");
                 team = new LinkedList<Object>();
