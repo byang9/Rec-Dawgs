@@ -7,6 +7,13 @@ import java.util.List;
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Match;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
+import edu.uga.cs.recdawgs.entity.League;
+import edu.uga.cs.recdawgs.entity.Match;
+import edu.uga.cs.recdawgs.entity.ScoreReport;
+import edu.uga.cs.recdawgs.entity.SportsVenue;
+import edu.uga.cs.recdawgs.entity.Student;
+import edu.uga.cs.recdawgs.entity.Team;
+
 
 public class FindMatchesCtrl {
 
@@ -44,8 +51,10 @@ private ObjectLayer objectLayer = null;
         Team     	team = null;
         Iterator<Match> matchIter = null;
         Iterator<Team> 	teamIter = null;
-        
+
+        try{
         matchIter = objectLayer.findMatch(null);
+
         while( matchIter.hasNext() ){
             match = matchIter.next();//Gets all the match objects
             teamIter = objectLayer.restoreStudentMemberOfTeam(modelStudent);
@@ -55,6 +64,10 @@ private ObjectLayer objectLayer = null;
                     matches.add(match);
                 }
             }
+        }
+
+        }catch(RDException e){
+                System.out.println(e);
         }
         
         return matches;

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.*;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.League;
@@ -22,11 +23,11 @@ import edu.uga.cs.recdawgs.object.ObjectLayer;
 
 
 
-public class CompleteLeague {
+public class CompleteLeagueCtrl {
     
     private ObjectLayer objectLayer = null;
     
-    public CompleteLeague( ObjectLayer objectModel )
+    public CompleteLeagueCtrl( ObjectLayer objectModel )
     {
         this.objectLayer = objectModel;
     }
