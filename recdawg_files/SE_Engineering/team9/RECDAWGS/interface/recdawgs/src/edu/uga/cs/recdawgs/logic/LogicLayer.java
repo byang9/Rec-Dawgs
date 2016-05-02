@@ -45,6 +45,7 @@ public interface LogicLayer
 	public List<League>			findLeaguesOfSV(String svName) throws RDException;
 	public List<SportsVenue>	findSVsOfLeague(String leagueName) throws RDException;
     public List<ScoreReport>    findLeagueResult(String leagueName) throws RDException;
+    public List<Match>          findTeamMatch(String nameOfTeam) throws RDException;
 	
 	// Join
     public long               	joinTeam(long personId, String clubName) throws RDException;

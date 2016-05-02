@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.uga.cs.recdawgs.entity.Team;
+import edu.uga.cs.recdawgs.entity.Match;
 import edu.uga.cs.recdawgs.entity.Student;
 import edu.uga.cs.recdawgs.logic.LogicLayer;
 import edu.uga.cs.recdawgs.session.Session;
@@ -73,6 +74,9 @@ public class ViewStudentsOfTeam extends HttpServlet {
         List<List<Object>>  users = null;
         List<Object>        user = null;
         Student			    u = null;
+        List<List<Object>>  matches = null;
+        List<Object>        match = null;
+        Match               m = null;
         String				nameOfTeam = req.getParameter("team");
         nameOfTeam = nameOfTeam.replace('_', ' ');
         HttpSession         httpSession;
@@ -164,6 +168,22 @@ public class ViewStudentsOfTeam extends HttpServlet {
                 user.add(u.getMajor());
                 user.add(u.getAddress());
                 users.add(user);
+            }
+
+            List<Match> rv1 = logicLayer.findTeamMatch(nameOfTeam);
+
+            // Build the data-model
+            //
+            matches = new LinkedList<List<Object>>();
+            root.put( "matches", matches );
+
+            for( int i = 0; i < rv1.size(); i++ ) {
+                m = (Match) rv1.get( i );
+                match = new LinkedList<Object>();
+                match.add(m.getId());
+                match.add(m.getHomeTeam().getName() + " vs. " + m.getAwayTeam().getName());
+                match.add(m.getDate());
+                matches.add(match);
             }
         } 
         catch( Exception e) {

@@ -135,12 +135,6 @@ public class LogicLayerImpl implements LogicLayer {
         FindStudentsCtrl findAStudent = new FindStudentsCtrl( objectLayer );
         return findAStudent.findStudent(username);
     }
-    /*
-    public Match findMatch(Student student) throws RDException{
-        FindMatchesCtrl findAMatch = new FindMatchesCtrl( objectLayer);
-        return findAMatch.findMatch(student);
-    }
-    */
     
 
     // !!!!!!!!!!!!!!!!!!!!
@@ -171,6 +165,11 @@ public class LogicLayerImpl implements LogicLayer {
     	FindAssociationsCtrl ctrlFindLeagueResult = new FindAssociationsCtrl( objectLayer );
 		return ctrlFindLeagueResult.findLeagueResult(leagueName);
 	}
+
+    public List<Match> findTeamMatch(String nameOfTeam) throws RDException {
+        FindMatchesCtrl findMatch = new FindMatchesCtrl( objectLayer );
+        return findMatch.findTeamMatch(nameOfTeam);
+    }
     
     // !!!!!!!!!!!!!!!!!!!!
     // !!!!!!! Join !!!!!!!

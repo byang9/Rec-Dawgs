@@ -26,6 +26,22 @@ private ObjectLayer objectLayer = null;
     {
         this.objectLayer = objectModel;
     }
+
+    public Team findTeam(String nameOfTeam)
+            throws RDException
+    {
+        Iterator<Team>  teamIter = null;
+        Team        team = null;
+        
+        Team modelTeam = objectLayer.createTeam();
+        modelTeam.setName(nameOfTeam);
+        teamIter = objectLayer.findTeam(modelTeam);
+        while( teamIter.hasNext() ) {
+            team = teamIter.next();
+        }
+
+        return team;
+    }
     
     public List<Match> findAllMatches()
             throws RDException
@@ -78,35 +94,30 @@ private ObjectLayer objectLayer = null;
         return matches;
     }
 
-    /*
-    public Match findMatch(Student modelStudent){
+    public List<Match> findTeamMatch(String teamName)
+            throws RDException
+    {
         List<Match> matches = new LinkedList<Match>();
         Match match = null;
         Team        team = null;
         Iterator<Match> matchIter = null;
         Iterator<Team>  teamIter = null;
 
-        Match modelMatch = objectLayer.createMatch();
-
         try{
-        matchIter = objectLayer.findMatch(modelMatch);
-
-            while( matchIter.hasNext() ){
-                match = matchIter.next();//Gets all the match objects
-                teamIter = objectLayer.restoreStudentMemberOfTeam(modelStudent);
-                while( teamIter.hasNext() ) {
-                    team = teamIter.next();//Gets all team objects
-                    if(team.getId() == match.getHomeTeam().getId() || team.getId() == match.getAwayTeam().getId()){
-                        matches.add(match);
-                    }
-                }
-            }
-
-        }catch(RDException e){
-                System.out.println(e);
+            Match modelMatch = objectLayer.createMatch();
+            modelMatch.setHomeTeam(findTeam(teamName));
+            matchIter = objectLayer.findMatch(modelMatch);
+            while (matchIter.hasNext())
+                matches.add(matchIter.next());
+            modelMatch = objectLayer.createMatch();
+            modelMatch.setAwayTeam(findTeam(teamName));
+            matchIter = objectLayer.findMatch(modelMatch);
+            while (matchIter.hasNext())
+                matches.add(matchIter.next());
+        } catch(RDException e){
+            throw new RDException("Error in getting matches for specific team.");
         }
         
         return matches;
     }
-    */
 }
