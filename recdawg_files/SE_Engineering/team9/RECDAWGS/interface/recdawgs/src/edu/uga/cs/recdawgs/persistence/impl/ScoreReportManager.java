@@ -27,8 +27,8 @@ public class ScoreReportManager {
 	}
 
 	public void save(ScoreReport scoreReport) throws RDException{
-		String insertScoreReportSql = "insert into scorereport ( matchId, homeTeamId, awayTeamId, homePoints, awayPoints, matchDate, studentId ) values ( ?, ?, ?, ?, ?, ?, ? )";
-		String updateScoreReportSql = "update scorereport set matchId = ?, homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, studentId = ?";
+		String insertScoreReportSql = "insert into scorereport ( matchId, homeTeamId, awayTeamId, homePoints, awayPoints, studentId ) values ( ?, ?, ?, ?, ?, ?, ? )";
+		String updateScoreReportSql = "update scorereport set matchId = ?, homeTeamId = ?, awayTeamId = ?, homePoints = ?, awayPoints = ?, matchDate = ?, studentId = ? where id = ?";
 		PreparedStatement stmt = null;
 
 		try{
@@ -63,34 +63,16 @@ public class ScoreReportManager {
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report away points undefined" );
 
-			if( scoreReport.getDate() != null )
-				stmt.setDate(6, new java.sql.Date(scoreReport.getDate().getTime()));
-			else
-				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report date undefined" );
-
-			if( scoreReport.getStudent().getId() >= 0 )
-			if( scoreReport.getMatch().getHomeTeam() != null )
-				stmt.setLong(2, scoreReport.getMatch().getHomeTeam().getId());
-			else
-				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report home team ID undefined" );
-
-			if( scoreReport.getMatch().getAwayTeam() != null )
-				stmt.setLong(3, scoreReport.getMatch().getAwayTeam().getId());
-			else
-				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report away team ID undefined" );
-
 			stmt.setLong(4, scoreReport.getHomePoint());
 			stmt.setLong(5, scoreReport.getAwayPoints());
-			
-			if( scoreReport.getDate() != null )
-				stmt.setDate(6, new java.sql.Date(scoreReport.getDate().getTime()));
-			else
-				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report date undefined" );
 
 			if( scoreReport.getStudent() != null )
-				stmt.setLong(7, scoreReport.getStudent().getId());
+				stmt.setLong(6, scoreReport.getStudent().getId());
 			else
 				throw new RDException( "ScoreReportManager.save: can't save a ScoreReport: score report student ID undefined" );
+
+			if (scoreReport.isPersistent())
+				stmt.setLong(7, scoreReport.getId());
 
 			stmt.executeUpdate();
 
@@ -104,7 +86,7 @@ public class ScoreReportManager {
 	public Iterator<ScoreReport> restore(ScoreReport scoreReport) throws RDException{
 
 		//setString
-		String			selectScoreReportSql = "select s.matchId, s.homeTeamId, s.awayTeamId, s.homePoints, s.awayPoints, s.matchDate, s.studentId,  "+
+		String			selectScoreReportSql = "select s.matchId, s.homeTeamId, s.awayTeamId, s.homePoints, s.awayPoints, s.studentId,  "+
 												"m.id, m.homeTeamId, m.awayTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
 												"p.id, p.firstName, p.lastName, p.username, p.password, p.email, p.isStudent, p.studentId, p.address "+
 												"from scorereport s, matchup m, person p";
@@ -128,8 +110,6 @@ public class ScoreReportManager {
 				query.append( " and s.homePoints = '" + scoreReport.getHomePoint() + "'" );
 			else if( scoreReport.getAwayPoints() >= 0 )
 				query.append( " and s.awayPoints = '" + scoreReport.getAwayPoints() + "'" );
-			else if(scoreReport.getDate() != null )
-				query.append( " and s.matchDate = '" + scoreReport.getDate() + "'" );
 			else if( scoreReport.getMatch().getHomeTeam() != null )
 				query.append( " and s.homeTeamId = '" + scoreReport.getMatch().getHomeTeam().getId() + "'" );
 			else if( scoreReport.getMatch().getAwayTeam() != null )
@@ -162,7 +142,7 @@ public class ScoreReportManager {
 	}
 
 	public void delete(ScoreReport scoreReport) throws RDException{
-		String				deleteScoreReportSql = "delete from club where id = ?";
+		String				deleteScoreReportSql = "delete from scorereport where id = ?";
 		PreparedStatement	stmt = null;
 		int					inscnt;
 
