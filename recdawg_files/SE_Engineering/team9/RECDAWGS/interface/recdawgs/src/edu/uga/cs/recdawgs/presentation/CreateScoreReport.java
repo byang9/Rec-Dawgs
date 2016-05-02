@@ -82,7 +82,7 @@ public class CreateScoreReport extends HttpServlet {
         Session             session;
         String              ssid;
 
-        resultTemplateName = "CreateScoreReport-Result.ftl";
+        //resultTemplateName = "CreateScoreReport-Result.ftl";
         
         // Load templates from the WEB-INF/templates directory of the Web app.
         //
@@ -137,22 +137,27 @@ public class CreateScoreReport extends HttpServlet {
 
         try {
             //logicLayer.deleteTeam(name);
-
+            System.out.println("1");
             listOfMatches = logicLayer.findMyMatch((Student)session.getUser());
 
              // Build the data-model
             //
             teams = new LinkedList<List<Object>>();
-            root.put( "reports", teams );
+            root.put( "teams", teams );
+            System.out.println("2");
 
-            for( int i = 0; i < rv.size(); i++ ) {
+            for( int i = 0; i < listOfMatches.size(); i++ ) {
                 Match t = (Match) listOfMatches.get( i );
                 Team homeTeam = t.getHomeTeam();
+                System.out.println("3");
+
                 Team awayTeam = t.getAwayTeam();
                 LinkedList<Object> team = new LinkedList<Object>();
                 team.add( t.getId() );
                 team.add( homeTeam.getName() + " vs " + awayTeam.getName() );
                 teams.add( team );
+                System.out.println("4");
+
             }
         } 
         catch( Exception e) {
@@ -171,7 +176,7 @@ public class CreateScoreReport extends HttpServlet {
             throw new ServletException( "Error while processing FreeMarker template", e);
         }
         toClient.close();
-    }
+    }//doGet
 
     public void doPost( HttpServletRequest  req, HttpServletResponse res )
             throws ServletException, IOException
