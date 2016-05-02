@@ -201,15 +201,26 @@ public class CreateCtrl {
         return sportsVenue.getId();
     }
     
-    public long createScoreReport(String homeName, String awayName, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException { 
+    public long createScoreReport(int homePoints, int awayPoints, Date date, Student student, long matchId) throws RDException { 
         ScoreReport               scoreReport  = null;
         ScoreReport               modelScoreReport  = null;
         Iterator<ScoreReport>     scoreReportIter  = null;
+        Match                     match = null;  
+
+        // Get Match
+        Match modelMatch = objectLayer.createMatch();
+        modelMatch.setId(matchId);
+        Iterator<Match> matchIter = objectLayer.findMatch(modelMatch);
+        while(matchIter.hasNext())
+            match = matchIter.next();
+        if (match == null)
+            throw new RDException("This match does not exist. Cannot create score report.");
 
         // check if the userName already exists
         modelScoreReport = objectLayer.createScoreReport();
         modelScoreReport.setStudent(student);
         modelScoreReport.setMatch(match);
+        modelScoreReport.setDate(date);
         scoreReportIter = objectLayer.findScoreReport( modelScoreReport );
         while( scoreReportIter.hasNext() ) {
             scoreReport = scoreReportIter.next();
@@ -219,7 +230,7 @@ public class CreateCtrl {
         if( scoreReport != null )
             throw new RDException( "This Score Report already exists" );
         
-        scoreReport = objectLayer.createScoreReport(homePoints, awayPoints, date, student, match);
+        scoreReport = objectLayer.createScoreReport(homePoints, awayPoints, match.getDate(), student, match);
         objectLayer.storeScoreReport( scoreReport );
 
         return scoreReport.getId();

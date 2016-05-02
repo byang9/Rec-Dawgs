@@ -7,6 +7,8 @@ import java.util.*;
 
 import edu.uga.cs.recdawgs.RDException;
 import edu.uga.cs.recdawgs.entity.Match;
+import edu.uga.cs.recdawgs.entity.Student;
+import edu.uga.cs.recdawgs.entity.Team;
 import edu.uga.cs.recdawgs.object.ObjectLayer;
 import edu.uga.cs.recdawgs.entity.League;
 import edu.uga.cs.recdawgs.entity.Match;
@@ -46,7 +48,9 @@ private ObjectLayer objectLayer = null;
         return matches;
     }
     
-    public List<Match> findMyMatch(Student modelStudent){
+    public List<Match> findMyMatch(Student modelStudent)
+            throws RDException
+    {
         List<Match> matches = new LinkedList<Match>();
         Match match = null;
         Team     	team = null;

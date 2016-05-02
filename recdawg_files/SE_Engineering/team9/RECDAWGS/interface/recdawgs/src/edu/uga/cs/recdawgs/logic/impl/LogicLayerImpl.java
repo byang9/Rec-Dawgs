@@ -216,9 +216,9 @@ public class LogicLayerImpl implements LogicLayer {
 
 	public long createScoreReport(String homeTeam, String awayTeam, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException {
 		CreateCtrl ctrlCreateStudent = new CreateCtrl( objectLayer );
-        return ctrlCreateStudent.createScoreReport( match.getHomeTeam().getName(),  match.getAwayTeam().getName(), homePoints, awayPoints, match.getDate(), student, match );
+        return ctrlCreateStudent.createScoreReport( homePoints, awayPoints, match.getDate(), student, match.getId() );
+
 	}
-    //(String homeName, String awayName, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException;
 
     // !!!!!!!!!!!!!!!!!!!!
     // !!!!!! Update !!!!!!

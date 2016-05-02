@@ -139,6 +139,8 @@ public class ViewTeamsOfLeague extends HttpServlet {
             root.put("title", nameOfLeague);
             root.put("button", "visible");
         }
+
+        root.put("servlet", "ViewStudentsOfTeam");
         
         try {
             rv = logicLayer.findTeamsOfLeague(nameOfLeague);

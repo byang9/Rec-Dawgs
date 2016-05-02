@@ -78,7 +78,6 @@ public class CreateScoreReport extends HttpServlet {
         List<List<Object>>  leagues = null;
         List<Object>        league = null;
         LinkedList<List<Object>> teams = null;
-        League              l  = null;
         HttpSession         httpSession;
         Session             session;
         String              ssid;
@@ -144,7 +143,7 @@ public class CreateScoreReport extends HttpServlet {
              // Build the data-model
             //
             teams = new LinkedList<List<Object>>();
-            root.put( "teams", teams );
+            root.put( "reports", teams );
 
             for( int i = 0; i < rv.size(); i++ ) {
                 Match t = (Match) listOfMatches.get( i );
@@ -279,7 +278,6 @@ public class CreateScoreReport extends HttpServlet {
                     break;
                 }
             }
-
 
             logicLayer.createScoreReport(homeTeam, awayTeam, Integer.parseInt(homeScore),Integer.parseInt(awayScore),matchDate,reportingStudent, modelMatch);
            

@@ -55,7 +55,7 @@ public interface LogicLayer
     public long               	createStudent(String username, String password, String email, String firstname, String lastname, String studentId, String major, String address) throws RDException;
     public long               	createLeague(String name, boolean isIndoor, int minTeams, int maxTeams, int minTeamMembers, int maxTeamMembers, String matchRules, String leagueRules) throws RDException;
     public long					createSportsVenue(String name, String address, boolean isIndoor) throws RDException;
-    public long					createScoreReport(String homeName, String awayName, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException;
+    public long                 createScoreReport(String homeTeam, String awayTeam, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException;
     public void                 createSchedule(String nameOfLeague)throws RDException;
 
     // Update

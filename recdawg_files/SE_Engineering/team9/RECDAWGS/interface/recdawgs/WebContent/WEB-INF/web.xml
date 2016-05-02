@@ -28,12 +28,6 @@
   <servlet-name>FindAllReports</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.FindAllReports</servlet-class>
  </servlet>
- <!--
- <servlet>
-  <servlet-name>MainWindow</servlet-name>
-  <servlet-class>edu.uga.cs.recdawgs.presentation.MainWindow</servlet-class>
- </servlet>
--->
  <servlet>
   <servlet-name>FindMyTeams</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.FindMyTeams</servlet-class>
@@ -46,12 +40,6 @@
   <servlet-name>ModifyAccountResult</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.ModifyAccountResult</servlet-class>
  </servlet>
-<!--
- <servlet>
-  <servlet-name>RDError</servlet-name>
-  <servlet-class>edu.uga.cs.recdawgs.presentation.RDError</servlet-class>
- </servlet>
--->
  <servlet>
   <servlet-name>ViewLeaguesOfSV</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.ViewLeaguesOfSV</servlet-class>
@@ -148,10 +136,10 @@
   <servlet-name>CompleteLeague</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.CompleteLeague</servlet-class>
  </servlet>
-<!--<servlet>
+<servlet>
 <servlet-name>FindCaptainlessTeams</servlet-name>
  <servlet-class>edu.uga.cs.recdawgs.presentation.FindCaptainlessTeams</servlet-class>
-</servlet>-->
+</servlet>
  <servlet>
   <servlet-name>VenueToLeague</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.VenueToLeague</servlet-class>
@@ -184,12 +172,6 @@
   <servlet-name>FindAllReports</servlet-name>
   <url-pattern>/FindAllReports</url-pattern>
  </servlet-mapping>
- <!--
- <servlet-mapping>
-  <servlet-name>MainWindow</servlet-name>
-  <url-pattern>/MainWindow</url-pattern>
- </servlet-mapping>
--->
  <servlet-mapping>
   <servlet-name>FindMyTeams</servlet-name>
   <url-pattern>/FindMyTeams</url-pattern>
@@ -202,17 +184,10 @@
   <servlet-name>ModifyAccountResult</servlet-name>
   <url-pattern>/ModifyAccountResult</url-pattern>
  </servlet-mapping>
- <!--<servlet-mapping>
+ <servlet-mapping>
   <servlet-name>FindCaptainlessTeams</servlet-name>
   <url-pattern>/FindCaptainlessTeams</url-pattern>
  </servlet-mapping>
--->
-<!--
- <servlet-mapping>
-  <servlet-name>RDError</servlet-name>
-  <url-pattern>/RDError</url-pattern>
- </servlet-mapping>
--->
  <servlet-mapping>
   <servlet-name>ViewLeaguesOfSV</servlet-name>
   <url-pattern>/ViewLeaguesOfSV</url-pattern>
