@@ -36,11 +36,13 @@ public class CompleteLeague {
         League               modelLeague  = null;
         Iterator<League>     leagueIter  = null;
         Team                 team  = null;
-        Iterator<Team>     teamIter  = null;
-        List<Team>          teamList = null;
-        List<Integer>           scoreList = null;
+        Iterator<Team>       teamIter  = null;
+        Match                match = null;
+        Iterator<Match>       matchIter  = null;
+        List<Team>           teamList = null;
+        List<Integer>        scoreList = null;
 
-        // check if the userName already exists
+        // gets the reference to the league
         modelLeague = objectLayer.createLeague();
         modelLeague.setName( leagueName );
         leagueIter = objectLayer.findLeague( modelLeague );
@@ -48,19 +50,33 @@ public class CompleteLeague {
             league = leagueIter.next();
         }
         
-        teamIter = objectLayer.findTeam(null);
-        while( teamIter.hasNext() ) {
-            team = teamIter.next();
-            teamList.add(team);
-            scoreList.add(0);
-        }
         
         // check if the team actually exists, and if so, throw an exception
         if( league == null )
             throw new RDException( "League does not exist" );
         
-        //Get all matches in league
-        //calculate which team has most wins
+        //gets all the teams in the league
+        teamIter = objectLayer.findTeam(null);
+        while( teamIter.hasNext() ) {
+            team = teamIter.next();
+            if(team.getParticipatesInLeague().getId() == league.getId()){
+                teamList.add(team);
+                scoreList.add(0);
+            }
+        }
+        
+        //gets all matches in a league and calculate which team has most wins
+        matchIter = objectLayer.findMatch(null);
+        while( matchIter.hasNext() ) {
+            match = matchIter.next();
+            int homePoints = match.getHomePoints();
+            int awayPoints = match.getAwayPoints();
+            if(homePoints == 0 && awayPoints == 0){
+                throw new RDException( "There is a match that hasn't been played" );
+            }else if(homePoints>awayPoints){
+                
+            }
+        }
         //createTeamWinnerOfLeague(team)
 
         
