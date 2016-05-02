@@ -76,12 +76,12 @@
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h1>Appoint Captain</h1>
+                <h1>Update a Team</h1>
                 <form method=get action="http://localhost:8080/recdawgs_team9/AppointCaptain">
-                    <h4>Student Name: </h4>
-                    <select name="student">
+                    <h4>Team Name: </h4>
+                    <select name="team">
                         <#list teams as team>
-                        <option value="${student[0]}">${student[1]}</option>
+                        <option value="${team[0]}">${team[1]}</option>
                         </#list>
                     </select>
                     <br>
