@@ -36,9 +36,9 @@ public class MatchupIterator implements Iterator<Match>{
 	}
 
 	public Match next(){
-		//long	id;
-		//long	homeTeamId;
-		//long	awayTeamId;
+		long	id;
+		long	homeTeamId;
+		long	awayTeamId;
 		long	homePoints;
 		long	awayPoints;
 		Date	matchDate;
@@ -48,9 +48,9 @@ public class MatchupIterator implements Iterator<Match>{
 
 		if( more ){
 			try{
-				//id = rs.getLong( 1 );
-				//homeTeamId = rs.getLong( 2 );
-				//awayTeamId = rs.getLong( 3 );
+				id = rs.getLong( 1 );
+				homeTeamId = rs.getLong( 2 );
+				awayTeamId = rs.getLong( 3 );
 				homePoints = rs.getLong( 4 );
 				awayPoints = rs.getLong( 5 );
 				//matchDate = rs.getDate( 6 );

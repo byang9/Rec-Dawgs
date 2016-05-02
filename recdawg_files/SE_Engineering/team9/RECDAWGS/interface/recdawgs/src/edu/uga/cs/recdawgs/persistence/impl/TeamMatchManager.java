@@ -266,11 +266,14 @@ public class TeamMatchManager {
 		
 		public Iterator<Match> restoreAwayTeamMatch(Team team) throws RDException {
 			//String
-			String			selectTeamSql = "select t.id, t.name, t.leagueid, t.established, t.captainid, " +
-											"p.id, p.firstname, p.lastname, p.username, p.password, p.email, " +
-											"p.isStudent, p.studentID, p.address, p.phone, l.id, l.name, " +
-											"l.winnerId, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers, " +											"l.maxTeamMembers, l.matchRules, l.leagueRules from team t, person " +
-											"p where t.captainid = p.id, and league l where t.leagueid = l.id";
+			String			selectTeamSql = "select m.id, m.homeTeamId, m.awayTeamId, m.homeTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
+											"ht.id, at.id, ht.name, ht.leagueid, ht.captainid, at.name, at.leagueid, at.captainid, l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
+    										"l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules, " +
+    										"l.leagueRules, hp.id, hp.firstname, hp.lastname, hp.username, hp.password, "
+    										+ "hp.email, hp.studentID, hp.major, hp.address, ap.id, ap.firstname, ap.lastname, ha.username, ap.password, "
+    										+ "ap.email, ap.studentID, ap.major, ap.address" +
+											"from matchup m, team ht, team at, league l, person hp, person ap where m.homeTeamId = ht.id and m.awayTeamId = at.id" +
+											" and ht.captainid=hp.id and at.captainid=ap.id and ht.leagueid=l.id and at.leagueid=l.id and at.id = " + team.getId();
 			Statement		stmt = null;
 			StringBuffer	query = new StringBuffer( 100 );
 			StringBuffer	condition = new StringBuffer( 100 );
@@ -278,17 +281,6 @@ public class TeamMatchManager {
 			condition.setLength(0);
 					
 			query.append(selectTeamSql);
-					
-			if( team != null ){
-				if( team.getId() >= 0 )
-					query.append( " and id = " + team.getId() );
-				else if(team.getName() != null)
-					query.append( " and name = '" + team.getName() + "'" );
-				else if(team.getParticipatesInLeague().getId() != 0)
-					query.append( " and leagueid = '" + team.getParticipatesInLeague().getId() + "'" );
-				else if(team.getCaptain().getId() != 0)
-					query.append( " and captainid = '" + team.getCaptain().getId() + "'" );
-			}
 					
 			try{
 				stmt = conn.createStatement();
@@ -310,12 +302,15 @@ public class TeamMatchManager {
 		
 		public Iterator<Match> restoreHomeTeamMatch(Team team) throws RDException {
 			//String
-			String			selectTeamSql = "select t.id, t.name, t.leagueid, t.established, t.captainid, " +
-											"p.id, p.firstname, p.lastname, p.username, p.password, p.email, " +
-											"p.isStudent, p.studentID, p.address, p.phone, l.id, l.name, " +
-											"l.winnerId, l.isIndoor, l.minTeams, l.maxTeams, l.minTeamMembers, " +
-											"l.maxTeamMembers, l.matchRules, l.leagueRules from team t, person " +
-											"p where t.captainid = p.id, and league l where t.leagueid = l.id";
+			String			selectTeamSql = "select m.id, m.homeTeamId, m.awayTeamId, m.homeTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
+											"ht.id, at.id, ht.name, ht.leagueid, ht.captainid, at.name, at.leagueid, at.captainid, l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
+    										"l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules, " +
+    										"l.leagueRules, hp.id, hp.firstname, hp.lastname, hp.username, hp.password, "
+    										+ "hp.email, hp.studentID, hp.major, hp.address, ap.id, ap.firstname, ap.lastname, ha.username, ap.password, "
+    										+ "ap.email, ap.studentID, ap.major, ap.address" +
+											"from matchup m, team ht, team at, league l, person hp, person ap where m.homeTeamId = ht.id and m.awayTeamId = at.id" +
+											" and ht.captainid=hp.id and at.captainid=ap.id and ht.leagueid=l.id and at.leagueid=l.id and ht.id = " + team.getId();
+
 			Statement		stmt = null;
 			StringBuffer	query = new StringBuffer( 100 );
 			StringBuffer	condition = new StringBuffer( 100 );
@@ -323,17 +318,6 @@ public class TeamMatchManager {
 			condition.setLength(0);
 			
 			query.append(selectTeamSql);
-			
-			if( team != null ){
-				if( team.getId() >= 0 )
-					query.append( " and id = " + team.getId() );
-				else if(team.getName() != null)
-					query.append( " and name = '" + team.getName() + "'" );
-				else if(team.getParticipatesInLeague().getId() != 0)
-					query.append( " and leagueid = '" + team.getParticipatesInLeague().getId() + "'" );
-				else if(team.getCaptain().getId() != 0)
-					query.append( " and captainid = '" + team.getCaptain().getId() + "'" );
-			}
 			
 			try{
 				stmt = conn.createStatement();

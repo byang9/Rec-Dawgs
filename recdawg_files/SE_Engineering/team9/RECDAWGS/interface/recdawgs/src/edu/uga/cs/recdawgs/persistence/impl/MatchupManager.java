@@ -92,8 +92,13 @@ public class MatchupManager{
 	{
 		//setString		
 		String			selectMatchupSql = "select m.id, m.homeTeamId, m.awayTeamId, m.homeTeamId, m.homePoints, m.awayPoints, m.matchDate, m.isCompleted, " +
-											"ht.id, at.id, ht.name, ht.leagueid, ht.captainid, at.name, at.leagueid, at.captainid " +
-											"from matchup m, team ht, team at where m.homeTeamId = ht.id and m.awayTeamId = at.id";
+											"ht.id, at.id, ht.name, ht.leagueid, ht.captainid, at.name, at.leagueid, at.captainid, l.id, l.name, l.winnerID, l.isIndoor, l.minTeams, " +
+    										"l.maxTeams, l.minTeamMembers, l.maxTeamMembers, l.matchRules, " +
+    										"l.leagueRules, hp.id, hp.firstname, hp.lastname, hp.username, hp.password, "
+    										+ "hp.email, hp.studentID, hp.major, hp.address, ap.id, ap.firstname, ap.lastname, ha.username, ap.password, "
+    										+ "ap.email, ap.studentID, ap.major, ap.address" +
+											"from matchup m, team ht, team at, league l, person hp, person ap where m.homeTeamId = ht.id and m.awayTeamId = at.id" +
+											" and ht.captainid=hp.id and at.captainid=ap.id and ht.leagueid=l.id and at.leagueid=l.id";
 		Statement		stmt = null;
 		StringBuffer 	query = new StringBuffer( 100 );
 		StringBuffer	condition = new StringBuffer( 100 );
@@ -138,7 +143,6 @@ public class MatchupManager{
 
 		throw new RDException( "MatchupManager.restore: Could not restore persistent Matchup object" );
 	}
-	
 
 	public void delete(Match matchup)
 		throws RDException
