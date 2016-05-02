@@ -170,25 +170,25 @@ public class ViewStudentsOfTeam extends HttpServlet {
                 users.add(user);
             }
 
-            List<Match> rv1 = logicLayer.findTeamMatch(nameOfTeam);
+            // List<Match> rv1 = logicLayer.findTeamMatch(nameOfTeam);
 
-            // Build the data-model
-            //
-            matches = new LinkedList<List<Object>>();
-            root.put( "matches", matches );
+            // // Build the data-model
+            // //
+            // matches = new LinkedList<List<Object>>();
+            // root.put( "matches", matches );
 
-            for( int i = 0; i < rv1.size(); i++ ) {
-                m = (Match) rv1.get( i );
-                match = new LinkedList<Object>();
-                match.add(m.getId());
-                System.out.println("Added id: " + m.getId());
-                match.add(m.getHomeTeam().getName() + " vs. " + m.getAwayTeam().getName());
-                System.out.println("Added home team: " + m.getHomeTeam().getName());
-                System.out.println("Added away team: " + m.getAwayTeam().getName());
-                match.add(m.getDate());
-                System.out.println("Added date: " + m.getDate());
-                matches.add(match);
-            }
+            // for( int i = 0; i < rv1.size(); i++ ) {
+            //     m = (Match) rv1.get( i );
+            //     match = new LinkedList<Object>();
+            //     match.add(m.getId());
+            //     System.out.println("Added id: " + m.getId());
+            //     match.add(m.getHomeTeam().getName() + " vs. " + m.getAwayTeam().getName());
+            //     System.out.println("Added home team: " + m.getHomeTeam().getName());
+            //     System.out.println("Added away team: " + m.getAwayTeam().getName());
+            //     match.add(m.getDate());
+            //     System.out.println("Added date: " + m.getDate());
+            //     matches.add(match);
+            // }
         } 
         catch( Exception e) {
             e.printStackTrace();

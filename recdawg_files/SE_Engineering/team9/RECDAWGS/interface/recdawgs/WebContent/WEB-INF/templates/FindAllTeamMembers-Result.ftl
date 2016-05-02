@@ -99,28 +99,6 @@
                   </tr>
                  </#list></table>
         </div>
-        <hr>
-        <div class="row">
-            <form method=get action="http://localhost:8080/recdawgs_team9/FindScoreReport">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h1>Matches</h1>
-                <p>Click on a match to file a score report</p>
-                <table width="100%"  border="0" cellpadding="2" cellspacing="4" >
-                  <tr>
-                      <td><b>Id</b></td>
-                      <td><b>Teams (Home vs. Away)</b></td>
-                      <td><b>Date</b></td>
-                  </tr>
-                 <#list matches as match>
-                  <tr>
-                      <td><input type=submit name="match" value='${match[0]}' style="text-transform: none;background-color:transparent;color:rgba(66,220,163,1);"></td>
-                      <td>${match[1]}</td>
-                      <td>${match[2]}</td>
-                  </tr>
-                 </#list></table>
-            </div>
-            </form>
-        </div>
         
         <hr>
         <form method=get action="http://localhost:8080/recdawgs_team9/${action}">
