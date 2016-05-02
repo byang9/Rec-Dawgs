@@ -84,8 +84,8 @@
                         <option value="${team[0]}">${team[1]}</option>
                         </#list>
                     </select>
-                    <h4>Home Team Score: </h4><INPUT NAME="homeScore" TYPE=text value="${homeScore}" size=50 required></INPUT>
-                    <h4>Away Team Score: </h4><INPUT NAME="awayScore" TYPE=text value="${awayScore}" size=50 required></INPUT>
+                    <h4>Home Team Score: </h4><INPUT NAME="homeScore" TYPE=text  size=50 required></INPUT>
+                    <h4>Away Team Score: </h4><INPUT NAME="awayScore" TYPE=text  size=50 required></INPUT>
                     <br>
                     <INPUT type=submit></INPUT>
                 </form>

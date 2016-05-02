@@ -147,7 +147,9 @@ public class CreateScoreReport extends HttpServlet {
             System.out.println("2");
 
             for( int i = 0; i < listOfMatches.size(); i++ ) {
+                System.out.println("2.3");
                 Match t = (Match) listOfMatches.get( i );
+                System.out.println("2.5");
                 Team homeTeam = t.getHomeTeam();
                 System.out.println("3");
 
