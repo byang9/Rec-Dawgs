@@ -1,8 +1,11 @@
 # RecDawgs
 
 **Logan Jahnke**
+
 **Justin Tumale**
+
 **Bowen Yang**
+
 **Jerry Springfield**
 
 ## Purpose of System
