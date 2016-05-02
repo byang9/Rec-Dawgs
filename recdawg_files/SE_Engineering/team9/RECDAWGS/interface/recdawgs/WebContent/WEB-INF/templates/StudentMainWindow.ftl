@@ -105,6 +105,8 @@
                 <h3>View all <a href="FindAllTeams">Teams</a></h3>
                 <i class="fa fa-user"></i> <i class="fa fa-group"></i>
                 <h3>View my <a href="FindMyTeams">Teams</a></h3>
+                <i class="fa fa-group"></i>
+                <h3>Report a <a href="CreateScoreReport">Match</a></h3>
 
                 <hr>
                 

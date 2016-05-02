@@ -140,6 +140,10 @@
   <servlet-name>FindLeagueResult</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.FindLeagueResult</servlet-class>
  </servlet>
+    <servlet>
+  <servlet-name>CreateScoreReport</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.CreateScoreReport</servlet-class>
+ </servlet>
 <!--<servlet>
 <servlet-name>FindCaptainlessTeams</servlet-name>
  <servlet-class>edu.uga.cs.recdawgs.presentation.FindCaptainlessTeams</servlet-class>
@@ -296,5 +300,9 @@
  <servlet-mapping>
 <servlet-name>VenueToLeague</servlet-name>
   <url-pattern>/VenueToLeague</url-pattern>
+ </servlet-mapping>
+     <servlet-mapping>
+<servlet-name>CreateScoreReport</servlet-name>
+  <url-pattern>/CreateScoreReport</url-pattern>
  </servlet-mapping>
 </web-app>

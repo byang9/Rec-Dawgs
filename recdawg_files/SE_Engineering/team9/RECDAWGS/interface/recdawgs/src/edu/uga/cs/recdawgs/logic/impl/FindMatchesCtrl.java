@@ -37,5 +37,27 @@ private ObjectLayer objectLayer = null;
         
         return matches;
     }
+    
+    public List<Match> findMyMatch(Student modelStudent){
+        List<Match> matches = new LinkedList<Match>();
+        Match match = null;
+        Team     	team = null;
+        Iterator<Match> matchIter = null;
+        Iterator<Team> 	teamIter = null;
+        
+        matchIter = objectLayer.findMatch(null);
+        while( matchIter.hasNext() ){
+            match = matchIter.next();//Gets all the match objects
+            teamIter = objectLayer.restoreStudentMemberOfTeam(modelStudent);
+            while( teamIter.hasNext() ) {
+                team = teamIter.next();//Gets all team objects
+                if(team.getId() == match.getHomeTeam().getId() || team.getId() == match.getAwayTeam().getId()){
+                    matches.add(match);
+                }
+            }
+        }
+        
+        return matches;
+    }
 	
 }

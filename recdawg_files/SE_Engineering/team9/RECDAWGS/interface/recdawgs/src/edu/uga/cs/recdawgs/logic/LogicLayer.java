@@ -30,6 +30,7 @@ public interface LogicLayer
     // Find My
     public List<Team> 		  	findMyTeams(Student modelStudent) throws RDException;
     public Student              findMyAccount(Student modelStudent) throws RDException;
+    public List<Match>          findMyMatch(Student modelStudent) throws RDException;
 
     // Find Other
     public Team                 findTeam(String nameOfTeam) throws RDException;

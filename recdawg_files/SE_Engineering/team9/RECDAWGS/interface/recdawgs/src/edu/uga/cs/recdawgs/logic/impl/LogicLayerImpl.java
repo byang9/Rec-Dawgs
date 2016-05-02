@@ -106,6 +106,11 @@ public class LogicLayerImpl implements LogicLayer {
         FindStudentsCtrl ctrlFindMyTeams = new FindStudentsCtrl( objectLayer );
         return ctrlFindMyTeams.findMyAccount(modelStudent);
     }
+    
+    public List<Match> findMyMatch(Student modelStudent) throws RDException {
+        FindMatchesCtrl findMatch = new FindMatchesCtrl( objectLayer );
+        return findMatch.findMyMatch(modelStudent);
+    }
 
     // !!!!!!!!!!!!!!!!!!!!
     // !!!! Find Other !!!!
@@ -203,9 +208,9 @@ public class LogicLayerImpl implements LogicLayer {
 	}
 
 
-	public long createScoreReport(String homeName, String awayName, int homePoints, int awayPoints, Date date, Student student, Match match) throws RDException {
+	public long createScoreReport(int homePoints, int awayPoints,Student student, Match match) throws RDException {
 		CreateCtrl ctrlCreateStudent = new CreateCtrl( objectLayer );
-        return ctrlCreateStudent.createScoreReport( homeName,  awayName, homePoints, awayPoints, date, student, match );
+        return ctrlCreateStudent.createScoreReport( match.getHomeTeam(),  match.getAwayTeam(), homePoints, awayPoints, match.getDate(), student, match );
 	}
 
     // !!!!!!!!!!!!!!!!!!!!
