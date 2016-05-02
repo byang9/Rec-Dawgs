@@ -37,6 +37,7 @@ public interface LogicLayer
     public League               findLeague(String nameOfLeague) throws RDException;
     public SportsVenue          findSportsVenue(String nameOfVenue) throws RDException;
     public Student              findStudent(String username) throws RDException;
+    public Match                findMatch(long matchId) throws RDException;
 	
 	// Find Object-to-Object
 	public List<Student>      	findTeamMembers(String teamName) throws RDException;

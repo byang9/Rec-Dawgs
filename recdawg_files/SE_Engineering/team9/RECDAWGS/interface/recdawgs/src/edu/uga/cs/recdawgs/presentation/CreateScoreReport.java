@@ -20,7 +20,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Date;
+import java.text.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -73,8 +74,10 @@ public class CreateScoreReport extends HttpServlet {
         BufferedWriter      toClient = null;
         LogicLayer          logicLayer = null;
         List<League>        rv = null;
+        List<Match>         listOfMatches = null;
         List<List<Object>>  leagues = null;
         List<Object>        league = null;
+        LinkedList<List<Object>> teams = null;
         League              l  = null;
         HttpSession         httpSession;
         Session             session;
@@ -136,7 +139,7 @@ public class CreateScoreReport extends HttpServlet {
         try {
             //logicLayer.deleteTeam(name);
 
-            rv = logicLayer.findMyMatch((Student)session.getUser());
+            listOfMatches = logicLayer.findMyMatch((Student)session.getUser());
 
              // Build the data-model
             //
@@ -144,10 +147,10 @@ public class CreateScoreReport extends HttpServlet {
             root.put( "teams", teams );
 
             for( int i = 0; i < rv.size(); i++ ) {
-                t = (Match) rv.get( i );
+                Match t = (Match) listOfMatches.get( i );
                 Team homeTeam = t.getHomeTeam();
                 Team awayTeam = t.getAwayTeam();
-                team = new LinkedList<Object>();
+                LinkedList<Object> team = new LinkedList<Object>();
                 team.add( t.getId() );
                 team.add( homeTeam.getName() + " vs " + awayTeam.getName() );
                 teams.add( team );
@@ -189,6 +192,11 @@ public class CreateScoreReport extends HttpServlet {
         String homeScore = req.getParameter("homeScore");
         String awayScore = req.getParameter("awayScore");
         String matchId = req.getParameter("team");
+        String homePoints = req.getParameter("homeTeam");
+        String awayPoints = req.getParameter("awayTeam");
+        String date = req.getParameter("matchDate");
+        String homeTeam = req.getParameter("homeTeam");
+        String awayTeam = req.getParameter("awayTeam");
 
 
         resultTemplateName = "FindLeagueResult-Result.ftl";
@@ -244,12 +252,20 @@ public class CreateScoreReport extends HttpServlet {
         // Setup the data-model
         Map<String,Object> root = new HashMap<String,Object>();
                 
-        root.put("league", nameOfLeague);
+        root.put("league", "League");
         root.put("title", "Score Reports");
         Student reportingStudent = (Student)session.getUser(); 
+
         
         try {
-            logicLayer.createScoreReport(homeScore,awayScore,reportingStudent,matchId);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date matchDate = null;
+            try{
+                matchDate = formatter.parse(date); 
+            }catch(ParseException e){
+                e.printStackTrace();
+            }
+            logicLayer.createScoreReport(homeTeam, awayTeam, Integer.parseInt(homeScore),Integer.parseInt(awayScore),matchDate,reportingStudent,matchId);
 
             
             //**********Update when show all ScoreReports 
