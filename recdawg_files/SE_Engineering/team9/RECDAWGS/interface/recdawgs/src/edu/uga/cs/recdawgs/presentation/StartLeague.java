@@ -241,7 +241,19 @@ public class StartLeague extends HttpServlet {
         root.put("username", session.getUser().getUserName());
         
         try {
-            logicLayer.createSchedule(leagueName);
+            League theleague = logicLayer.findLeague(leagueName);
+            int min = theleague.getMinTeams();
+            List<Team> teams = logicLayer.findAllTeams();
+            int done = 0;
+            for (int i = 0; i < teams.size(); i++)
+                if (teams.get(i).getParticipatesInLeague().getName().equals(theleague.getName()))
+                    done++;
+            if (done < min) {
+                RDError.error(cfg, toClient, "Cannot start league, minimum teams not met.");
+                return;
+            } else {
+                logicLayer.createSchedule(leagueName);
+            }
         } 
         catch( Exception e) {
             e.printStackTrace();

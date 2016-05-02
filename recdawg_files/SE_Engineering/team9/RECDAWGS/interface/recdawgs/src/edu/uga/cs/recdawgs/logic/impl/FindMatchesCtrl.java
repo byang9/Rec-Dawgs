@@ -110,7 +110,7 @@ private ObjectLayer objectLayer = null;
             matchIter = objectLayer.restoreTeamAwayTeamMatch(findTeam(teamName));
                 matches.add(matchIter.next());
         } catch(RDException e){
-            throw new RDException("Error in getting matches for specific team.");
+            return matches;
         }
         
         return matches;
