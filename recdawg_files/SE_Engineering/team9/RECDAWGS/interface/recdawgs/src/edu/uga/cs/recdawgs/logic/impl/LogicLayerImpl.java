@@ -135,6 +135,12 @@ public class LogicLayerImpl implements LogicLayer {
         FindStudentsCtrl findAStudent = new FindStudentsCtrl( objectLayer );
         return findAStudent.findStudent(username);
     }
+    /*
+    public Match findMatch(Student student) throws RDException{
+        FindMatchesCtrl findAMatch = new FindMatchesCtrl( objectLayer);
+        return findAMatch.findMatch(student);
+    }
+    */
     
 
     // !!!!!!!!!!!!!!!!!!!!

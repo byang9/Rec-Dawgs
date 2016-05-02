@@ -255,8 +255,15 @@ public class CreateScoreReport extends HttpServlet {
         root.put("league", "League");
         root.put("title", "Score Reports");
         Student reportingStudent = (Student)session.getUser(); 
+        //find the student's match
+        List<Match> matches = null;
+        try{
+            matches = logicLayer.findMyMatch(reportingStudent);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        Match modelMatch = null;
 
-        
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date matchDate = null;
@@ -265,8 +272,17 @@ public class CreateScoreReport extends HttpServlet {
             }catch(ParseException e){
                 e.printStackTrace();
             }
-            logicLayer.createScoreReport(homeTeam, awayTeam, Integer.parseInt(homeScore),Integer.parseInt(awayScore),matchDate,reportingStudent,matchId);
 
+            for (Match m : matches){
+                if (m.getDate() == matchDate){
+                    modelMatch = m;
+                    break;
+                }
+            }
+
+
+            logicLayer.createScoreReport(homeTeam, awayTeam, Integer.parseInt(homeScore),Integer.parseInt(awayScore),matchDate,reportingStudent, modelMatch);
+           
             
             //**********Update when show all ScoreReports 
             rv = logicLayer.findAllLeagues();
