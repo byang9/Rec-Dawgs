@@ -144,6 +144,10 @@
   <servlet-name>VenueToLeague</servlet-name>
   <servlet-class>edu.uga.cs.recdawgs.presentation.VenueToLeague</servlet-class>
  </servlet>
+ <servlet>
+  <servlet-name>StartLeague</servlet-name>
+  <servlet-class>edu.uga.cs.recdawgs.presentation.StartLeague</servlet-class>
+ </servlet>
  <servlet-mapping>
   <servlet-name>MainWindow</servlet-name>
   <url-pattern>/MainWindow</url-pattern>
@@ -287,5 +291,9 @@
     <servlet-mapping>
 <servlet-name>CompleteLeague</servlet-name>
   <url-pattern>/CompleteLeague</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+<servlet-name>StartLeague</servlet-name>
+  <url-pattern>/StartLeague</url-pattern>
  </servlet-mapping>
 </web-app>

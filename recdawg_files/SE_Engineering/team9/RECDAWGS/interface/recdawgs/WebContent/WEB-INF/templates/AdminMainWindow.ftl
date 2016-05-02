@@ -102,6 +102,8 @@
                 
                 <i class="fa fa-soccer-ball-o"></i>
                 <h3>View all <a href="FindAllLeagues">Leagues</a></h3>
+                <i class="fa fa-play-circle"></i> <i class="fa fa-soccer-ball-o"></i>
+                <h3>Start a <a href="StartLeague">League</a></h3>
                 <i class="fa fa-plus"></i> <i class="fa fa-soccer-ball-o"></i>
                 <h3>Add <a href="CreateLeague">League</a></h3>
                 <i class="fa fa-edit"></i> <i class="fa fa-soccer-ball-o"></i>
