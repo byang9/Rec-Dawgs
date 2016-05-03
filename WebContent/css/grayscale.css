@@ -5,6 +5,10 @@
  */
 
 
+tr {
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .signedin {
     background-color: rgba(66,220,163,1);
     color: black;
@@ -15,7 +19,8 @@
 }
 
 .signedin input[type=text],
-.signedin input[type=number] {
+.signedin input[type=number],
+.signedin input[type=password] {
     margin-top: 10px;
     text-align: center;
     margin-bottom: 45px;
@@ -29,7 +34,8 @@
 }
 
 .signedin input[type=text]:focus,
-.signedin input[type=number]:focus {
+.signedin input[type=number]:focus,
+.signedin input[type=password]:focus {
     width: 50%;
     outline: none;
     border-bottom: 2px solid;
@@ -45,6 +51,27 @@
     cursor:pointer;
     -webkit-border-radius: 5px;
     border-radius: 5px; 
+}
+
+select {
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 45px;
+    width: 25%;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    border: none;
+    border-bottom: 2px solid;
+    border-bottom-color: rgba(255,255,255,0.4);
+    background-color: transparent;
+}
+
+select:focus {
+    width: 50%;
+    outline: none;
+    border-bottom: 2px solid;
+    border-bottom-color: rgba(255,255,255,1);
 }
 
 .signedin input[type=date] {
@@ -310,7 +337,7 @@ a:focus {
     -o-background-size: cover;
 }
 
-.intro #introid {
+#introid {
     background: url(../img/soccer.png) no-repeat center center scroll;
 }
 
