@@ -41,6 +41,36 @@
 
 *RecDawgs must allow for adaptation of changing needs and therefore will be designed will be designed with modularity, simplicity, and readable code in order to achieve this goal.*
 
+## Screenshots
+
+![Home Screen] (http://loganjahnke.com/images/recdawgs/homescreen.png)
+
+The home screen. This is the initial page before logging in or registering.
+
+![Logged In] (http://loganjahnke.com/images/recdawgs/login.png)
+
+After logging in (Admin Mode).
+
+![Viewing Teams in League] (http://loganjahnke.com/images/recdawgs/viewTeams.png)
+
+View the teams of a certain league, in this case Doubles Tennis.
+
+![Viewing Members of Team] (http://loganjahnke.com/images/recdawgs/viewMem.png)
+
+View the members of a team.
+
+![Viewing Sports Venues] (http://loganjahnke.com/images/recdawgs/viewSV.png)
+
+View the Sports Venues.
+
+![Create a League] (http://loganjahnke.com/images/recdawgs/create.png)
+
+Create a League.
+
+![Assign Sports Venue to League] (http://loganjahnke.com/images/recdawgs/assign.png)
+
+Assign a Sports Venue to a League.
+
 ## Metrics
 
 - Lines of Code: **32,561**
